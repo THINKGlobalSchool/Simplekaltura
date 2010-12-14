@@ -16,8 +16,9 @@ $english = array(
 	'videos' => 'Videos',
 	'item:object:video' => 'Video',
 	
-	// Page titles 
 	
+	// Page titles 
+	'admin:plugin_settings:simplekaltura' => 'Simple Kaltura Settings',
 	
 	// Menu items
 	'simplekaltura:menu:allvideos' => 'All Videos',
@@ -33,6 +34,9 @@ $english = array(
 	'simplekaltura:label:deleteconfirm' => 'Are you sure you want to delete this Video?',
 	'simplekaltura:label:submitted_by' => 'Submitted by %s',
 	'simplekaltura:label:leaveacomment' => 'Leave a Comment / ',
+	'simplekaltura:label:partnerid' => 'Partner ID',
+	'simplekaltura:label:emailaccount' => 'Email Address',
+	'simplekaltura:label:passwordaccount' => 'Password',
 
 	// River
 	'simplekaltura:river:video:create' => '%s uploaded a Video titled ',
