@@ -10,6 +10,8 @@
  * 
  * 
  * /////////// @TODO ///////////////
+ * - Elggy my/friends/everyone
+ * - Entity views/listings
  */
 
 function simplekaltura_init() {
@@ -54,20 +56,26 @@ function simplekaltura_page_handler($page) {
 	global $CONFIG;
 	set_context('simplekaltura');
 	gatekeeper();
-/*
+
+	elgg_push_breadcrumb(elgg_echo('videos'), "pg/videos"); // @TODO something better
 	if (isset($page[0]) && !empty($page[0])) {
 		switch ($page[0]) {
 			case 'friends': 
-				$content_info = ubertags_get_page_content_friends(get_loggedin_userid());
+				//$content_info = ubertags_get_page_content_friends(get_loggedin_userid());
 			break;
 			case 'search':
-				$content_info = ubertags_get_page_content_search();
+				//$content_info = ubertags_get_page_content_search();
 			break;
 			case 'view': 
-				$content_info = ubertags_get_page_content_view($page[1]);
+				$content_info = simplekaltura_get_page_content_view($page[1]);
+			break;
+			case 'new':
+			case 'edit':
+				$content_info = simplekaltura_get_page_content_edit($page[1]);
 			break;
 			default:
-				// Should be a username if we're here
+				$content_info = simplekaltura_get_page_content_edit($page[1]);
+			/*	// Should be a username if we're here
 				if (isset($page[0])) {
 					$owner_name = $page[0];
 					set_input('username', $owner_name);
@@ -76,23 +84,23 @@ function simplekaltura_page_handler($page) {
 				}
 				// grab the page owner
 				$owner = elgg_get_page_owner();
-				$content_info = ubertags_get_page_content_list($owner->getGUID());
+				$content_info = ubertags_get_page_content_list($owner->getGUID());*/
 			break;
 		}
 	} else {
-		$content_info = ubertags_get_page_content_list();
+		$content_info = simplekaltura_get_page_content_edit($page[1]); //@TODO this wouldnt be default.. ever. just for dev.
 	}
 
 	$sidebar = isset($content_info['sidebar']) ? $content_info['sidebar'] : '';
 
 	$params = array(
 		'content' => elgg_view('navigation/breadcrumbs') . $content_info['content'],
-		'sidebar' => $sidebar . elgg_view('ubertags/beta'),
+		'sidebar' => $content_info['sidebar'],
 	);
 	$body = elgg_view_layout($content_info['layout'], $params);
 
 	echo elgg_view_page($content_info['title'], $body, $content_info['layout'] == 'administration' ? 'admin' : 'default');
-	*/
+	
 }
 
 /**

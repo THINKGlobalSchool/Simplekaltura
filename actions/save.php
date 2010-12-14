@@ -17,7 +17,6 @@ $title = get_input('video_title');
 $description = get_input('video_description');
 $tags = string_to_tag_array(get_input('video_tags'));
 $access = get_input('video_access');
-$search = get_input('video_search');
 
 //@TODO Check values..
 

@@ -19,6 +19,7 @@ $english = array(
 	
 	// Page titles 
 	'admin:plugin_settings:simplekaltura' => 'Simple Kaltura Settings',
+	'simplekaltura:title:uploadnew' => 'Upload New Video',
 	
 	// Menu items
 	'simplekaltura:menu:allvideos' => 'All Videos',
@@ -37,6 +38,7 @@ $english = array(
 	'simplekaltura:label:partnerid' => 'Partner ID',
 	'simplekaltura:label:emailaccount' => 'Email Address',
 	'simplekaltura:label:passwordaccount' => 'Password',
+	'simplekaltura:label:new' => 'Upload New Video',
 
 	// River
 	'simplekaltura:river:video:create' => '%s uploaded a Video titled ',
