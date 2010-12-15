@@ -34,6 +34,8 @@ if (isset($vars['entity'])) {
 	$access_id 			= ACCESS_LOGGED_IN;
 
 	$entity_hidden = "";
+	
+	$widget = elgg_view('simplekaltura/forms/ksu_widget');	
 }
 
 $submit_input = elgg_view('input/submit', array('internalname' => 'submit', 'value' => elgg_echo('save')));	
@@ -69,6 +71,9 @@ $form_body = <<<EOT
 		<label>$description_label</label><br />
         $description_input
 	</div><br />
+	<div>
+		$widget
+	</div>
 	<div>
 		<label>$tag_label</label><br />
         $tag_input
