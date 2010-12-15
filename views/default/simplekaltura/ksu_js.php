@@ -138,7 +138,7 @@
 			content += "<span class='simplekaltura-selected-file'>";
 			content += files[file].title;
 			content += "<span class='simplekaltura-file-size'>"; 
-			content += files[file].bytesTotal;
+			content += bytesToSize(files[file].bytesTotal, 2); // Make this a little easier to read
 			content += "</span>";
 			content += "<span class='delete_button' style='float: left; margin-top: 3px; margin-right: 4px;'><a onclick='removeSelectedFile(" + file + ");'>x</a></span>";
 			content += "</span>";
@@ -156,6 +156,36 @@
 		
 		// Grab files and display for user
 		createSelectedFilesHTML(flashObj.getFiles());
+	}
+	
+	
+	/**
+	 * Convert bytes to human readable
+	 */
+	function bytesToSize(bytes, precision) {  
+	    var kilobyte = 1024;
+	    var megabyte = kilobyte * 1024;
+	    var gigabyte = megabyte * 1024;
+	    var terabyte = gigabyte * 1024;
+
+	    if ((bytes >= 0) && (bytes < kilobyte)) {
+	        return bytes + ' B';
+
+	    } else if ((bytes >= kilobyte) && (bytes < megabyte)) {
+	        return (bytes / kilobyte).toFixed(precision) + ' KB';
+
+	    } else if ((bytes >= megabyte) && (bytes < gigabyte)) {
+	        return (bytes / megabyte).toFixed(precision) + ' MB';
+
+	    } else if ((bytes >= gigabyte) && (bytes < terabyte)) {
+	        return (bytes / gigabyte).toFixed(precision) + ' GB';
+
+	    } else if (bytes >= terabyte) {
+	        return (bytes / terabyte).toFixed(precision) + ' TB';
+
+	    } else {
+	        return bytes + ' B';
+	    }
 	}
 
 
