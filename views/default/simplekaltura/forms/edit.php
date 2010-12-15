@@ -38,7 +38,7 @@ if (isset($vars['entity'])) {
 	$widget = elgg_view('simplekaltura/forms/ksu_widget');	
 }
 
-$submit_input = elgg_view('input/submit', array('internalname' => 'submit', 'value' => elgg_echo('save')));	
+$submit_input = elgg_view('input/submit', array('internalid' => 'simplekaltura_submit', 'internalname' => 'submit', 'value' => elgg_echo('save')));	
 
 $container_guid = get_input('container_guid', elgg_get_page_owner_guid());
 
@@ -61,7 +61,14 @@ $access_content = elgg_view('input/access', array('internalname' => 'access_leve
 
 // Build Form Body
 $form_body = <<<EOT
-
+<script type='text/javascript'>
+	$(document).ready(function () {
+		$('#simplekaltura_submit').click(function () {
+			upload();
+			return false;
+		});
+	});
+</script>
 <div class='margin_top simplekaltura'>
 	<div>
 		<label>$title_label</label><br />
@@ -73,7 +80,7 @@ $form_body = <<<EOT
 	</div><br />
 	<div>
 		$widget
-	</div>
+	</div><br />
 	<div>
 		<label>$tag_label</label><br />
         $tag_input

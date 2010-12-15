@@ -39,6 +39,7 @@ $english = array(
 	'simplekaltura:label:emailaccount' => 'Email Address',
 	'simplekaltura:label:passwordaccount' => 'Password',
 	'simplekaltura:label:new' => 'Upload New Video',
+	'simplekaltura:label:selectvideo' => 'Select a video..',
 
 	// River
 	'simplekaltura:river:video:create' => '%s uploaded a Video titled ',

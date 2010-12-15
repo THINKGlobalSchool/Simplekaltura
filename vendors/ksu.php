@@ -163,7 +163,7 @@
 	{
 		var startIndex = parseInt(removeStartIndex.value);
 		var endIndex = parseInt(removeEndIndex.value);
-		flashObj.removeFiles(startIndex, endIndex)
+		flashObj.removeFiles(startIndex, endIndex);
 		console.log(flashObj.getTotalSize());
 	}
 
