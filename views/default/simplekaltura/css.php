@@ -27,7 +27,6 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 .z-negative {
 	z-index: -999 !important;
 }
-
 /* END KSU WIDGET */
 
 .simplekaltura-selected-file {
@@ -41,4 +40,10 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	font-style: italic;
 	color: #555 !important;
 	margin-left: 5px;
+}
+
+.simplekaltura-error {
+	font-size: 11px;
+	color: red;
+	font-weight: bold;
 }

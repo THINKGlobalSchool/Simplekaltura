@@ -24,8 +24,7 @@
 	});
 
 	//KSU handlers
-	delegate.readyHandler = function()
-	{
+	delegate.readyHandler = function() {
 		flashObj = document.getElementById("simplekaltura-uploader");
 		flashObj.setMediaType('video');
 		
@@ -33,8 +32,7 @@
 		flashObj.setMaxUploads(1);
 	}
 
-	delegate.selectHandler = function()
-	{
+	delegate.selectHandler = function() {
 		console.log("selectHandler()");
 		console.log(flashObj.getTotalSize());
 		
@@ -46,92 +44,60 @@
 		createSelectedFilesHTML(flashObj.getFiles());
 	}
 
-	delegate.singleUploadCompleteHandler = function(args)
-	{
+	delegate.singleUploadCompleteHandler = function(args) {
 		console.log("singleUploadCompleteHandler", args[0].title);
 	}
 
-	delegate.allUploadsCompleteHandler = function()
-	{
+	delegate.allUploadsCompleteHandler = function() {
 		addEntries();
 		console.log("allUploadsCompleteHandler");
 	}
 
-	delegate.entriesAddedHandler = function(entries)
-	{
+	delegate.entriesAddedHandler = function(entries) {
+		console.log('entriesAddedHandler');
 		console.log(entries);
 	}
 
-	delegate.progressHandler = function(args)
-	{
+	delegate.progressHandler = function(args) {
 		console.log(args[2].title + ": " + args[0] + " / " + args[1]);
 	}
 
-	delegate.uiConfErrorHandler = function()
-	{
+	delegate.uiConfErrorHandler = function() {
 		console.log("ui conf loading error");
 	}
 
 	<!--- JavaScript callback methods to activate Kaltura services via the KSU widget.-->
-	function upload()
-	{
-		flashObj.upload();
+	function upload() {
+		// Set/check inputs
+		if (processUserInput()) {
+			// Upload!
+			flashObj.upload();
+		}
 	}
 
-	function setTags(tags, startIndex, endIndex)
-	{
-		flashObj.setTags(tags, startIndex, endIndex);
-	}
-
-	function addTags(tags, startIndex, endIndex)
-	{
-		flashObj.addTags(tags, startIndex, endIndex);
-	}
-	function setTitle(title, startIndex, endIndex)
-	{
-		flashObj.setTitle(title, startIndex, endIndex);
-	}
-
-	function addEntries()
-	{
+	function addEntries() {
 		flashObj.addEntries();
 	}
 
-	function stopUploads()
-	{
+	function stopUploads() {
 		flashObj.stopUploads();
 	}
 
-	function addTagsFromForm()
-	{
-		var tags = document.getElementById("tagsInput").value.split(",");
-		var startIndex = parseInt(tagsStartIndex.value);
-		var endIndex = parseInt(tagsEndIndex.value);
-		addTags(tags, startIndex, endIndex);
-	}
-
-	function setTagsFromForm()
-	{
-		var tags = document.getElementById("tagsInput").value.split(",");
-		var startIndex = parseInt(tagsStartIndex.value);
-		var endIndex = parseInt(tagsEndIndex.value);
-		setTags(tags, startIndex, endIndex);
-	}
-
-	function setTitleFromForm()
-	{
-		var startIndex = parseInt(titleStartIndex.value);
-		var endIndex = parseInt(titleEndIndex.value);
-		setTitle(titleInput.value, startIndex, endIndex);
-	}
-
 	//set parameters to be taken from user input field
-	function onLoadHandler()
-	{
-
+	var tagsInput;
+	var titleInput;
+	
+	function onLoadHandler() {
+		// Set up user input fields
+		tagsInput = document.getElementById("video_tags");
+		titleInput = document.getElementById("video_title");
 	}
 	
 	<!-- Helpers -->
+	
+	/** 
+	 * Creates HTML to display information about their selected file
+	 */
 	function createSelectedFilesHTML(files) {
 		var content = '';
 		for (file in files) { 
@@ -147,6 +113,10 @@
 		$('#simplekaltura-selected-files').html(content);
 	}
 	
+	
+	/** 
+	 * Removes a file from the uploader
+	 */
 	function removeSelectedFile(index) {
 		flashObj.removeFiles(index, index);
 		
@@ -158,6 +128,23 @@
 		createSelectedFilesHTML(flashObj.getFiles());
 	}
 	
+	/** 
+	 * Grab and set user input for the uploaded video
+	 */
+	function processUserInput() {
+		var title = titleInput.value;
+		var tags = tagsInput.value.split(",");
+		
+		// Check for required title
+		if (title) {
+			flashObj.setTitle(title, 0, 0);
+			flashObj.setTags(tags, 0, 0);
+			return true;
+		} else {
+			$('#video_title_container').append("<span class='simplekaltura-error'>* Title is required</span>");
+			return false;
+		}
+	}
 	
 	/**
 	 * Convert bytes to human readable
@@ -187,6 +174,4 @@
 	        return bytes + ' B';
 	    }
 	}
-
-
 </script>

@@ -47,13 +47,13 @@ $container_hidden = elgg_view('input/hidden', array('internalname' => 'container
 
 // Labels/Input
 $title_label = elgg_echo('title');
-$title_input = elgg_view('input/text', array('internalname' => 'video_title', 'value' => $title));
+$title_input = elgg_view('input/text', array('internalid' => 'video_title', 'internalname' => 'video_title', 'value' => $title));
 
 $description_label = elgg_echo("simplekaltura:label:description");
 $description_input = elgg_view("input/longtext", array('internalname' => 'video_description', 'value' => $description));
 
 $tag_label = elgg_echo('tags');
-$tag_input = elgg_view('input/tags', array('internalname' => 'video_tags', 'value' => $tags));
+$tag_input = elgg_view('input/tags', array('internalid' => 'video_tags', 'internalname' => 'video_tags', 'value' => $tags));
 													
 $access_label = elgg_echo('access');
 $access_content = elgg_view('input/access', array('internalname' => 'access_level', 'internalid' => 'video_access', 'value' => $access_id));
@@ -70,7 +70,7 @@ $form_body = <<<EOT
 	});
 </script>
 <div class='margin_top simplekaltura'>
-	<div>
+	<div id='video_title_container'>
 		<label>$title_label</label><br />
         $title_input
 	</div><br />
