@@ -34,9 +34,7 @@
 ?>
 
 <div id="simplekaltura-flashContainer">
-	<form>
-		<input type="button" id="simplekaltura-uploader-submit" class="submit_button" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">
-	</form>
+	<input type="button" id="simplekaltura-uploader-submit" class="submit_button" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">	
 	<div id="simplekaltura-selected-files">
 	</div>
 	<div id="simplekaltura-uploader-container"> 
