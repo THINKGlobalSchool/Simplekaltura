@@ -32,30 +32,35 @@
 		flashObj.setMaxUploads(1);
 	}
 
-	delegate.selectHandler = function() {
-		console.log("selectHandler()");
-		console.log(flashObj.getTotalSize());
-		
+	delegate.selectHandler = function() {		
 		// Hide select button
 		$("#simplekaltura-uploader").addClass('z-negative');
 		$("#simplekaltura-uploader-submit").hide();
+		
+		// Enable the submit button
+		$('#simplekaltura_submit').removeAttr('disabled');
+		$('#simplekaltura_submit').removeClass('disabled');
 		
 		// Grab files and display for user
 		createSelectedFilesHTML(flashObj.getFiles());
 	}
 
 	delegate.singleUploadCompleteHandler = function(args) {
-		console.log("singleUploadCompleteHandler", args[0].title);
 	}
 
 	delegate.allUploadsCompleteHandler = function() {
 		addEntries();
-		console.log("allUploadsCompleteHandler");
 	}
 
 	delegate.entriesAddedHandler = function(entries) {
-		console.log('entriesAddedHandler');
-		console.log(entries);
+		// Set hidden inputs
+		$('#k_entryid').val(entries[0].entryId);
+		$('#k_bytesloaded').val(entries[0].bytesLoaded);
+		$('#k_filetype').val(entries[0].extension);
+		$('#k_guid').val(entries[0].guid);
+		
+		// Finally submit the post form
+		$('form#video_post_form').submit();
 	}
 
 	delegate.progressHandler = function(args) {
@@ -119,6 +124,10 @@
 	 */
 	function removeSelectedFile(index) {
 		flashObj.removeFiles(index, index);
+		
+		// Disable the submit button
+		$('#simplekaltura_submit').attr('disabled', 'disabled');
+		$('#simplekaltura_submit').addClass('disabled');
 		
 		// Show select button
 		$("#simplekaltura-uploader").removeClass('z-negative');

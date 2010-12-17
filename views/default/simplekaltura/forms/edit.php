@@ -24,7 +24,10 @@ if (isset($vars['entity'])) {
 	$access_id			= $vars['entity']->access_id;
 	
 	// Hidden guid input
-	$entity_hidden  = elgg_view('input/hidden', array('internalname' => 'video_guid', 'value' => $vars['entity']->getGUID()));
+	$entity_hidden  = elgg_view('input/hidden', array(
+		'internalname' => 'video_guid',
+		 'value' => $vars['entity']->getGUID()
+	));
 
 } else {
 	// No entity, creating new one
@@ -38,31 +41,75 @@ if (isset($vars['entity'])) {
 	$widget = elgg_view('simplekaltura/forms/ksu_widget');	
 }
 
-$submit_input = elgg_view('input/submit', array('internalid' => 'simplekaltura_submit', 'internalname' => 'submit', 'value' => elgg_echo('save')));	
+$submit_input = elgg_view('input/submit', array(
+	'internalid' => 'simplekaltura_submit', 
+	'internalname' => 'save', 
+	'value' => elgg_echo('save')
+));	
 
 $container_guid = get_input('container_guid', elgg_get_page_owner_guid());
 
-$container_hidden = elgg_view('input/hidden', array('internalname' => 'container_guid', 'value' => $container_guid));
+$container_hidden = elgg_view('input/hidden', array(
+	'internalname' => 'container_guid', 
+	'value' => $container_guid
+));
 
 
 // Labels/Input
 $title_label = elgg_echo('title');
-$title_input = elgg_view('input/text', array('internalid' => 'video_title', 'internalname' => 'video_title', 'value' => $title));
+$title_input = elgg_view('input/text', array(
+	'internalid' => 'video_title', 
+	'internalname' => 'video_title', 
+	'value' => $title
+));
 
 $description_label = elgg_echo("simplekaltura:label:description");
-$description_input = elgg_view("input/longtext", array('internalname' => 'video_description', 'value' => $description));
+$description_input = elgg_view("input/longtext", array(
+	'internalname' => 'video_description', 
+	'value' => $description
+));
 
 $tag_label = elgg_echo('tags');
-$tag_input = elgg_view('input/tags', array('internalid' => 'video_tags', 'internalname' => 'video_tags', 'value' => $tags));
+$tag_input = elgg_view('input/tags', array(
+	'internalid' => 'video_tags', 
+	'internalname' => 'video_tags', 
+	'value' => $tags
+));
 													
 $access_label = elgg_echo('access');
-$access_content = elgg_view('input/access', array('internalname' => 'access_level', 'internalid' => 'video_access', 'value' => $access_id));
-		
+$access_content = elgg_view('input/access', array(
+	'internalname' => 'video_access', 
+	'internalid' => 'video_access', 
+	'value' => $access_id
+));
+
+// Hidden inputs for kaltura entries
+$k_guid_input = elgg_view('input/hidden', array(
+	'internalname' => 'k_guid',
+	'internalid' => 'k_guid'
+));
+
+$k_entryid_input = elgg_view('input/hidden', array(
+	'internalname' => 'k_entryid',
+	'internalid' => 'k_entryid'
+));
+
+$k_bytesloaded_input = elgg_view('input/hidden', array(
+	'internalname' => 'k_bytesloaded',
+	'internalid' => 'k_bytesloaded'
+));
+
+$k_filetype_input = elgg_view('input/hidden', array(
+	'internalname' => 'k_filetype',
+	'internalid' => 'k_filetype'
+));
 
 // Build Form Body
 $form_body = <<<EOT
 <script type='text/javascript'>
 	$(document).ready(function () {
+		$('#simplekaltura_submit').attr('disabled', 'disabled');
+		$('#simplekaltura_submit').addClass('disabled');
 		$('#simplekaltura_submit').click(function () {
 			upload();
 			return false;
@@ -93,6 +140,10 @@ $form_body = <<<EOT
 		$submit_input
 		$container_hidden
 		$entity_hidden
+		$k_guid_input
+		$k_entryid_input
+		$k_bytesloaded_input
+		$k_filetype_input
 	</div>
 </div>
 

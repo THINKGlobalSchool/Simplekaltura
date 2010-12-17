@@ -40,6 +40,7 @@ $english = array(
 	'simplekaltura:label:passwordaccount' => 'Password',
 	'simplekaltura:label:new' => 'Upload New Video',
 	'simplekaltura:label:selectvideo' => 'Select a video..',
+	'simplekaltura:label:customplayerid' => 'Custom Player ID',
 
 	// River
 	'simplekaltura:river:video:create' => '%s uploaded a Video titled ',

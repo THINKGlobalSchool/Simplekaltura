@@ -37,3 +37,16 @@
 										); 
 	?>
 </p>
+<p>
+	<label><?php echo elgg_echo('simplekaltura:label:customplayerid'); ?></label><br /><br />
+	<?php 
+	$id = $vars['entity']->kaltura_custom_player_id;
+	if (!$id) {
+		$id = '1000106'; // Default Kaltura ID
+	}
+	echo elgg_view('input/text', array(
+										'internalname' => 'params[kaltura_custom_player_id]', 
+										'value' => $id)
+										); 
+	?>
+</p>
