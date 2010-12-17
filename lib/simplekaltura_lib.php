@@ -40,8 +40,8 @@ function simplekaltura_get_page_content_view($guid) {
 	$video = get_entity($guid);
 	$owner = get_entity($video->container_guid);
 	set_page_owner($owner->getGUID());
-	elgg_push_breadcrumb(elgg_echo('ubertags:menu:allubertags'), elgg_get_site_url() . 'pg/ubertags');
-	elgg_push_breadcrumb($owner->name, elgg_get_site_url() . 'pg/ubertags/' . $owner->username);
+	elgg_push_breadcrumb(elgg_echo('simplekaltura:menu:allvideos'), elgg_get_site_url() . 'pg/videos');
+	elgg_push_breadcrumb($owner->name, elgg_get_site_url() . 'pg/videos/' . $owner->username);
 	elgg_push_breadcrumb($video->title, $video->getURL());
 	$content_info['title'] = $video->title;
 	$content_info['content'] = elgg_view_entity($video, true);

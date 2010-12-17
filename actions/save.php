@@ -51,7 +51,6 @@ add_to_river('river/object/simplekaltura/create', 'create', get_loggedin_userid(
 
 // Forward on
 system_message(elgg_echo('simplekaltura:success:save'));
-forward('pg/videos');
-
+forward('pg/videos/view/' . $video->getGUID());
 
 ?>

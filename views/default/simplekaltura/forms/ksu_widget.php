@@ -13,8 +13,8 @@
 	$client           = new KalturaClient($config);
 	$partner 		  = $client->partner->getSecrets(KALTURA_PARTNER_ID, 
 											get_plugin_setting('kaltura_email_account', 'simplekaltura'), 
-											get_plugin_setting('kaltura_password_account', 'simplekaltura'
-						));
+											get_plugin_setting('kaltura_password_account', 'simplekaltura')
+											);
 	$ks               = $client->session->start($partner->secret, $partnerUserID, KalturaSessionType::USER);
 
 	$flashVars = array();
