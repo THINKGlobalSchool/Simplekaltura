@@ -11,6 +11,7 @@
  */
 ?>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
+<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
 
 <!---	JavaScript handler methods to react to upload events. -->
 <script type="text/javascript">
