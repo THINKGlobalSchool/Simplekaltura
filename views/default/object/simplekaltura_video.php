@@ -37,7 +37,7 @@ echo elgg_view('simplekaltura/ksu_js');
        type="application/x-shockwave-flash"
        allowFullScreen="true" allowNetworking="all"
        allowScriptAccess="always" height="330" width="400"
-       data="http://www.kaltura.com/index.php/kwidget/wid/<?php echo $widgetid; ?>/uiconf_id/<?php echo $uiConfId ?>/entry_id/<?php echo $entryid;?>">
+       data="http://www.kaltura.com/index.php/kwidget/wid/<?php echo $widgetid; ?>/uiconf_id/<?php echo $uiConfId; ?>/entry_id/<?php echo $entryid;?>">
         <param name="allowFullScreen" value="true" />
         <param name="allowNetworking" value="all" />
         <param name="allowScriptAccess" value="always" />
