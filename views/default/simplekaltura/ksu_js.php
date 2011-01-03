@@ -78,14 +78,8 @@
 	function upload() {
 		// Set/check inputs
 		if (processUserInput()) {
-			$('#simplekaltura-upload-dialog').dialog({
-				width: 400, 
-				modal: true,
-				draggable: false, 
-				resizeable: false,
-				open: function(event, ui) {$(".ui-dialog-titlebar-close").hide();},
-				closeOnEscape: false
-			});
+			$('#simplekaltura-upload-dialog').show();
+			$('#simplekaltura-upload-dialog').dialog("open");
 			$("#simplekaltura-upload-progress").progressbar({ value: 0 });
 			// Upload!
 			flashObj.upload();

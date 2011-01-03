@@ -110,7 +110,17 @@ $form_body = <<<EOT
 	$(document).ready(function () {
 		$('#simplekaltura_submit').attr('disabled', 'disabled');
 		$('#simplekaltura_submit').addClass('disabled');
-		$('#simplekaltura-upload-dialog').hide();
+		$('#simplekaltura-upload-dialog').dialog({
+			autoOpen: false,
+			width: 400, 
+			modal: true,
+			draggable: false, 
+			resizeable: false,
+			open: function(event, ui) {
+				$(".ui-dialog-titlebar-close").hide();
+			},
+			closeOnEscape: false
+		});
 		$('#simplekaltura_submit').click(function () {
 			upload();
 			return false;
