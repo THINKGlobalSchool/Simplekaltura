@@ -110,6 +110,7 @@ $form_body = <<<EOT
 	$(document).ready(function () {
 		$('#simplekaltura_submit').attr('disabled', 'disabled');
 		$('#simplekaltura_submit').addClass('disabled');
+		$('#simplekaltura-upload-dialog').hide();
 		$('#simplekaltura_submit').click(function () {
 			upload();
 			return false;
@@ -144,6 +145,10 @@ $form_body = <<<EOT
 		$k_entryid_input
 		$k_bytesloaded_input
 		$k_filetype_input
+	</div>
+	<div id="simplekaltura-upload-dialog">
+		<p>Uploading... <span id="simplekaltura-upload-percent"></span></p>
+		<div id='simplekaltura-upload-progress'></div>
 	</div>
 </div>
 

@@ -47,3 +47,34 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	color: red;
 	font-weight: bold;
 }
+
+/* CUSTOM DIALOG */
+
+#simplekaltura-upload-dialog  {
+	padding: 10px;
+	border: 8px solid #555555;
+	background: #ffffff;
+	-moz-border-radius:5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+}
+
+#simplekaltura-upload-dialog p {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	color: #333333;
+	font-size: 110%;
+}
+
+
+.ui-progressbar { 
+	height: 2em; 
+	text-align: left; 
+	border: 2px solid #000; 
+}
+
+.ui-progressbar .ui-progressbar-value {
+	margin: 0;
+	height:100%; 
+	background: #9D1520; 
+}

@@ -21,7 +21,6 @@
 	// Set some stuff
 	$(document).ready(function () {
 		onLoadHandler();	
-		// @TODO Set title, tags from elgg inputs	
 	});
 
 	//KSU handlers
@@ -65,17 +64,29 @@
 	}
 
 	delegate.progressHandler = function(args) {
-		console.log(args[2].title + ": " + args[0] + " / " + args[1]);
+		//console.log(args[2].title + ": " + args[0] + " / " + args[1]);
+		var p_value = Math.round((args[0] / args[1]) * 100) ;
+		$("#simplekaltura-upload-progress").progressbar("option", "value", p_value);
+		$("#simplekaltura-upload-percent").html(p_value + '%');
 	}
 
 	delegate.uiConfErrorHandler = function() {
 		console.log("ui conf loading error");
 	}
 
-	<!--- JavaScript callback methods to activate Kaltura services via the KSU widget.-->
+	<!-- JavaScript callback methods to activate Kaltura services via the KSU widget.-->
 	function upload() {
 		// Set/check inputs
 		if (processUserInput()) {
+			$('#simplekaltura-upload-dialog').dialog({
+				width: 400, 
+				modal: true,
+				draggable: false, 
+				resizeable: false,
+				open: function(event, ui) {$(".ui-dialog-titlebar-close").hide();},
+				closeOnEscape: false
+			});
+			$("#simplekaltura-upload-progress").progressbar({ value: 0 });
 			// Upload!
 			flashObj.upload();
 		}
