@@ -15,16 +15,18 @@ $english = array(
 	'video' => 'Video',
 	'videos' => 'Videos',
 	'item:object:video' => 'Video',
+	'simplekaltura_video:new' => 'Upload New Video',
+	'simplekaltura_video' => 'Videos',
+	'simplekaltura:ownedvideos' => '%s',
+	'simplekaltura:none' => 'No Videos',
 	
-	
-	// Page titles 
+	// Titles 
 	'admin:plugin_settings:simplekaltura' => 'Simple Kaltura Settings',
 	'simplekaltura:title:uploadnew' => 'Upload New Video',
-	
-	// Menu items
-	'simplekaltura:menu:allvideos' => 'All Videos',
-	'simplekaltura:menu:yourvideos' => 'Your Videos',
-	'simplekaltura:menu:friendsvideos' => 'Friend\'s Videos',
+	'simplekaltura:title:allvideos' => 'All Videos',
+	'simplekaltura:title:yourvideos' => 'Your Videos',
+	'simplekaltura:title:friendsvideos' => 'Friend\'s Videos',
+	'simplekaltura:title:uservideos' => '%s\'s Videos', 
 
 
 	// Labels 
@@ -41,6 +43,11 @@ $english = array(
 	'simplekaltura:label:new' => 'Upload New Video',
 	'simplekaltura:label:selectvideo' => 'Select a video..',
 	'simplekaltura:label:customplayerid' => 'Custom Player ID',
+	'simplekaltura:label:playerheight' => 'Player Height',
+	'simplekaltura:label:playerwidth' => 'Player Width',
+	'simplekaltura:label:deleteconfirm' => 'Are you sure you want to delete this video?', 
+	'simplekaltura:label:posted_by' => 'Posted by %s',
+	'simplekaltura:label:friends' => 'Friends', 
 
 	// River
 	'simplekaltura:river:video:create' => '%s uploaded a Video titled ',

@@ -50,3 +50,29 @@
 										); 
 	?>
 </p>
+<p>
+	<label><?php echo elgg_echo('simplekaltura:label:playerheight'); ?></label><br /><br />
+	<?php 
+	$height = $vars['entity']->kaltura_player_height;
+	if (!$height) {
+		$height = '330'; // Default Height
+	}
+	echo elgg_view('input/text', array(
+										'internalname' => 'params[kaltura_player_height]', 
+										'value' => $height)
+										); 
+	?>
+</p>
+<p>
+	<label><?php echo elgg_echo('simplekaltura:label:playerwidth'); ?></label><br /><br />
+	<?php 
+	$width = $vars['entity']->kaltura_player_width;
+	if (!$width) {
+		$width = '400'; // Default Width
+	}
+	echo elgg_view('input/text', array(
+										'internalname' => 'params[kaltura_player_width]', 
+										'value' => $width)
+										); 
+	?>
+</p>

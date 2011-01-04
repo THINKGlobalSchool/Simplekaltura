@@ -12,6 +12,7 @@
  * /////////// @TODO ///////////////
  * - Elggy my/friends/everyone
  * - Entity views/listings
+ * - What to do for deletes?
  */
 
 function simplekaltura_init() {
@@ -58,48 +59,47 @@ function simplekaltura_page_handler($page) {
 	gatekeeper();
 
 	elgg_push_breadcrumb(elgg_echo('videos'), "pg/videos"); // @TODO something better
-	if (isset($page[0]) && !empty($page[0])) {
-		switch ($page[0]) {
-			case 'friends': 
-				//$content_info = ubertags_get_page_content_friends(get_loggedin_userid());
+	
+	// Following the core blogs plugin page handler
+	if (!isset($page[0])) {
+		$page[0] = 'all';
+	}
+	
+	$page_type = $page[0];
+	
+	switch ($page_type) {
+		case 'owner':
+			$user = get_user_by_username($page[1]);
+			$params = simplekaltura_get_page_content_list($user->guid);
 			break;
-			case 'search':
-				//$content_info = ubertags_get_page_content_search();
+		case 'friends': 
+			$user = get_user_by_username($page[1]);
+			$params = simplekaltura_get_page_content_friends($user->guid);
 			break;
-			case 'view': 
-				$content_info = simplekaltura_get_page_content_view($page[1]);
+		case 'view': 
+			$params = simplekaltura_get_page_content_view($page[1]);
 			break;
-			case 'new':
-			case 'edit':
-				$content_info = simplekaltura_get_page_content_edit($page[1]);
+		case 'new':
+			$params = simplekaltura_get_page_content_edit($page[1]);
 			break;
-			default:
-				$content_info = simplekaltura_get_page_content_edit($page[1]);
-			/*	// Should be a username if we're here
-				if (isset($page[0])) {
-					$owner_name = $page[0];
-					set_input('username', $owner_name);
-				} else {
-					set_page_owner(get_loggedin_userid());
-				}
-				// grab the page owner
-				$owner = elgg_get_page_owner();
-				$content_info = ubertags_get_page_content_list($owner->getGUID());*/
+		case 'edit':
+			$params = simplekaltura_get_page_content_edit($page[1], $page[2]);
 			break;
-		}
-	} else {
-		$content_info = simplekaltura_get_page_content_edit($page[1]); //@TODO this wouldnt be default.. ever. just for dev.
+		case 'group':
+			//$params = blog_get_page_content_list($page[1]);
+			break;
+		case 'all':
+		default:
+			$params = simplekaltura_get_page_content_list();
+			break;
 	}
 
-	$sidebar = isset($content_info['sidebar']) ? $content_info['sidebar'] : '';
+	$params['sidebar'] .= isset($params['sidebar']) ? $params['sidebar'] : '';
+	$params['content'] = elgg_view('navigation/breadcrumbs') . $params['content'];
 
-	$params = array(
-		'content' => elgg_view('navigation/breadcrumbs') . $content_info['content'],
-		'sidebar' => $content_info['sidebar'],
-	);
-	$body = elgg_view_layout($content_info['layout'], $params);
+	$body = elgg_view_layout($params['layout'], $params);
 
-	echo elgg_view_page($content_info['title'], $body, $content_info['layout'] == 'administration' ? 'admin' : 'default');
+	echo elgg_view_page($params['title'], $body);
 	
 }
 
@@ -107,14 +107,17 @@ function simplekaltura_page_handler($page) {
  * Set up submenus
  */
 function simplekaltura_submenus() {
+	
+	$user = get_loggedin_user();
+	
 	// all/yours/friends 
-	elgg_add_submenu_item(array('text' => elgg_echo('simplekaltura:menu:yourvideos'), 
-								'href' => elgg_get_site_url() . 'pg/videos/' . get_loggedin_user()->username), 'simplekaltura');
+	elgg_add_submenu_item(array('text' => elgg_echo('simplekaltura:title:yourvideos'), 
+								'href' => elgg_get_site_url() . 'pg/videos/owner/' . get_loggedin_user()->username), 'simplekaltura');
 
-	elgg_add_submenu_item(array('text' => elgg_echo('simplekaltura:menu:friendsvideos'), 
-								'href' => elgg_get_site_url() . 'pg/videos/friends' ), 'simplekaltura');
+	elgg_add_submenu_item(array('text' => elgg_echo('simplekaltura:title:friendsvideos'), 
+								'href' => elgg_get_site_url() . 'pg/videos/friends/' . $user->username), 'simplekaltura');
 
-	elgg_add_submenu_item(array('text' => elgg_echo('simplekaltura:menu:allvideos'), 
+	elgg_add_submenu_item(array('text' => elgg_echo('simplekaltura:title:allvideos'), 
 								'href' => elgg_get_site_url() . 'pg/videos/' ), 'simplekaltura');
 
 }
