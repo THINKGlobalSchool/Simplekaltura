@@ -15,6 +15,7 @@ $english = array(
 	'video' => 'Video',
 	'videos' => 'Videos',
 	'item:object:video' => 'Video',
+	'item:object:simplekaltura_video' => 'Simplekaltura Video',
 	'simplekaltura_video:new' => 'Upload New Video',
 	'simplekaltura_video' => 'Videos',
 	'simplekaltura:ownedvideos' => '%s',
@@ -51,6 +52,8 @@ $english = array(
 	'simplekaltura:label:thumbnailurl' => 'Thumbnail URL (See: http://corp.kaltura.com/wiki/index.php/KalturaAPI:thumbnail)',
 	'simplekaltura:label:vidlength' => 'Length: %s ', 
 	'simplekaltura:label:vidplays' => 'Plays: %s ', 
+	'simplekaltura:label:admintags' => 'Admin Tags (Used to identify this particular Elgg site\'s videos)',
+	'simplekaltura:label:unavailable' => 'Unavailable', 
 	
 
 	// River
@@ -58,12 +61,14 @@ $english = array(
 
 	
 	// Messages
-	'simplekaltura:success:save' => 'Succesfully saved Video',
-	'simplekaltura:success:delete' => 'Video succesfully deleted',
+	'simplekaltura:success:save' => 'Successfully saved Video',
+	'simplekaltura:success:delete' => 'Video successfully deleted',
+	'simplekaltura:success:update' => 'Video successfully updated',
 	'simplekaltura:error:save' => 'Error saving Video',
-	'simplekaltura:error:delete' => 'There wasn an error deleting the Video',
+	'simplekaltura:error:delete' => 'There was an error deleting the Video',
 	'simplekaltura:error:notfound' => 'Video not found',
-	'simplekaltura:error:apierror' => 'Katura API Error',
+	'simplekaltura:error:apierror' => 'Kaltura API Error',
+	'simplekaltura:error:titlerequired' => 'Title is required',
 
 
 	

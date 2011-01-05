@@ -47,6 +47,11 @@ if (!$video->save()) {
 	forward(REFERER);
 }
 
+// Set admin tags
+$entry = new KalturaMediaEntry();
+$entry->adminTags = get_plugin_setting('kaltura_admin_tags', 'simplekaltura');
+simplekaltura_update_entry($video->kaltura_entryid, $entry, TRUE);
+
 // Add to river
 add_to_river('river/object/simplekaltura/create', 'create', get_loggedin_userid(), $video->getGUID());
 

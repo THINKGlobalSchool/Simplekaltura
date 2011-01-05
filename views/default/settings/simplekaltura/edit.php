@@ -11,6 +11,15 @@
  */
 ?>
 <p>
+	<label><?php echo elgg_echo('simplekaltura:label:admintags'); ?></label><br /><br />
+	<?php 
+	echo elgg_view('input/text', array(
+										'internalname' => 'params[kaltura_admin_tags]', 
+										'value' => $vars['entity']->kaltura_admin_tags)
+										); 
+	?>
+</p>
+<p>
 	<label><?php echo elgg_echo('simplekaltura:label:partnerid'); ?></label><br /><br />
 	<?php 
 	echo elgg_view('input/text', array(

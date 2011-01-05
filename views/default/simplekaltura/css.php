@@ -48,13 +48,21 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	font-weight: bold;
 }
 
+.simplekaltura_video_description {
+	margin-top: 10px;
+}
 
-.simplekaltura .entity_listing .kaltura-meta {
+.simplekaltura_video_container {
+	margin-left: auto;
+	margin-right: auto;
+	width: <?php echo get_plugin_setting('kaltura_player_width', 'simplekaltura'); ?>px;
+}
+
+.kaltura-meta {
 	font-size: 85%;
 	color: #333333;
 	margin-bottom: 2px;
 }
-
 
 /* TWEAKS */
 .simplekaltura .entity_listing .icon {

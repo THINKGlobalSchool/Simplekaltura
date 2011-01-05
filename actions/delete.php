@@ -10,12 +10,14 @@
  *
  */
 
+gatekeeper();
+
 $guid = get_input('guid', null);
 $video = get_entity($guid);
 
 if (elgg_instanceof($video, 'object', 'simplekaltura_video') && $video->canEdit()) {
 	$container = get_entity($video->container_guid);
-	if ($video->delete()) {
+	if (simplekaltura_delete_video($video)) {
 		system_message(elgg_echo('simplekaltura:success:delete'));
 		forward("pg/videos/{$container->username}");
 	} else {

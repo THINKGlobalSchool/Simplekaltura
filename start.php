@@ -35,6 +35,7 @@ function simplekaltura_init() {
 
 	// Register actions
 	elgg_register_action('simplekaltura/save', elgg_get_plugin_path() . 'simplekaltura/actions/save.php');
+	elgg_register_action('simplekaltura/update', elgg_get_plugin_path() . 'simplekaltura/actions/update.php');
 	elgg_register_action('simplekaltura/delete', elgg_get_plugin_path() . 'simplekaltura/actions/delete.php');
 
 	// Setup url handler for simple kaltura videos
@@ -45,9 +46,11 @@ function simplekaltura_init() {
 
 	// Register type
 	register_entity_type('object', 'simplekaltura_video');		
+	
+	//register CRON hook to poll video plays/duration/etc..
+	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
 
 	return true;
-
 }
 
 

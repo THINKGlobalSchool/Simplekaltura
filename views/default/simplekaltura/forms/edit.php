@@ -17,7 +17,7 @@ if (isset($vars['entity'])) {
 		forward(REFERER);
 	}
 	
-	$action 			= "simplekaltura/edit";
+	$action 			= "simplekaltura/update";
 	$title 		 		= $vars['entity']->title;
 	$description 		= $vars['entity']->description;
 	$tags 				= $vars['entity']->tags;
@@ -27,6 +27,12 @@ if (isset($vars['entity'])) {
 	$entity_hidden  = elgg_view('input/hidden', array(
 		'internalname' => 'video_guid',
 		 'value' => $vars['entity']->getGUID()
+	));
+	
+	$submit_input = elgg_view('input/submit', array(
+		'internalid' => 'simplekaltura_edit', 
+		'internalname' => 'edit', 
+		'value' => elgg_echo('save')
 	));
 
 } else {
@@ -39,13 +45,13 @@ if (isset($vars['entity'])) {
 	$entity_hidden = "";
 	
 	$widget = elgg_view('simplekaltura/forms/ksu_widget');	
+	
+	$submit_input = elgg_view('input/submit', array(
+		'internalid' => 'simplekaltura_submit', 
+		'internalname' => 'save', 
+		'value' => elgg_echo('save')
+	));
 }
-
-$submit_input = elgg_view('input/submit', array(
-	'internalid' => 'simplekaltura_submit', 
-	'internalname' => 'save', 
-	'value' => elgg_echo('save')
-));	
 
 $container_guid = get_input('container_guid', elgg_get_page_owner_guid());
 

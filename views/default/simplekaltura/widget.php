@@ -1,6 +1,6 @@
 <?php
 /**
- * Simple Kaltura Video View
+ * Simple Kaltura Video Widget
  * 
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
@@ -26,7 +26,7 @@ $localUiFunc 		= "";                                      							// FOR DEBUGGIN
 
 // JS
 echo elgg_view('simplekaltura/ksu_js');
-echo elgg_view_title($vars['entity']->title);
+//print_r_html(simplekaltura_get_entry($entryid));
 ?>
 <br />
 <object id="kaltura_player" 

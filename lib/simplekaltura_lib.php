@@ -212,9 +212,10 @@ function simplekaltura_create_config() {
 
 /**
  * Helper function to generate the KS (kaltura session) 
+ * @param bool $admin - wether or not to use an admin session
  * @return KalturaClient
  */
-function simplekaltura_create_client() {
+function simplekaltura_create_client($admin = false) {
 	// Get settings
 	$partner_user_id = get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 	
@@ -225,60 +226,196 @@ function simplekaltura_create_client() {
 											get_plugin_setting('kaltura_email_account', 'simplekaltura'), 
 											get_plugin_setting('kaltura_password_account', 'simplekaltura')
 											);
-	$ks			= $client->session->start($partner->secret, $partner_user_id, KalturaSessionType::USER);
+	
+	if ($admin) {
+		$st = KalturaSessionType::ADMIN;
+		$secret = $partner->adminSecret;
+	} else {
+		$st = KalturaSessionType::USER;
+		$secret = $partner->secret;
+	}									
+	
+	$ks			= $client->session->start($secret, $partner_user_id, $st);
 	
 	// Set KS
 	$client->setKs($ks);
 	return $client;
 }
 
+/** 
+ * Helper function to grab a kaltura entry 
+ * @param string 	$entry_id - Entry to grab
+ * @param bool 		$admin - Admin session 
+ * @return KalturaMediaEntry 
+ */
+function simplekaltura_get_entry($entry_id, $admin = false) {
+	$client = simplekaltura_create_client($admin);
+	$entry = $client->media->get($entry_id);
+	return $entry;
+}
+
+/** 
+ * Helper function to update a kaltura entry
+ * @param string 				$entry_id 	- Entry to update
+ * @param KalturaMediaEntry		$entry 		- Entry object
+ * @param bool					$admin		- Wether or not to use an admin session
+ * @return bool
+ */
+function simplekaltura_update_entry($entry_id, KalturaMediaEntry $entry, $admin = false) {
+	$client = simplekaltura_create_client($admin);
+	$entry = $client->media->update($entry_id, $entry);
+	return TRUE;
+}
+
+/** 
+ * Helper function to delete a simplekaltura video 
+ * and the corresponding kaltura entry
+ * @param ElggObject $video - Video to delete
+ * @return true 
+ */
+function simplekaltura_delete_video($video) {
+	$success = true;
+		
+	// Delete Kaltura Object
+	try {
+		$client = simplekaltura_create_client(true);
+		$client->media->delete($video->kaltura_entryid);
+	} catch (Exception $e) {
+		$success = false;
+	}
+	
+	// Delete Elgg Object
+	$success &= $video->delete();
+	
+	return $success;	
+}
+
 /**
  * Helper function to update a simplekaltura video object
- * @param ElggObject $video - The elgg object to update
+ * @param ElggObject 		$video - The elgg object to update
+ * @param KalturaMediaEntry	$entry - The kaltura entry 
  * @return bool 
  */
-function simplekaltura_update_video($video) {
-	// May be an exception if something is wrong
-	try {
-		// Get a kaltura API client
-		$client = simplekaltura_create_client();
-		// Get the entry object to gather more info
-		$entry = $client->baseEntry->get($video->kaltura_entryid);
-		
-		// Set up an array of metadata mappings to populate
-		$metadata_names = array(
-			'msDuration',
-			'thumbnailUrl', 
-			'plays',
-			'views'
-		);
-		
-		// Set metadata
-		foreach ($metadata_names as $name) {
-			create_metadata(
-				$video->getGUID(), 
-				$name, 
-				$entry->$name, 
-				'', 
-				$video->getOwnerGUID(),
-				$video->access_id
-			);
-		}
-		
-		// Store the whole shebang just in case (?? not sure if I need this..)
+function simplekaltura_update_video($video, $entry) {	
+	// Set up an array of metadata mappings to populate
+	$metadata_names = array(
+		'duration',
+		'thumbnailUrl', 
+		'plays',
+		'views'
+	);
+	
+	// Set metadata
+	foreach ($metadata_names as $name) {
 		create_metadata(
 			$video->getGUID(), 
-			'raw_entry', 
-			serialize($entry), 
+			$name, 
+			$entry->$name, 
 			'', 
 			$video->getOwnerGUID(),
-			$video->access_id
+			$video->access_id,
+			FALSE
 		);
-		return true;
-	} catch (Exception $e) {
-		// @TODO Log it? Or something?
-		return false;
+	}
+	
+	// Store the whole shebang just in case (?? not sure if I need this..)
+	create_metadata(
+		$video->getGUID(), 
+		'raw_entry', 
+		serialize($entry), 
+		'', 
+		$video->getOwnerGUID(),
+		$video->access_id, 
+		FALSE
+	);
+	return true;
+}
+
+/** 
+ * Cron function to update all simplekaltura_video objects
+ */
+function simplekaltura_bulk_update() {
+	
+	// Get a kaltura client
+	$client = simplekaltura_create_client(true);
+	
+	// Set up pager
+	$pager = new KalturaFilterPager();
+	$pager->pageIndex = "1";
+	$pager->pageSize = "0";
+	
+	// Set up filter
+	$filter = new KalturaMediaEntryFilter();
+	$filter->tagsAdminTagsMultiLikeOr = get_plugin_setting('kaltura_admin_tags', 'simplekaltura');
+	
+	// Grab entries
+	$result = $client->media->listAction($filter, $pager);
+	
+	
+	
+	// Get elgg entities
+	$params = array(
+		'type' => 'object',
+		'subtype' => 'simplekaltura_video',
+		'limit' => 0
+	);
+	
+	$videos = elgg_get_entities($params);
+	
+	// Create array of video entry_ids from elgg entities
+	$video_ids = array();
+	foreach($videos as $video) {
+		if ($video->kaltura_entryid) {
+			$video_ids[$video->kaltura_entryid] = $video->getGUID();
+		}
+	}
+	
+	// Match up each found entry to an elgg entity
+	$success = true;
+	foreach ($result->objects as $entry) {
+		// If it exists.. 
+		if ($video_guid = $video_ids[$entry->id]) {
+			$videoupdate = get_entity($video_guid);
+			$success &= simplekaltura_update_video($videoupdate, $entry);
+		}
+	}
+	
+	var_dump($success);
+	echo "blah";
+	return $success;
+}
+
+function simplekaltura_sec2hms ($sec, $padHours = false) {
+	if ($sec) {
+	    $hms = "";
+    
+	    // do the hours first
+	    $hours = intval(intval($sec) / 3600); 
+
+	    // add hours to $hms (with a leading 0 if asked for)
+	    $hms .= ($padHours) 
+	          ? str_pad($hours, 2, "0", STR_PAD_LEFT). ":"
+	          : $hours. ":";
+    
+	    // minutes
+	    $minutes = intval(($sec / 60) % 60); 
+
+	    // add minutes to $hms (with a leading 0 if needed)
+	    $hms .= str_pad($minutes, 2, "0", STR_PAD_LEFT). ":";
+
+	    // seconds
+	    $seconds = intval($sec % 60); 
+
+	    // add seconds to $hms (with a leading 0 if needed)
+	    $hms .= str_pad($seconds, 2, "0", STR_PAD_LEFT);
+
+	    // done!
+	    return $hms;
+	} else {
+		return elgg_echo('simplekaltura:label:unavailable');
 	}
 }
+
+
 
 ?>
