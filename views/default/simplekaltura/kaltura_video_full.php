@@ -7,7 +7,8 @@
  * @author Jeff Tilson
  * @copyright THINK Global School 2010
  * @link http://www.thinkglobalschool.com/
- *
+ * 
+ * @TODO make into a function to generate the widget?
  */
 
 $player_width 		= get_plugin_setting('kaltura_player_width', 'simplekaltura');                           
@@ -25,8 +26,9 @@ $localUiFunc 		= "";                                      							// FOR DEBUGGIN
 
 // JS
 echo elgg_view('simplekaltura/ksu_js');
+echo elgg_view_title($vars['entity']->title);
 ?>
-
+<br />
 <object id="kaltura_player" 
 		name="kaltura_player"
 		type="application/x-shockwave-flash"

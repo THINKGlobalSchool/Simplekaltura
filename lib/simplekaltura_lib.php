@@ -1,6 +1,6 @@
 <?php
 /**
- * Simple Kaltura library
+ * Simple Kaltura  helper library
  * 
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
@@ -10,10 +10,12 @@
  * 
  */
 
+require_once(elgg_get_plugin_path() . "simplekaltura/vendors/kaltura_client_v3/KalturaClient.php"); 
+
 /* Get edit/create content */
-function simplekaltura_get_page_content_edit($guid) {
+function simplekaltura_get_page_content_edit($page_type, $guid) {
 	$vars = array();
-	if ($guid) {
+	if ($page_type == 'edit') {
 		$video = get_entity((int)$guid);
 
 		if (elgg_instanceof($video, 'object', 'simplekaltura_video') && $video->canEdit()) {
@@ -28,9 +30,17 @@ function simplekaltura_get_page_content_edit($guid) {
 			$content = elgg_echo('simplekaltura:error:notfound');
 		}
 	} else {
+		if (!$guid) {
+			$container = get_loggedin_user();
+		} else {
+			$container = get_entity($guid);
+		}
+		elgg_set_page_owner_guid($container->guid);
+		
 		elgg_push_breadcrumb(elgg_echo('simplekaltura:label:new'));
 		$content = elgg_view('simplekaltura/forms/edit', $vars);
 	}
+
 
 	return array('content' => $content, 'title' => elgg_echo('simplekaltura:title:uploadnew'), 'layout' => 'one_column_with_sidebar');
 }
@@ -64,6 +74,7 @@ function simplekaltura_get_page_content_list($container_guid = NULL) {
 		'type' => 'object',
 		'subtype' => 'simplekaltura_video',
 		'full_view' => FALSE,
+		'limit' => 5
 	);
 
 	$loggedin_userid = get_loggedin_userid();
@@ -159,6 +170,7 @@ function simplekaltura_get_page_content_friends($user_guid) {
 			'type' => 'object',
 			'subtype' => 'simplekaltura_video',
 			'full_view' => FALSE,
+			'limit' => 5
 		);
 
 		foreach ($friends as $friend) {
@@ -185,6 +197,88 @@ function simplekaltura_get_page_content_friends($user_guid) {
 	$return['content'] = $header . $return['content'];
 	
 	return $return;
+}
+
+
+/** 
+ * Helper function to create KalturaConfiguration
+ * @return KalturaConfiguration
+ */ 
+function simplekaltura_create_config() {
+	$kaltura_partner_id = get_plugin_setting('kaltura_partnerid', 'simplekaltura');
+	$config		= new KalturaConfiguration($kaltura_partner_id);
+	return $config;
+}
+
+/**
+ * Helper function to generate the KS (kaltura session) 
+ * @return KalturaClient
+ */
+function simplekaltura_create_client() {
+	// Get settings
+	$partner_user_id = get_plugin_setting('kaltura_partnerid', 'simplekaltura');
+	
+	//Construction of Kaltura objects for session initiation
+	$config 	= simplekaltura_create_config();
+	$client 	= new KalturaClient($config);
+	$partner	= $client->partner->getSecrets($config->partnerId, 
+											get_plugin_setting('kaltura_email_account', 'simplekaltura'), 
+											get_plugin_setting('kaltura_password_account', 'simplekaltura')
+											);
+	$ks			= $client->session->start($partner->secret, $partner_user_id, KalturaSessionType::USER);
+	
+	// Set KS
+	$client->setKs($ks);
+	return $client;
+}
+
+/**
+ * Helper function to update a simplekaltura video object
+ * @param ElggObject $video - The elgg object to update
+ * @return bool 
+ */
+function simplekaltura_update_video($video) {
+	// May be an exception if something is wrong
+	try {
+		// Get a kaltura API client
+		$client = simplekaltura_create_client();
+		// Get the entry object to gather more info
+		$entry = $client->baseEntry->get($video->kaltura_entryid);
+		
+		// Set up an array of metadata mappings to populate
+		$metadata_names = array(
+			'msDuration',
+			'thumbnailUrl', 
+			'plays',
+			'views'
+		);
+		
+		// Set metadata
+		foreach ($metadata_names as $name) {
+			create_metadata(
+				$video->getGUID(), 
+				$name, 
+				$entry->$name, 
+				'', 
+				$video->getOwnerGUID(),
+				$video->access_id
+			);
+		}
+		
+		// Store the whole shebang just in case (?? not sure if I need this..)
+		create_metadata(
+			$video->getGUID(), 
+			'raw_entry', 
+			serialize($entry), 
+			'', 
+			$video->getOwnerGUID(),
+			$video->access_id
+		);
+		return true;
+	} catch (Exception $e) {
+		// @TODO Log it? Or something?
+		return false;
+	}
 }
 
 ?>

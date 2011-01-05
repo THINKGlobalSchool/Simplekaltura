@@ -80,10 +80,10 @@ function simplekaltura_page_handler($page) {
 			$params = simplekaltura_get_page_content_view($page[1]);
 			break;
 		case 'new':
-			$params = simplekaltura_get_page_content_edit($page[1]);
+			$params = simplekaltura_get_page_content_edit($page_type, $page[1]);
 			break;
 		case 'edit':
-			$params = simplekaltura_get_page_content_edit($page[1], $page[2]);
+			$params = simplekaltura_get_page_content_edit($page_type, $page[1]);
 			break;
 		case 'group':
 			//$params = blog_get_page_content_list($page[1]);

@@ -48,6 +48,10 @@ $english = array(
 	'simplekaltura:label:deleteconfirm' => 'Are you sure you want to delete this video?', 
 	'simplekaltura:label:posted_by' => 'Posted by %s',
 	'simplekaltura:label:friends' => 'Friends', 
+	'simplekaltura:label:thumbnailurl' => 'Thumbnail URL (See: http://corp.kaltura.com/wiki/index.php/KalturaAPI:thumbnail)',
+	'simplekaltura:label:vidlength' => 'Length: %s ', 
+	'simplekaltura:label:vidplays' => 'Plays: %s ', 
+	
 
 	// River
 	'simplekaltura:river:video:create' => '%s uploaded a Video titled ',
@@ -59,6 +63,7 @@ $english = array(
 	'simplekaltura:error:save' => 'Error saving Video',
 	'simplekaltura:error:delete' => 'There wasn an error deleting the Video',
 	'simplekaltura:error:notfound' => 'Video not found',
+	'simplekaltura:error:apierror' => 'Katura API Error',
 
 
 	

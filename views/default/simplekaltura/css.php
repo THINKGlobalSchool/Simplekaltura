@@ -48,6 +48,24 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	font-weight: bold;
 }
 
+
+.simplekaltura .entity_listing .kaltura-meta {
+	font-size: 85%;
+	color: #333333;
+	margin-bottom: 2px;
+}
+
+
+/* TWEAKS */
+.simplekaltura .entity_listing .icon {
+}
+
+.simplekaltura .entity_listing .info {
+	margin-left: 135px;
+}
+
+
+
 /* CUSTOM DIALOG */
 
 #simplekaltura-upload-dialog  {

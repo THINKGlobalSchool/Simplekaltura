@@ -59,6 +59,8 @@
 		$('#k_filetype').val(entries[0].extension);
 		$('#k_guid').val(entries[0].guid);
 		
+		//console.log(entries[0]);
+		
 		// Finally submit the post form
 		$('form#video_post_form').submit();
 	}

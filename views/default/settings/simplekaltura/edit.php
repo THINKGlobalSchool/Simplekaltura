@@ -76,3 +76,16 @@
 										); 
 	?>
 </p>
+<p>
+	<label><?php echo elgg_echo('simplekaltura:label:thumbnailurl'); ?></label><br /><br />
+	<?php 
+	$url = $vars['entity']->kaltura_thumbnail_url;
+	if (!$url) {
+		$url = 'http://cdn.kaltura.com/p/0/thumbnail/entry_id/'; // Default Width
+	}
+	echo elgg_view('input/text', array(
+										'internalname' => 'params[kaltura_thumbnail_url]', 
+										'value' => $url)
+										); 
+	?>
+</p>

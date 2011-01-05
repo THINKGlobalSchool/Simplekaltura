@@ -9,6 +9,9 @@
  * @link http://www.thinkglobalschool.org
  */
 
+// First update the video entry so we have access to plays, length, etc..
+simplekaltura_update_video($vars['entity']);
+
 // Get entity info
 $owner = $vars['entity']->getOwnerEntity();
 $friendlytime = elgg_view_friendly_time($vars['entity']->time_created);
@@ -31,9 +34,23 @@ else
 	$view_desc = '';
 
 
-$icon = elgg_view("profile/icon", array('entity' => $owner,'size' => 'tiny',));
+// Thumbnail
+if (!($thumbnail_url = $vars['entity']->thumbnailUrl)) {
+	$thumbnail_url = get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $vars['entity']->kaltura_entryid;
+} 
 
-//delete
+$icon = "<img src='" . $thumbnail_url  . "' />";
+
+// Comments
+$comments_count = elgg_count_comments($vars['entity']);
+//only display if there are commments
+if($comments_count != 0){
+	$comments_link = " | <a href=\"{$vars['entity']->getURL()}#annotations\">" . elgg_echo("comments") . " (". $comments_count .")</a>";
+}else{
+	$comments_link = '';
+}
+
+// Delete
 if($vars['entity']->canEdit()){
 	$delete .= "<span class='delete_button'>" . elgg_view('output/confirmlink',array(
 				'href' => "action/simplekaltura/delete?guid=" . $vars['entity']->guid,
@@ -59,15 +76,18 @@ if($vars['entity']->canEdit()){
 $info .= "</div>";
 
 $info .= "<p class='entity_title'><a href=\"{$address}\">{$title}</a></p>";
-$info .= "<p class='entity_subtext'>" . elgg_echo('simplekaltura:label:posted_by', array("<a href=\"".elgg_get_site_url()."pg/videos/owner/{$owner->username}\">{$owner->name}</a>")) . " {$friendlytime} {$view_desc}</p>";
+$info .= "<p class='entity_subtext'>" . elgg_echo('simplekaltura:label:posted_by', array("<a href=\"".elgg_get_site_url()."pg/videos/owner/{$owner->username}\">{$owner->name}</a>")) . " {$friendlytime} {$view_desc} {$comments_link}</p>";
 
 $tags = elgg_view('output/tags', array('tags' => $vars['entity']->tags));
 if (!empty($tags)) {
 	$info .= '<p class="tags">' . $tags . '</p>';
 }
+
+$info .= "<p class='kaltura-meta'>" . elgg_echo('simplekaltura:label:vidlength', array($vars['entity']->msDuration)) . elgg_echo('simplekaltura:label:vidplays', array($vars['entity']->plays)) . "</p>";
+
 if($view_desc != ''){
 	$info .= "<div class='note hidden'>". $vars['entity']->description . "</div>";
 }
 
 //display
-echo elgg_view_listing($icon, $info);
+echo "<div class='simplekaltura'>" . elgg_view_listing($icon, $info) . "</div>";

@@ -29,6 +29,7 @@ if (!$k_guid || !$k_entryid || !$k_bytesloaded || !$k_filetype) {
 	forward(REFERER);
 }
 
+// Set elgg stuff
 $video = new ElggObject();
 $video->subtype = 'simplekaltura_video';
 $video->title = $title;
