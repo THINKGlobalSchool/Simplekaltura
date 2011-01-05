@@ -351,14 +351,18 @@ function simplekaltura_bulk_update() {
 	// Grab entries
 	$result = $client->media->listAction($filter, $pager);
 	
-	
-	
 	// Get elgg entities
 	$params = array(
 		'type' => 'object',
 		'subtype' => 'simplekaltura_video',
 		'limit' => 0
 	);
+	
+	
+	// Ignore access here to grab and work with elgg objects
+	$access = elgg_get_access_object();
+	$ia = $access->getIgnoreAccess();
+	$access->setIgnoreAccess(true);
 	
 	$videos = elgg_get_entities($params);
 	
@@ -380,8 +384,8 @@ function simplekaltura_bulk_update() {
 		}
 	}
 	
-	var_dump($success);
-	echo "blah";
+	$access->setIgnoreAccess($ia);
+	
 	return $success;
 }
 
