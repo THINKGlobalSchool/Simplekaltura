@@ -26,7 +26,6 @@ $localUiFunc 		= "";                                      							// FOR DEBUGGIN
 
 // JS
 echo elgg_view('simplekaltura/ksu_js');
-//print_r_html(simplekaltura_get_entry($entryid));
 ?>
 <br />
 <object id="kaltura_player" 

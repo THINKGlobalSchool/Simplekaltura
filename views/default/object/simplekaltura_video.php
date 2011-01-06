@@ -68,7 +68,7 @@ if ($vars['full']) { // Full view
 	$owner_icon = elgg_view('profile/icon', array('entity' => $owner, 'size' => 'tiny'));
 	
 	// Kaltura Widget
-	$widget = elgg_view('simplekaltura/widget', $vars);
+	$widget = elgg_view('simplekaltura/widget_kdp3', $vars);
 	
 	// Display content
 	echo <<<___END

@@ -1,6 +1,6 @@
 <?php
 /**
- * Simple Kaltura Widget JS
+ * Simple Kaltura KSU Widget JS
  * 
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
@@ -10,8 +10,7 @@
  *
  */
 ?>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/swfobject/2.2/swfobject.js"></script>
-<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
+<script type="text/javascript" src="<?php echo elgg_get_site_url() . 'mod/simplekaltura/vendors/swfobject.js'; ?>"></script>
 
 <!---	JavaScript handler methods to react to upload events. -->
 <script type="text/javascript">
