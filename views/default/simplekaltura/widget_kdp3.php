@@ -43,7 +43,21 @@ echo elgg_view('simplekaltura/kdp_js');
 	attributes.id = "kdp3";
 	attributes.name = "kdp3";
 	attributes.styleclass = "player";
-	swfobject.embedSWF(swf_path, "kdp3", player_width, player_height, "10.0.0", "expressInstall.swf", flashvars, params, attributes);
+	swfobject.embedSWF(swf_path, "kdp3", player_width,  player_height, "10.0.0", "expressInstall.swf", flashvars, params, attributes);
+	
+
+	var $vidPlayer = $("#kdp3");
+	//var playerWidth = $(".simplekaltura_video_container").width();
+
+	//var $vidPlayer = $("embed");
+	var aspect = $vidPlayer.height() / $vidPlayer.width();
+	    $(window).resize(function() {
+	          var playerWidth = $(".simplekaltura_video_container").width();
+	          $vidPlayer
+	            .width(playerWidth)
+	            .height(playerWidth * aspect);
+	    }).trigger("resize");
+
 </script>
 
 <div id="kdp3"></div>
