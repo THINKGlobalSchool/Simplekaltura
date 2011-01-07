@@ -28,7 +28,7 @@ function simplekaltura_init() {
 	register_page_handler('videos','simplekaltura_page_handler');
 
 	// Add to tools menu
-	add_menu(elgg_echo("videos"), elgg_get_site_url() . 'pg/videos');
+	add_menu(elgg_echo("simplekaltura:spotvideo"), elgg_get_site_url() . 'pg/videos');
 
 	// Add submenus
 	elgg_register_event_handler('pagesetup','system','simplekaltura_submenus');

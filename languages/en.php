@@ -20,6 +20,7 @@ $english = array(
 	'simplekaltura_video' => 'Videos',
 	'simplekaltura:ownedvideos' => '%s',
 	'simplekaltura:none' => 'No Videos',
+	'simplekaltura:spotvideo' => 'Spot Videos',
 	
 	// Titles 
 	'admin:plugin_settings:simplekaltura' => 'Simple Kaltura Settings',
