@@ -11,7 +11,7 @@
  */
 ?>
 <script type="text/javascript" src="<?php echo elgg_get_site_url() . 'mod/simplekaltura/vendors/swfobject.js'; ?>"></script>
-<script type="text/javascript" src="http://html5.kaltura.org/js"></script> <!-- For HTML5 (Hopefully) -->
+<script type="text/javascript" src="<?php echo elgg_get_site_url() . 'mod/simplekaltura/vendors/html5.js'; ?>"></script> <!-- For HTML5 (Hopefully) -->
 <script type="text/javascript">
 	var notificationslist = ['startUp',
 							'durationChange',

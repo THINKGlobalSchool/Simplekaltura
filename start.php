@@ -48,7 +48,7 @@ function simplekaltura_init() {
 	register_entity_type('object', 'simplekaltura_video');		
 	
 	//register CRON hook to poll video plays/duration/etc..
-	//elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
+	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
 
 	return true;
 }
