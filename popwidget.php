@@ -10,12 +10,12 @@
  * 
  * @TODO make into a function to generate the widget?
  */
-
-$player_width 		= $vars['width'] ? $vars['width'] : get_plugin_setting('kaltura_player_width', 'simplekaltura');                           
-$player_height 		= $vars['height'] ? $vars['height'] : get_plugin_setting('kaltura_player_height', 'simplekaltura');    
+require_once(dirname(dirname(dirname(__FILE__))) . "/engine/start.php");
+                    
+$player_height 		= get_input('height');  
 $widgetid 			= "_" . get_plugin_setting('kaltura_partnerid', 'simplekaltura');   // specific player instance (default to '_'+partnerId)
 $uiConfId 			= get_plugin_setting('kaltura_custom_player_id', 'simplekaltura'); 	// Which player to use
-$entryid 			= $vars['entity']->kaltura_entryid;                            		// ENTRY ID TO PLAYBACK 	
+$entryid 			= get_input('entryid');                        		// ENTRY ID TO PLAYBACK 	
 $host 				= "www.kaltura.com";                      							// THE URL TO THE KALTURA SERVER 
 $debugmode 			= "0";                                       						// DEBUGGING OF PLUGINS 
 $autoPlay 			= "0";                                        						// BOOLEAN FOR AUTOPLAY
@@ -35,14 +35,14 @@ $localUiFunc 		= "";                                      							// FOR DEBUGGIN
 		allowNetworking="all"
 		allowScriptAccess="always" 
 		height="<?php echo $player_height; ?>" 
-		width="<?php echo $player_width; ?>"
+		width="100%"
 		data="http://www.kaltura.com/index.php/kwidget/wid/<?php echo $widgetid; ?>/uiconf_id/<?php echo $uiConfId; ?>/entry_id/<?php echo $entryid;?>"
 >
 	<param name="allowFullScreen" value="true" />
 	<param name="allowNetworking" value="all" />
 	<param name="allowScriptAccess" value="always" />
 	<param name="bgcolor" value="#000000" />
-	<param name="flashVars" value="&entryId=<?php echo $entryid; ?>" />
+	<param name="flashVars" value="&autoPlay=true&entryId=<?php echo $entryid; ?>" />
 	<param name="movie" value="http://www.kaltura.com/index.php/kwidget/wid/<?php echo $widgetid; ?>/uiconf_id/<?php echo $uiConfId ?>/entry_id/<?php echo $entryid;?>" />
 </object>
 <div style='clear: both;'></div>

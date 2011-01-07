@@ -115,8 +115,14 @@ ___END;
 		$view_desc = "| <a class='link' onclick=\"elgg_slide_toggle(this,'.entity_listing','.note');\">" . elgg_echo('description') . "</a>";
 		$description = "<div class='note hidden'>". $vars['entity']->description . "</div>";	
 	} 
+	
+	$id = $vars['entity']->kaltura_entryid;
 
-	$icon = "<img src='" . $thumbnail_url  . "' />";
+	$icon = "<img onclick='javascript:simplekaltura_show_popup_$id()' src='$thumbnail_url' />";
+	
+	$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=400";
+	
+
 	
 	$info = <<<___END
 	<div class='entity_metadata'>
@@ -125,7 +131,7 @@ ___END;
 		$likes
 	</div>
 	<p class='entity_title'>
-		<a href="$address">$title</a>
+		<a  href="$address">$title</a>
 	</p>
 	<p class='entity_subtext'>
 		$owner_text
@@ -138,6 +144,29 @@ ___END;
 		$kaltura_meta
 	</p>
 	$description
+	<div id='popup_dialog_$id' class='simplekaltura_popup_dialog'></div>
+	<script type='text/javascript'>
+	
+	$("#popup_dialog_$id").dialog({
+						autoOpen: false,
+						width: 500, 
+						modal: true,
+						open: function(event, ui) { 
+							console.log('opening');
+							$(".ui-dialog-titlebar-close").hide(); 	
+						},
+						buttons: {
+							"X": function() { 
+								$(this).dialog("close"); 
+							} 
+	}});
+	
+	function simplekaltura_show_popup_$id() {
+		$("#popup_dialog_$id").dialog("open");
+		$("#popup_dialog_$id").load('$pop_url&entryid=' + '$id');
+	}
+	
+	</script>
 ___END;
 	echo "<div class='simplekaltura'>" . elgg_view_listing($icon, $info) . "</div>";
 }
