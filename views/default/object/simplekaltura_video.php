@@ -62,7 +62,6 @@ $plays = (is_int($vars['entity']->plays)) ? $vars['entity']->plays : elgg_echo('
 
 $kaltura_meta = elgg_echo('simplekaltura:label:vidlength', array(simplekaltura_sec2hms($vars['entity']->duration))) . elgg_echo('simplekaltura:label:vidplays', array($plays));
 
-
 if ($vars['full']) { // Full view
 	// Owner Icon 
 	$owner_icon = elgg_view('profile/icon', array('entity' => $owner, 'size' => 'tiny'));
@@ -99,7 +98,10 @@ if ($vars['full']) { // Full view
 		</div>
 		</div>
 		<div class='simplekaltura_video_description'>{$vars['entity']->description}</div>
-		<div class='simplekaltura_video_container'>$widget</div>
+		<div class='simplekaltura_video_container'>
+			$widget
+		</div>
+		<div class='simplekaltura_video_footer'></div>
 	</div>
 ___END;
 } else {	// Listing

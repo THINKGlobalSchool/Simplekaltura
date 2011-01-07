@@ -29,6 +29,7 @@ echo elgg_view('simplekaltura/kdp_js');
 	flashvars.widgetId = "_115012";
 	flashvars.wid = "_115012";
 	flashvars.partnerId = "115012";
+	flashvars.p = "115012";
 	flashvars.pluginDomain = "plugins/";
 	flashvars.uiConfId = uiconf_id;
 	flashvars.uiconf_id = uiconf_id;

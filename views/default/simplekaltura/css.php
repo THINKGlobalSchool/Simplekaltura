@@ -56,9 +56,15 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 }
 
 .simplekaltura_video_container {
+	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	width: <?php echo get_plugin_setting('kaltura_player_width', 'simplekaltura'); ?>px;
+}
+
+.simplekaltura_video_footer {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #bbbbbb;
 }
 
 .simplekaltura_video_container object {
