@@ -90,6 +90,22 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 }
 
 
+/* Ubertags view */
+.simplekaltura-ubergallery {
+	background-color:#EEEEEE;
+	margin:10px 10px 0 0;
+	padding:9px;
+	text-align:center;
+	width:154px; 
+	height:154px;
+	float:left;
+	-webkit-border-radius: 6px; 
+	-moz-border-radius: 6px;
+}
+
+.simplekaltura-ubergallery:hover {
+	background-color: #cccccc;
+}
 
 /* CUSTOM DIALOG */
 

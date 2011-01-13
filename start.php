@@ -49,6 +49,11 @@ function simplekaltura_init() {
 	
 	//register CRON hook to poll video plays/duration/etc..
 	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
+	
+	// Register some hooks for Ubertags support
+	if (is_plugin_enabled('ubertags')) {
+		elgg_register_plugin_hook_handler('ubertags:subtype:heading', 'simplekaltura_video', 'simplekaltura_subtype_title_handler');
+	}
 
 	return true;
 }
@@ -158,6 +163,13 @@ function simplekaltura_annotate_comments($hook, $entity_type, $returnvalue, $par
 		return elgg_view_comments($entity);
 	}
 
+}
+
+/* Handler to change name of Albums to Photos */
+function simplekaltura_subtype_title_handler($hook, $type, $returnvalue, $params) {
+	if ($type == 'simplekaltura_video') {
+		return 'Spot Videos';
+	}
 }
 
 register_elgg_event_handler('init', 'system', 'simplekaltura_init');
