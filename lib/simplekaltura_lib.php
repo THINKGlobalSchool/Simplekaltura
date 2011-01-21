@@ -17,19 +17,22 @@ function simplekaltura_get_page_content_edit($page_type, $guid) {
 	$vars = array();
 	if ($page_type == 'edit') {
 		$video = get_entity((int)$guid);
-
+		
 		if (elgg_instanceof($video, 'object', 'simplekaltura_video') && $video->canEdit()) {
 			$vars['entity'] = $video;
+			
+			$title = elgg_echo('simplekaltura:title:editvideo');
 
 			elgg_push_breadcrumb($video->title, $video->getURL());
 			elgg_push_breadcrumb(elgg_echo('edit'));
 
-			$content = elgg_view('simplekaltura/forms/edit', $vars);
+			$content = elgg_view_title($title) . elgg_view('simplekaltura/forms/edit', $vars);
 	
 		} else {
 			$content = elgg_echo('simplekaltura:error:notfound');
 		}
 	} else {
+		$title = elgg_echo('simplekaltura:title:uploadnew');
 		if (!$guid) {
 			$container = get_loggedin_user();
 		} else {
@@ -38,11 +41,11 @@ function simplekaltura_get_page_content_edit($page_type, $guid) {
 		elgg_set_page_owner_guid($container->guid);
 		
 		elgg_push_breadcrumb(elgg_echo('simplekaltura:label:new'));
-		$content = elgg_view('simplekaltura/forms/edit', $vars);
+		$content =  elgg_view_title($title) . elgg_view('simplekaltura/forms/edit', $vars);
 	}
 
 
-	return array('content' => $content, 'title' => elgg_echo('simplekaltura:title:uploadnew'), 'layout' => 'one_column_with_sidebar');
+	return array('content' => $content, 'title' => $title, 'layout' => 'one_column_with_sidebar');
 }
 
 /* View a video  */

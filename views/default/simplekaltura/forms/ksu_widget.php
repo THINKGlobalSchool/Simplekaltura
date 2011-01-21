@@ -16,7 +16,7 @@
 	$flashVars["entryId"] 	 		= -1;	     
 	$flashVars["ks"]   				= $client->getKs(); 
 	$flashVars["conversionProfile"]	= 5; 
-	$flashVars["maxFileSize"]   	= 200; 
+	$flashVars["maxFileSize"]   	= 500; 
 	$flashVars["maxTotalSize"]   	= 5000; 
 	$flashVars["uiConfId"]   		= 11500; 
 	$flashVars["jsDelegate"]   		= "delegate"; 

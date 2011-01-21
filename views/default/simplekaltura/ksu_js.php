@@ -65,7 +65,7 @@
 	}
 
 	delegate.progressHandler = function(args) {
-		//console.log(args[2].title + ": " + args[0] + " / " + args[1]);
+		console.log(args[2].title + ": " + args[0] + " / " + args[1]);
 		var p_value = Math.round((args[0] / args[1]) * 100) ;
 		$("#simplekaltura-upload-progress").progressbar("option", "value", p_value);
 		$("#simplekaltura-upload-percent").html(p_value + '%');

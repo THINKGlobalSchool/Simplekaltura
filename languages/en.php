@@ -25,6 +25,7 @@ $english = array(
 	// Titles 
 	'admin:plugin_settings:simplekaltura' => 'Simple Kaltura Settings',
 	'simplekaltura:title:uploadnew' => 'Upload New Video',
+	'simplekaltura:title:editvideo' => 'Edit Video',
 	'simplekaltura:title:allvideos' => 'All Videos',
 	'simplekaltura:title:yourvideos' => 'Your Videos',
 	'simplekaltura:title:friendsvideos' => 'Friend\'s Videos',
