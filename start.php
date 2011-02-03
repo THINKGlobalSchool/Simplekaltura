@@ -44,6 +44,9 @@ function simplekaltura_init() {
 	// Comment handler
 	elgg_register_plugin_hook_handler('entity:annotate', 'object', 'simplekaltura_annotate_comments');
 
+	// Timeline icon handler
+	elgg_register_plugin_hook_handler('ubertags:timeline:icon', 'simplekaltura_video', 'ubertags_timeline_video_icon_handler');
+	
 	// Register type
 	register_entity_type('object', 'simplekaltura_video');		
 	
@@ -58,13 +61,14 @@ function simplekaltura_init() {
 	return true;
 }
 
-
-
 /* Simplekaltura page handler */
 function simplekaltura_page_handler($page) {
 	global $CONFIG;
 	set_context('simplekaltura');
 	gatekeeper();
+	
+	// Register Popup JS
+	elgg_register_js(elgg_get_site_url() . 'mod/simplekaltura/lib/listing-popup.js', 'video-listing-popup');
 
 	elgg_push_breadcrumb(elgg_echo('videos'), "pg/videos"); // @TODO something better
 	
@@ -138,6 +142,14 @@ function simplekaltura_submenus() {
  */
 function simplekaltura_url_handler($entity) {
 	return elgg_get_site_url() . "pg/videos/view/{$entity->guid}/";
+}
+
+/* Handler to register a timeline icon for simplekaltura videos */
+function ubertags_timeline_video_icon_handler($hook, $type, $returnvalue, $params) {
+	if ($type == 'simplekaltura_video') {
+		return elgg_get_site_url() . "mod/simplekaltura/images/simplekaltura_video.gif";
+	}
+	return false;
 }
 
 /**

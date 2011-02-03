@@ -109,7 +109,8 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 
 /* CUSTOM DIALOG */
 
-.simplekaltura_popup_dialog  {
+.simplekaltura-popup-dialog  {
+	display: none;
 	padding: 10px;
 	border: 8px solid #555555;
 	background: #ffffff;
