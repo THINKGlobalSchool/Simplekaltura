@@ -51,12 +51,12 @@ echo elgg_view('simplekaltura/kdp_js');
 	
 
 	var $vidPlayer = $("#kdp3");
-	//var playerWidth = $(".simplekaltura_video_container").width();
+	//var playerWidth = $(".simplekaltura-video-container").width();
 
 	//var $vidPlayer = $("embed");
 	var aspect = $vidPlayer.height() / $vidPlayer.width();
 	    $(window).resize(function() {
-	          var playerWidth = $(".simplekaltura_video_container").width();
+	          var playerWidth = $(".simplekaltura-video-container").width();
 	          $vidPlayer
 	            .width(playerWidth)
 	            .height(playerWidth * aspect);

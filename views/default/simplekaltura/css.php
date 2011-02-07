@@ -48,26 +48,26 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	font-weight: bold;
 }
 
-.simplekaltura_video_description {
+.simplekaltura-video-description {
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #bbbbbb;
 }
 
-.simplekaltura_video_container {
+.simplekaltura-video-container {
 	height: 100%;
 	margin-left: auto;
 	margin-right: auto;
 	width: <?php echo get_plugin_setting('kaltura_player_width', 'simplekaltura'); ?>px;
 }
 
-.simplekaltura_video_footer {
+.simplekaltura-video-footer {
 	padding-bottom: 10px;
 	border-bottom: 1px solid #bbbbbb;
 }
 
-.simplekaltura_video_container object {
+.simplekaltura-video-container object {
 	border: 3px solid #aaaaaa;
 	padding: 0;
 	-webkit-box-shadow:0px 0px 6px #333333;

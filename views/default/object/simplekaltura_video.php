@@ -97,11 +97,11 @@ if ($vars['full']) { // Full view
 			</p>
 		</div>
 		</div>
-		<div class='simplekaltura_video_description'>{$vars['entity']->description}</div>
-		<div class='simplekaltura_video_container'>
+		<div class='simplekaltura-video-description'>{$vars['entity']->description}</div>
+		<div class='simplekaltura-video-container'>
 			$widget
 		</div>
-		<div class='simplekaltura_video_footer'></div>
+		<div class='simplekaltura-video-footer'></div>
 	</div>
 ___END;
 } else {	// Listing
