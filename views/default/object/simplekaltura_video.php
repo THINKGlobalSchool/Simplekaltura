@@ -19,6 +19,9 @@ $address = $vars['entity']->getURL();
 $parsed_url = parse_url($address);
 $object_acl = elgg_view('output/access', array('entity' => $vars['entity']));
 
+// Do an update
+simplekaltura_update_video($vars['entity']);
+
 // Comments
 $comments_count = elgg_count_comments($vars['entity']);
 
@@ -62,6 +65,10 @@ $plays = (is_int($vars['entity']->plays)) ? $vars['entity']->plays : elgg_echo('
 
 $kaltura_meta = elgg_echo('simplekaltura:label:vidlength', array(simplekaltura_sec2hms($vars['entity']->duration))) . elgg_echo('simplekaltura:label:vidplays', array($plays));
 
+if ($download_url = $vars['entity']->downloadUrl) {
+	$download_link = "<a href='$download_url'>" . elgg_echo('simplekaltura:label:download') . "</a>";
+}
+
 if ($vars['full']) { // Full view
 	// Owner Icon 
 	$owner_icon = elgg_view('profile/icon', array('entity' => $owner, 'size' => 'tiny'));
@@ -103,7 +110,7 @@ if ($vars['full']) { // Full view
 		<div class='simplekaltura-video-container'>
 			$widget
 		</div>
-		<div class='simplekaltura-video-footer'></div>
+		<div class='simplekaltura-video-footer'>$download_link</div>
 	</div>
 ___END;
 } else {	// Listing

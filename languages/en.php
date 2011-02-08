@@ -56,6 +56,7 @@ $english = array(
 	'simplekaltura:label:vidplays' => 'Plays: %s ', 
 	'simplekaltura:label:admintags' => 'Admin Tags (Used to identify this particular Elgg site\'s videos)',
 	'simplekaltura:label:unavailable' => 'Unavailable', 
+	'simplekaltura:label:download' => 'Download Video',
 	
 
 	// River

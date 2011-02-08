@@ -63,6 +63,7 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 }
 
 .simplekaltura-video-footer {
+	text-align: center;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #bbbbbb;
 }

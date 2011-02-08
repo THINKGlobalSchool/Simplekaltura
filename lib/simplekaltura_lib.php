@@ -296,16 +296,23 @@ function simplekaltura_delete_video($video) {
 /**
  * Helper function to update a simplekaltura video object
  * @param ElggObject 		$video - The elgg object to update
- * @param KalturaMediaEntry	$entry - The kaltura entry 
+ * @param KalturaMediaEntry	$entry - The kaltura entry, or null if none
  * @return bool 
  */
-function simplekaltura_update_video($video, $entry) {	
+function simplekaltura_update_video($video, $entry = null) {
+	// Don't necessarily need an entry here, if updating an existing video
+	if (!$entry) {
+		// Assume we're grabbing the entry of the current video
+		$entry = simplekaltura_get_entry($video->kaltura_entryid, true);
+	}
+		
 	// Set up an array of metadata mappings to populate
 	$metadata_names = array(
 		'duration',
 		'thumbnailUrl', 
 		'plays',
-		'views'
+		'views',
+		'downloadUrl'
 	);
 	
 	// Set metadata
