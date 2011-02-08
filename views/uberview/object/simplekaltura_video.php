@@ -29,7 +29,7 @@ $id = $vars['entity']->kaltura_entryid;
 
 $icon = "<img style='height: 100px; width: 140px;' onclick='javascript:simplekaltura_show_popup_$id()' src='$thumbnail_url' />";
 
-$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=400";
+$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=100%25&autoplay=true";
 
 
 

@@ -66,8 +66,10 @@ if ($vars['full']) { // Full view
 	// Owner Icon 
 	$owner_icon = elgg_view('profile/icon', array('entity' => $owner, 'size' => 'tiny'));
 	
+	$vars['entryid'] = $vars['entity']->kaltura_entryid;
+	
 	// Kaltura Widget
-	$widget = elgg_view('simplekaltura/widget_kdp3', $vars);
+	$widget = elgg_view('simplekaltura/widget', $vars);
 	
 	// Display content
 	echo <<<___END
@@ -118,7 +120,7 @@ ___END;
 	
 	$id = $vars['entity']->kaltura_entryid;
 	
-	$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=400&entryid=$id";
+	$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=100%25&autoplay=true&entryid=$id";
 
 	$icon = "<img onclick='javascript:video_listing_load_popup_by_id(\"popup-dialog-$id\", \"$pop_url\")' src='$thumbnail_url' />";
 	

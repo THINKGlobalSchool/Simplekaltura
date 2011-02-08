@@ -1,5 +1,6 @@
 <?php
 // KDP3 Test widget
+// This, according to kaltura, is broken.
 
 
 $player_width 		= get_plugin_setting('kaltura_player_width', 'simplekaltura');                           
