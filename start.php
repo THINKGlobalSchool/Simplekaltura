@@ -65,8 +65,7 @@ function simplekaltura_init() {
 function simplekaltura_page_handler($page) {
 	global $CONFIG;
 	set_context('simplekaltura');
-	gatekeeper();
-	
+
 	// Register Popup JS
 	elgg_register_js(elgg_get_site_url() . 'mod/simplekaltura/lib/listing-popup.js', 'video-listing-popup');
 
