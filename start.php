@@ -57,7 +57,10 @@ function simplekaltura_init() {
 	if (is_plugin_enabled('ubertags')) {
 		elgg_register_plugin_hook_handler('ubertags:subtype:heading', 'simplekaltura_video', 'simplekaltura_subtype_title_handler');
 	}
-
+	
+	// Register Popup JS
+	elgg_register_js(elgg_get_site_url() . 'mod/simplekaltura/lib/listing-popup.js', 'video-listing-popup');
+	
 	return true;
 }
 
@@ -65,10 +68,7 @@ function simplekaltura_init() {
 function simplekaltura_page_handler($page) {
 	global $CONFIG;
 	set_context('simplekaltura');
-
-	// Register Popup JS
-	elgg_register_js(elgg_get_site_url() . 'mod/simplekaltura/lib/listing-popup.js', 'video-listing-popup');
-
+	
 	elgg_push_breadcrumb(elgg_echo('videos'), "pg/videos"); // @TODO something better
 	
 	// Following the core blogs plugin page handler

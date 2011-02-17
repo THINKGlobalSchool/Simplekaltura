@@ -24,14 +24,11 @@ if (!($thumbnail_url = $vars['entity']->thumbnailUrl)) {
 	$thumbnail_url = get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $vars['entity']->kaltura_entryid;
 } 
 
-
 $id = $vars['entity']->kaltura_entryid;
 
-$icon = "<img style='height: 100px; width: 140px;' onclick='javascript:simplekaltura_show_popup_$id()' src='$thumbnail_url' />";
+$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=100%25&autoplay=true&entryid=$id";
 
-$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=100%25&autoplay=true";
-
-
+$icon = "<img onclick='javascript:video_listing_load_popup_by_id(\"popup-dialog-$id\", \"$pop_url\")' src='$thumbnail_url' />";
 
 $info = <<<___END
 <div class='entity_metadata'>
@@ -53,29 +50,7 @@ $tags
 	$kaltura_meta
 </p>
 $description
-<div id='popup_dialog_$id' class='simplekaltura_popup_dialog'></div>
-<script type='text/javascript'>
-
-$("#popup_dialog_$id").dialog({
-					autoOpen: false,
-					width: 500, 
-					modal: true,
-					open: function(event, ui) { 
-						console.log('opening');
-						$(".ui-dialog-titlebar-close").hide(); 	
-					},
-					buttons: {
-						"X": function() { 
-							$(this).dialog("close"); 
-						} 
-}});
-
-function simplekaltura_show_popup_$id() {
-	$("#popup_dialog_$id").dialog("open");
-	$("#popup_dialog_$id").load('$pop_url&entryid=' + '$id');
-}
-
-</script>
+<div id='popup-dialog-$id' class='simplekaltura-popup-dialog'></div>
 ___END;
 echo "<div class='simplekaltura simplekaltura-ubergallery'>" . $icon . $info . "</div>";
 
