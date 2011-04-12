@@ -10,13 +10,14 @@
  *
  */
 
-gatekeeper();
+group_gatekeeper();
 
 // Get inputs
 $title = get_input('video_title');
 $description = get_input('video_description');
 $tags = string_to_tag_array(get_input('video_tags'));
 $access = get_input('video_access');
+$container_guid = get_input('container_guid', NULL);
 
 // Kaltura related
 $k_guid = get_input('k_guid');
@@ -41,6 +42,10 @@ $video->kaltura_entryid = $k_entryid;
 $video->kaltura_bytesloaded = $k_bytesloaded;
 $video->kaltura_filetype = $k_filetype;
 
+if ($container_guid) {
+	$video->container_guid = $container_guid;
+}
+
 // If error saving, register error and return
 if (!$video->save()) {
 	register_error(elgg_echo('simplekaltura:error:save'));
@@ -58,5 +63,3 @@ add_to_river('river/object/simplekaltura/create', 'create', get_loggedin_userid(
 // Forward on
 system_message(elgg_echo('simplekaltura:success:save'));
 forward('pg/videos/view/' . $video->getGUID());
-
-?>

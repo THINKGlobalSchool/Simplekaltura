@@ -61,6 +61,16 @@ function simplekaltura_init() {
 	// Register Popup JS
 	elgg_register_js(elgg_get_site_url() . 'mod/simplekaltura/lib/listing-popup.js', 'video-listing-popup');
 	
+	// Add group option
+	add_group_tool_option('simplekaltura',elgg_echo('simplekaltura:enablegroup'), TRUE);
+	
+	// Profile hook	
+	elgg_register_plugin_hook_handler('profile_menu', 'profile', 'simplekaltura_profile_menu');
+	
+	// Extend Groups profile page
+	elgg_extend_view('groups/tool_latest','simplekaltura/group_module');
+	
+	
 	return true;
 }
 
@@ -80,8 +90,15 @@ function simplekaltura_page_handler($page) {
 	
 	switch ($page_type) {
 		case 'owner':
-			$user = get_user_by_username($page[1]);
-			$params = simplekaltura_get_page_content_list($user->guid);
+			if (isset($page[1])) {
+				$owner_name = $page[1];
+				set_input('username', $owner_name);
+			} else {
+				set_page_owner(get_loggedin_userid());
+			}
+			// grab the page owner
+			$owner = elgg_get_page_owner();
+			$params = simplekaltura_get_page_content_list($owner->guid);
 			break;
 		case 'friends': 
 			$user = get_user_by_username($page[1]);
@@ -131,6 +148,27 @@ function simplekaltura_submenus() {
 	elgg_add_submenu_item(array('text' => elgg_echo('simplekaltura:title:allvideos'), 
 								'href' => elgg_get_site_url() . 'pg/videos/' ), 'simplekaltura');
 
+}
+
+/**
+ * Plugin hook to add simplekaltura videos to the profile block
+ * 	
+ * @param unknown_type $hook
+ * @param unknown_type $entity_type
+ * @param unknown_type $returnvalue
+ * @param unknown_type $params
+ * @return unknown
+ */
+function simplekaltura_profile_menu($hook, $entity_type, $return_value, $params) {
+	global $CONFIG;
+
+	if ($params['owner'] instanceof ElggUser || $params['owner']->simplekaltura_enable == 'yes') {
+		$return_value[] = array(
+			'text' => elgg_echo('simplekaltura:spotvideo'),
+			'href' => "{$CONFIG->url}pg/videos/owner/{$params['owner']->username}",
+		);
+	}
+	return $return_value;
 }
 
 /**

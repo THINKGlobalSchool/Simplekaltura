@@ -10,8 +10,6 @@
  *
  */
 
-gatekeeper();
-
 $guid = get_input('guid', null);
 $video = get_entity($guid);
 

@@ -10,10 +10,6 @@
  *
  */
 
-gatekeeper();
-
-
-
 // Get inputs
 $guid 			= get_input('video_guid', null);
 $title 			= get_input('video_title');
@@ -56,5 +52,3 @@ if (elgg_instanceof($video, 'object', 'simplekaltura_video') && $video->canEdit(
 } else {
 	register_error(elgg_echo('simplekaltura:error:notfound'));
 }
-
-?>

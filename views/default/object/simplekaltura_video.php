@@ -12,7 +12,7 @@
 // Get entity info
 $title = $vars['entity']->title;
 $owner = $vars['entity']->getOwnerEntity();
-$owner_video_link = "<a href=\"".elgg_get_site_url()."pg/videos/$owner->username\">{$owner->name}</a>";
+$owner_video_link = "<a href=\"".elgg_get_site_url()."pg/videos/owner/$owner->username\">{$owner->name}</a>";
 $friendlytime = elgg_view_friendly_time($vars['entity']->time_created);
 $owner_text = elgg_echo('simplekaltura:label:posted_by', array($owner_video_link)) . ' ' . $friendlytime;
 $address = $vars['entity']->getURL();

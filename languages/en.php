@@ -21,6 +21,7 @@ $english = array(
 	'simplekaltura:ownedvideos' => '%s',
 	'simplekaltura:none' => 'No Videos',
 	'simplekaltura:spotvideo' => 'Spot Videos',
+	'simplekaltura:enablegroup' => 'Enable group spot videos',
 	
 	// Titles 
 	'admin:plugin_settings:simplekaltura' => 'Simple Kaltura Settings',

@@ -20,7 +20,7 @@ function simplekaltura_get_page_content_edit($page_type, $guid) {
 		
 		if (elgg_instanceof($video, 'object', 'simplekaltura_video') && $video->canEdit()) {
 			$vars['entity'] = $video;
-			
+			elgg_set_page_owner_guid($video->container_guid);
 			$title = elgg_echo('simplekaltura:title:editvideo');
 
 			elgg_push_breadcrumb($video->title, $video->getURL());
@@ -34,7 +34,7 @@ function simplekaltura_get_page_content_edit($page_type, $guid) {
 	} else {
 		$title = elgg_echo('simplekaltura:title:uploadnew');
 		if (!$guid) {
-			$container = get_loggedin_user();
+			$container = elgg_get_page_owner();
 		} else {
 			$container = get_entity($guid);
 		}
@@ -82,6 +82,7 @@ function simplekaltura_get_page_content_list($container_guid = NULL) {
 
 	$loggedin_userid = get_loggedin_userid();
 	if ($container_guid) {
+		
 		$options['container_guid'] = $container_guid;
 		$container = get_entity($container_guid);
 		if (!$container) {
@@ -96,22 +97,6 @@ function simplekaltura_get_page_content_list($container_guid = NULL) {
 		if ($container_guid == $loggedin_userid) {
 			$return['filter_context'] = 'mine';
 		} 
-
-		/* Groups..
-		if (elgg_instanceof($container, 'group')) {
-			$return['filter'] = '';
-			if ($container->isMember(get_loggedin_user())) {
-				$url = "pg/videos/new/$container->guid";
-				$params = array(
-					'href' => $url,
-					'text' => elgg_echo("blog:new"),
-					'class' => 'elgg-action-button',
-				);
-				$buttons = elgg_view('output/url', $params);
-				$return['buttons'] = $buttons;
-			}
-		}
-		*/
 	} else {
 		$return['filter_context'] = 'everyone';
 		$return['title'] = elgg_echo('simplekaltura:title:allvideos');
@@ -126,7 +111,7 @@ function simplekaltura_get_page_content_list($container_guid = NULL) {
 		'new_link' => elgg_get_site_url() . "pg/videos/new/" . $container_guid,
 	));
 	
-	if ($container_guid && ($container_guid != $loggedin_userid)) {
+	if ($container_guid && ($container_guid != $loggedin_userid) && !elgg_instanceof($container, 'group')) {
 		// do not show content header when viewing other users' posts
 		$header = elgg_view('page_elements/content_header_member', array('type' => 'Videos'));
 	}
