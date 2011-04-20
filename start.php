@@ -47,6 +47,9 @@ function simplekaltura_init() {
 	// Timeline icon handler
 	elgg_register_plugin_hook_handler('ubertags:timeline:icon', 'simplekaltura_video', 'ubertags_timeline_video_icon_handler');
 	
+	// Change Tag Dashboards Heading
+	elgg_register_plugin_hook_handler('tagdashboards:subtype:heading', 'simplekaltura_video', 'simplekaltura_heading_handler');
+	
 	// Register type
 	register_entity_type('object', 'simplekaltura_video');		
 	
@@ -187,6 +190,11 @@ function ubertags_timeline_video_icon_handler($hook, $type, $returnvalue, $param
 		return elgg_get_site_url() . "mod/simplekaltura/images/simplekaltura_video.gif";
 	}
 	return false;
+}
+
+/* Handler to change the heading for simplekaltura videos */
+function simplekaltura_heading_handler($hook, $type, $returnvalue, $params) {
+	return elgg_echo('simplekaltura:spotvideo');
 }
 
 /**
