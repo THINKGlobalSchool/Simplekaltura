@@ -1,13 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<plugin_manifest>
-	<field key="name" value="Simple Kaltura" />
-    <field key="author" value="Jeff Tilson" />
-    <field key="version" value="SVN (1.8)" />
-    <field key="description" value="Simple Kaltura Video Uploader" />
-    <field key="website" value="http://www.thinkglobalschool.com" />
-    <field key="copyright" value="(C) THINK Global School 2009-2010" />
-    <field key="licence" value="GNU Public License version 2" />
-    <field key="elgg_version" value="2010111501" />    
-	<field key="elgg_install_state" value="enabled" />
-	<field key="admin_interface" value="simple" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<plugin_manifest xmlns="http://www.elgg.org/plugin_manifest/1.8">
+	<name>Simple Kaltura</name>
+	<author>Jeff Tilson</author>
+	<version>SVN (1.8)</version>
+	<description>Simple Kaltura Video Uploader</description>
+	<website>http://www.thinkglobalschool.com</website>
+	<copyright>(C) THINK Global School 2009-2010</copyright>
+	<licence>GNU Public License version 2</licence>
+
+	<activate_on_install>true</activate_on_install>
+	<admin_interface>simple</admin_interface>
+
+   	<requires>
+		<type>elgg_version</type>
+		<version>2010111501</version>
+	</requires>
 </plugin_manifest>
