@@ -9,6 +9,9 @@
  * @link http://www.thinkglobalschool.org
  */
 
+elgg_load_library('simplekaltura');
+elgg_load_library('KalturaClient');
+
 // Get entity info
 $title = $vars['entity']->title;
 $owner = $vars['entity']->getOwnerEntity();
@@ -20,6 +23,7 @@ $parsed_url = parse_url($address);
 $object_acl = elgg_view('output/access', array('entity' => $vars['entity']));
 
 // Do an update
+// @todo why?
 simplekaltura_update_video($vars['entity']);
 
 // Comments
@@ -50,9 +54,9 @@ if ($vars['entity']->canEdit()) {
 // View to override
 $edit .= elgg_view("simplekaltura/options",array('entity' => $vars['entity']));
 
-// Add favorites and likes
-$favorites .= elgg_view("favorites/form",array('entity' => $vars['entity']));
-$likes .= elgg_view_likes($vars['entity']); // include likes
+// Add favorites
+// @todo not supported in 1.8 yet
+//$favorites .= elgg_view("favorites/form",array('entity' => $vars['entity']));
 
 // Tags
 $tags = elgg_view('output/tags', array('tags' => $vars['entity']->tags));
@@ -70,14 +74,14 @@ if ($download_url = $vars['entity']->downloadUrl) {
 }
 
 if ($vars['full']) { // Full view
-	// Owner Icon 
+	// Owner Icon
 	$owner_icon = elgg_view('profile/icon', array('entity' => $owner, 'size' => 'tiny'));
-	
+
 	$vars['entryid'] = $vars['entity']->kaltura_entryid;
-	
+
 	// Kaltura Widget
 	$widget = elgg_view('simplekaltura/widget', $vars);
-	
+
 	// Display content
 	echo <<<___END
 	<div class="simplekaltura_video clearfix">
@@ -90,8 +94,8 @@ if ($vars['full']) { // Full view
 		</div>
 		<div class="entity_listing_info">
 			<div class="entity_metadata">
-				$edit 
-				$favorites 
+				$edit
+				$favorites
 				$likes
 			</div>
 			<p class="entity_subtext">
@@ -117,24 +121,24 @@ ___END;
 	// Grab thumbnail
 	if (!($thumbnail_url = $vars['entity']->thumbnailUrl)) {
 		$thumbnail_url = get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $vars['entity']->kaltura_entryid;
-	} 
-	
+	}
+
 	// View description pop-down
 	if ($vars['entity']->description != '') {
 		$view_desc = "| <a class='link' onclick=\"elgg_slide_toggle(this,'.entity_listing','.note');\">" . elgg_echo('description') . "</a>";
-		$description = "<div class='note hidden'>". $vars['entity']->description . "</div>";	
-	} 
-	
+		$description = "<div class='note hidden'>". $vars['entity']->description . "</div>";
+	}
+
 	$id = $vars['entity']->kaltura_entryid;
-	
+
 	$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=100%25&autoplay=true&entryid=$id";
 
 	$icon = "<img onclick='javascript:video_listing_load_popup_by_id(\"popup-dialog-$id\", \"$pop_url\")' src='$thumbnail_url' />";
-	
+
 	$info = <<<___END
 	<div class='entity_metadata'>
-		$edit 
-		$favorites 
+		$edit
+		$favorites
 		$likes
 	</div>
 	<p class='entity_title'>
