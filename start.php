@@ -10,7 +10,6 @@
  *
  *
  * /////////// @TODO ///////////////
- * - Elggy my/friends/everyone
  * - Entity views/listings
  * - What to do for deletes?
  *
@@ -20,8 +19,17 @@
  * - Comments should be added in the object/simplekaltura_video view or the page handler scripts.
  *   The plugin hook is deprecated.
  *
+ * - Move download link to entity menu?
+ *
+ * - What is Ubertags?
+ *
+ * - Use ElggBatch for bulk updates.
+ *
+ * - Popup stuff.
+ *
+ * - Remove extra view stuff in entity view.
+ *
  */
-
 
 register_elgg_event_handler('init', 'system', 'simplekaltura_init');
 
@@ -54,12 +62,9 @@ function simplekaltura_init() {
 	elgg_register_action('simplekaltura/update', "$actions_root/update.php");
 	elgg_register_action('simplekaltura/delete', "$actions_root/delete.php");
 
-	// Setup url handler for simple kaltura videos
+	// entity url and icon handlers
 	register_entity_url_handler('simplekaltura_url_handler', 'object', 'simplekaltura_video');
-
-	// Comment handler
-	// in the views
-	//elgg_register_plugin_hook_handler('entity:annotate', 'object', 'simplekaltura_annotate_comments');
+	elgg_register_plugin_hook_handler('entity:icon:url', 'object', 'simplekaltura_icon_url_override');
 
 	// Timeline icon handler
 	elgg_register_plugin_hook_handler('ubertags:timeline:icon', 'simplekaltura_video', 'ubertags_timeline_video_icon_handler');
@@ -67,7 +72,7 @@ function simplekaltura_init() {
 	// Register type
 	elgg_register_entity_type('object', 'simplekaltura_video');
 
-	//register CRON hook to poll video plays/duration/etc..
+	// register CRON hook to poll video plays/duration/etc..
 	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
 
 	// Register some hooks for Ubertags support
@@ -154,37 +159,33 @@ function ubertags_timeline_video_icon_handler($hook, $type, $returnvalue, $param
 	return false;
 }
 
-/**
- * Hook into the framework and provide comments on  simple kaltura videos
- *
- * @param unknown_type $hook
- * @param unknown_type $entity_type
- * @param unknown_type $returnvalue
- * @param unknown_type $params
- * @return unknown
- */
-function simplekaltura_annotate_comments($hook, $entity_type, $returnvalue, $params) {
-	$entity = $params['entity'];
-	$full = $params['full'];
-
-	if (
-		($entity instanceof ElggEntity) &&	// Is the right type
-		($entity->getSubtype() == 'simplekaltura_video') &&  // Is the right subtype
-		($full) // This is the full view
-	)
-	{
-		// Display comments
-		return elgg_view_comments($entity);
-	}
-
-}
-
 /* Handler to change name of Albums to Photos */
 function simplekaltura_subtype_title_handler($hook, $type, $returnvalue, $params) {
 	if ($type == 'simplekaltura_video') {
 		return 'Spot Videos';
 	}
 }
+
+
+/**
+ * Override the default entity icon for videos
+ *
+ * @return string Relative URL
+ */
+function simplekaltura_icon_url_override($hook, $type, $returnvalue, $params) {
+	$video = $params['entity'];
+	$size = $params['size'];
+	
+	if (elgg_instanceof($video, 'object', 'simplekaltura_video')) {
+		$thumbnail_url = $vars['entity']->thumbnailUrl;
+		if (!$thumbnail_url) {
+			$thumbnail_url = get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $video->kaltura_entryid;
+		}
+
+		return $thumbnail_url;
+	}
+}
+
 
 /**
  * Prepares form vars for simplekaltura_video objects

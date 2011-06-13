@@ -14,7 +14,7 @@ $player_width 		= $vars['width'] ? $vars['width'] : get_plugin_setting('kaltura_
 $player_height 		= $vars['height'] ? $vars['height'] : get_plugin_setting('kaltura_player_height', 'simplekaltura');    
 $widgetid 			= "_" . get_plugin_setting('kaltura_partnerid', 'simplekaltura');   // specific player instance (default to '_'+partnerId)
 $uiConfId 			= get_plugin_setting('kaltura_custom_player_id', 'simplekaltura'); 	// Which player to use
-$entryid 			= $vars['entryid'];			                            			// ENTRY ID TO PLAYBACK 	
+$entryid 			= $vars['entity']->kaltura_entryid;			                            			// ENTRY ID TO PLAYBACK
 $host 				= "www.kaltura.com";                      							// THE URL TO THE KALTURA SERVER 
 $debugmode 			= "0";                                       						// DEBUGGING OF PLUGINS 
 $autoPlay 			= $vars['autoplay'] ?  $vars['autoplay'] : false;						// BOOLEAN FOR AUTOPLAY
@@ -23,25 +23,32 @@ $downloadBeforePlay = "0";              												// NO PLAYBACK SHOULD BE AVA
 $disableUrlHashing 	= "1";                       										// INDICATE THAT NO DYNAMIC SUB-DOMAINS SHOULD BE USED
 $localUiFunc 		= "";                                      							// FOR DEBUGGING OF LOCAL (IN-PAGE) UICONF XML
 
-// JS
-//echo elgg_view('simplekaltura/ksu_js');
+$download_url = $vars['entity']->downloadUrl;
+$download_link = '';
+if ($download_url) {
+	$download_link = "<a href='$download_url'>" . elgg_echo('simplekaltura:label:download') . "</a>";
+}
+
 ?>
-<br />
-<object id="kaltura_player" 
-		name="kaltura_player"
-		type="application/x-shockwave-flash"
-		allowFullScreen="true" 
-		allowNetworking="all"
-		allowScriptAccess="always" 
-		height="<?php echo $player_height; ?>" 
-		width="<?php echo $player_width; ?>"
-		data="http://www.kaltura.com/index.php/kwidget/wid/<?php echo $widgetid; ?>/uiconf_id/<?php echo $uiConfId; ?>/entry_id/<?php echo $entryid;?>"
->
-	<param name="allowFullScreen" value="true" />
-	<param name="allowNetworking" value="all" />
-	<param name="allowScriptAccess" value="always" />
-	<param name="bgcolor" value="#000000" />
-	<param name="flashVars" value="&autoPlay=<?php echo $autoPlay; ?>&entryId=<?php echo $entryid; ?>" />
-	<param name="movie" value="http://www.kaltura.com/index.php/kwidget/wid/<?php echo $widgetid; ?>/uiconf_id/<?php echo $uiConfId ?>/entry_id/<?php echo $entryid;?>" />
-</object>
-<div style='clear: both;'></div>
+
+<div class='elgg-kaltura-player center'>
+	<object id="kaltura_player"
+			name="kaltura_player"
+			type="application/x-shockwave-flash"
+			allowFullScreen="true"
+			allowNetworking="all"
+			allowScriptAccess="always"
+			height="<?php echo $player_height; ?>"
+			width="<?php echo $player_width; ?>"
+			data="http://www.kaltura.com/index.php/kwidget/wid/<?php echo $widgetid; ?>/uiconf_id/<?php echo $uiConfId; ?>/entry_id/<?php echo $entryid;?>"
+	>
+		<param name="allowFullScreen" value="true" />
+		<param name="allowNetworking" value="all" />
+		<param name="allowScriptAccess" value="always" />
+		<param name="bgcolor" value="#000000" />
+		<param name="flashVars" value="&autoPlay=<?php echo $autoPlay; ?>&entryId=<?php echo $entryid; ?>" />
+		<param name="movie" value="http://www.kaltura.com/index.php/kwidget/wid/<?php echo $widgetid; ?>/uiconf_id/<?php echo $uiConfId ?>/entry_id/<?php echo $entryid;?>" />
+	</object>
+	<br />
+	<?php echo $download_link; ?>
+</div>

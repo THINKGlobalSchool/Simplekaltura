@@ -327,6 +327,8 @@ function simplekaltura_update_video($video, $entry = null) {
  * Cron function to update all simplekaltura_video objects
  */
 function simplekaltura_bulk_update() {
+	elgg_load_library('simplekaltura');
+	elgg_load_library('KalturaClient');
 
 	// Get a kaltura client
 	$client = simplekaltura_create_client(true);
