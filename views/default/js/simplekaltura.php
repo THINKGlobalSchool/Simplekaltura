@@ -1,0 +1,5 @@
+<?php
+/**
+ * Simple Kaltura JS
+ */
+

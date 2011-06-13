@@ -19,6 +19,7 @@
  * - This plugin doesn't lend itself well to sticky forms. Not sure what to do about that.
  * - Comments should be added in the object/simplekaltura_video view or the page handler scripts.
  *   The plugin hook is deprecated.
+ *
  */
 
 
@@ -30,8 +31,16 @@ function simplekaltura_init() {
 	elgg_register_library('simplekaltura', "$plugin_root/lib/simplekaltura_lib.php");
 	elgg_register_library('KalturaClient', "$plugin_root/vendors/kaltura_client_v3/KalturaClient.php");
 
-	$url = elgg_get_simplecache_url('js', 'js/simplekaltura/listing-popup');
-	elgg_register_js('simplekaltura:listing', $url);
+	$url = elgg_get_simplecache_url('js', 'simplekaltura');
+	elgg_register_js('simplekaltura', $url);
+
+	// helper libs
+	$libs = array('listing-popup', 'uploader', 'widget', 'swfobject', 'html5');
+
+	foreach ($libs as $lib) {
+		$url = elgg_get_simplecache_url('js', "simplekaltura/$lib");
+		elgg_register_js("simplekaltura:$lib", $url);
+	}
 
 	elgg_extend_view('css/elgg', 'simplekaltura/css');
 	elgg_register_page_handler('videos', 'simplekaltura_page_handler');
