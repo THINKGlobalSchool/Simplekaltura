@@ -9,7 +9,6 @@
 	<licence>GNU Public License version 2</licence>
 
 	<activate_on_install>true</activate_on_install>
-	<admin_interface>simple</admin_interface>
 
    	<requires>
 		<type>elgg_version</type>

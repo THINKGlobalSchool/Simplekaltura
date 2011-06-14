@@ -46,7 +46,6 @@ function simplekaltura_init() {
 		elgg_register_js("simplekaltura:$lib", $url);
 	}
 
-	elgg_extend_view('css/elgg', 'simplekaltura/css');
 	elgg_register_page_handler('videos', 'simplekaltura_page_handler');
 
 	// menus
