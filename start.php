@@ -23,9 +23,10 @@
  *
  * - What is Ubertags?
  *
- * - Use ElggBatch for bulk updates.
+ * - Figure out when to do the pull from Kaltura for stats. Bulk updates every 15 minutes are best,
+ *   but IIRC it was previously doing updates on every entity view.
  *
- * - Popup stuff.
+ * - View counter doesn't seem to work correctly. It's also a bit off on spotmigration.
  *
  */
 

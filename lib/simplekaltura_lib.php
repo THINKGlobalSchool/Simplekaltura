@@ -171,23 +171,19 @@ function simplekaltura_bulk_update() {
 	$result = $client->media->listAction($filter, $pager);
 
 	// Get elgg entities
-	$params = array(
+	$options = array(
 		'type' => 'object',
 		'subtype' => 'simplekaltura_video',
 		'limit' => 0
 	);
 
+	$ia = elgg_set_ignore_access(true);
 
-	// Ignore access here to grab and work with elgg objects
-	$access = elgg_get_access_object();
-	$ia = $access->getIgnoreAccess();
-	$access->setIgnoreAccess(true);
-
-	$videos = elgg_get_entities($params);
-
-	// Create array of video entry_ids from elgg entities
+	// just need an array of the kaltura ids and GUIDs
+	$batch = new ElggBatch('elgg_get_entities', $options);
 	$video_ids = array();
-	foreach($videos as $video) {
+
+	foreach($batch as $video) {
 		if ($video->kaltura_entryid) {
 			$video_ids[$video->kaltura_entryid] = $video->getGUID();
 		}
@@ -197,13 +193,14 @@ function simplekaltura_bulk_update() {
 	$success = true;
 	foreach ($result->objects as $entry) {
 		// If it exists..
-		if ($video_guid = $video_ids[$entry->id]) {
+		$video_guid = elgg_extract($entry->id, $video_ids);
+		if ($video_guid) {
 			$videoupdate = get_entity($video_guid);
 			$success &= simplekaltura_update_video($videoupdate, $entry);
 		}
 	}
 
-	$access->setIgnoreAccess($ia);
+	elgg_set_ignore_access($ia);
 
 	return $success;
 }
