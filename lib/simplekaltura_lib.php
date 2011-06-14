@@ -10,181 +10,6 @@
  *
  */
 
-/* Get edit/create content */
-function simplekaltura_get_page_content_edit($page_type, $guid) {
-	$vars = array();
-	if ($page_type == 'edit') {
-		$video = get_entity((int)$guid);
-
-		if (elgg_instanceof($video, 'object', 'simplekaltura_video') && $video->canEdit()) {
-			$vars['entity'] = $video;
-
-			$title = elgg_echo('simplekaltura:title:editvideo');
-
-			elgg_push_breadcrumb($video->title, $video->getURL());
-			elgg_push_breadcrumb(elgg_echo('edit'));
-
-			$content = elgg_view_title($title) . elgg_view('simplekaltura/forms/edit', $vars);
-
-		} else {
-			$content = elgg_echo('simplekaltura:error:notfound');
-		}
-	} else {
-		$title = elgg_echo('simplekaltura:title:uploadnew');
-		if (!$guid) {
-			$container = get_loggedin_user();
-		} else {
-			$container = get_entity($guid);
-		}
-		elgg_set_page_owner_guid($container->guid);
-
-		elgg_push_breadcrumb(elgg_echo('simplekaltura:label:new'));
-		$content =  elgg_view_title($title) . elgg_view('simplekaltura/forms/edit', $vars);
-	}
-
-
-	return array('content' => $content, 'title' => $title, 'layout' => 'one_column_with_sidebar');
-}
-
-/* View a video  */
-function simplekaltura_get_page_content_view($guid) {
-	$video = get_entity($guid);
-	$owner = get_entity($video->container_guid);
-	set_page_owner($owner->getGUID());
-	elgg_push_breadcrumb($owner->name, elgg_get_site_url() . 'pg/videos/owner/' . $owner->username);
-	elgg_push_breadcrumb($video->title, $video->getURL());
-	$return['title'] = $video->title;
-	$return['content'] = elgg_view_entity($video, true);
-	$return['layout'] = 'one_column_with_sidebar';
-
-	return $return;
-}
-
-/**
- * Get page components to list a user's or all simple kaltura videos
- *
- * @param int $owner_guid The GUID of the page owner or NULL for all videos
- * @return array
- */
-function simplekaltura_get_page_content_list($container_guid = NULL) {
-
-	$return = array();
-	$return['layout'] = 'one_column_with_sidebar'; // @TODO Temporary.. until we're up to latest code level
-
-	$options = array(
-		'type' => 'object',
-		'subtype' => 'simplekaltura_video',
-		'full_view' => FALSE,
-		'limit' => 5
-	);
-
-	$loggedin_userid = get_loggedin_userid();
-	if ($container_guid) {
-		$options['container_guid'] = $container_guid;
-		$container = get_entity($container_guid);
-		if (!$container) {
-
-		}
-		$return['title'] = elgg_echo('simplekaltura:title:uservideos', array($container->name));
-		elgg_set_page_owner_guid($container_guid);
-
-		$crumbs_title = elgg_echo('simplekaltura:ownedvideos', array($container->name));
-		elgg_push_breadcrumb($crumbs_title);
-
-		if ($container_guid == $loggedin_userid) {
-			$return['filter_context'] = 'mine';
-		}
-	} else {
-		$return['filter_context'] = 'everyone';
-		$return['title'] = elgg_echo('simplekaltura:title:allvideos');
-	}
-
-	$header = elgg_view('page_elements/content_header', array(
-		'context' => $return['filter_context'],
-		'type' => 'simplekaltura_video',
-		'all_link' => elgg_get_site_url() . "pg/videos",
-		'mine_link' => elgg_get_site_url() . "pg/videos/owner/" . get_loggedin_user()->username,
-		'friend_link' => elgg_get_site_url() . "pg/videos/friends/" . get_loggedin_user()->username,
-		'new_link' => elgg_get_site_url() . "pg/videos/new/" . $container_guid,
-	));
-
-	if ($container_guid && ($container_guid != $loggedin_userid)) {
-		// do not show content header when viewing other users' posts
-		$header = elgg_view('page_elements/content_header_member', array('type' => 'Videos'));
-	}
-
-
-	$list = elgg_list_entities($options);
-	if (!$list) {
-		$return['content'] = elgg_view('simplekaltura/noresults');
-	} else {
-		$return['content'] = $list;
-	}
-
-	$return['content'] = $header . $return['content'];
-
-	return $return;
-}
-
-/**
- * Get page components to list of the user's friends' video posts
- *
- * @param int $user_guid
- * @return array
- */
-function simplekaltura_get_page_content_friends($user_guid) {
-
-	elgg_set_page_owner_guid($user_guid);
-	$user = get_user($user_guid);
-
-	$return = array();
-
-	$return['filter_context'] = 'friends';
-	$return['title'] = elgg_echo('simplekaltura:title:friendsvideos');
-	$return['layout'] = 'one_column_with_sidebar';
-
-	$crumbs_title = elgg_echo('simplekaltura:ownedvideos', array($user->name));
-	elgg_push_breadcrumb($crumbs_title, "pg/videos/owner/{$user->username}");
-	elgg_push_breadcrumb(elgg_echo('simplekaltura:label:friends'));
-
-	if (!$friends = get_user_friends($user_guid, ELGG_ENTITIES_ANY_VALUE, 0)) {
-		$return['content'] .= elgg_echo('friends:none:you');
-		return $return;
-	} else {
-		$options = array(
-			'type' => 'object',
-			'subtype' => 'simplekaltura_video',
-			'full_view' => FALSE,
-			'limit' => 5
-		);
-
-		foreach ($friends as $friend) {
-			$options['container_guids'][] = $friend->getGUID();
-		}
-
-		$list = elgg_list_entities($options);
-		if (!$list) {
-			$return['content'] = elgg_view('simplekaltura/noresults');
-		} else {
-			$return['content'] = $list;
-		}
-	}
-
-	$header = elgg_view('page_elements/content_header', array(
-		'context' => $return['filter_context'],
-		'type' => 'simplekaltura_video',
-		'all_link' => elgg_get_site_url() . "pg/videos",
-		'mine_link' => elgg_get_site_url() . "pg/videos/owner/" . get_loggedin_user()->username,
-		'friend_link' => elgg_get_site_url() . "pg/videos/friends/" . get_loggedin_user()->username,
-		'new_link' => elgg_get_site_url() . "pg/videos/new/" . $container_guid,
-	));
-
-	$return['content'] = $header . $return['content'];
-
-	return $return;
-}
-
-
 /**
  * Helper function to create KalturaConfiguration
  * @return KalturaConfiguration
@@ -383,6 +208,15 @@ function simplekaltura_bulk_update() {
 	return $success;
 }
 
+/**
+ * Creates a friendly time for Kaltura videos.
+ *
+ * Converts seconds to hours
+ *
+ * @param type $sec
+ * @param type $padHours
+ * @return type string The time
+ */
 function simplekaltura_sec2hms ($sec, $padHours = false) {
 	if ($sec) {
 	    $hms = "";
@@ -414,6 +248,65 @@ function simplekaltura_sec2hms ($sec, $padHours = false) {
 	}
 }
 
+/**
+ * Prepares form vars for simplekaltura_video objects
+ *
+ * @param ElggObject $entity Optional entity to base values on
+ * @return array
+ */
+function simplekaltura_prepare_form_vars($entity = null) {
+	// input names => defaults
+	$values = array(
+		'title' => '',
+		'description' => '',
+		'access_id' => ACCESS_DEFAULT,
+		'tags' => '',
+		'container_guid' => elgg_get_page_owner_guid(),
+		'guid' => null,
+		'comments_on' => 'On',
+		'entity' => $entity,
+	);
 
+	if ($entity) {
+		foreach (array_keys($values) as $field) {
+			if (isset($entity->$field)) {
+				$values[$field] = $entity->$field;
+			}
+		}
+	}
 
-?>
+	if (elgg_is_sticky_form('simplekaltura')) {
+		$sticky_values = elgg_get_sticky_values('rubrics');
+		foreach ($sticky_values as $key => $value) {
+			$values[$key] = $value;
+		}
+	}
+
+	elgg_clear_sticky_form('simplekaltura');
+
+	return $values;
+}
+
+/**
+ * Builds and returns the URL for the SWF object for a video.
+ *
+ * @param ElggEntity $video
+ * @return string The URL for the swf object on Kaltura's server
+ */
+function simplekaltura_get_swf_url(ElggEntity $video) {
+	if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
+		return false;
+	}
+
+	$widgetid = "_" . get_plugin_setting('kaltura_partnerid', 'simplekaltura');
+	$uiConfId = get_plugin_setting('kaltura_custom_player_id', 'simplekaltura');
+	$entryid = $video->kaltura_entryid;
+
+	return "http://www.kaltura.com/index.php/kwidget"
+		. "/wid/$widgetid"
+		. "/uiconf_id/$uiConfId"
+		. "/entry_id/$entryid"
+		// append a fake filename.swf to keep things from freaking out in JSON because of
+		// same origin policies.
+		. '/video.swf';
+}

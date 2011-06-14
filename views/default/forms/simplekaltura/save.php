@@ -17,6 +17,7 @@ $access_id = elgg_extract('access_id', $vars, ACCESS_LOGGED_IN);
 $guid = elgg_extract('guid', $vars);
 $container_guid = elgg_extract('container_guid', $vars);
 $entity = elgg_extract('entity', $vars);
+$comments_on = elgg_extract('comments_on', $vars, 'On');
 
 $widget = '';
 
@@ -87,12 +88,18 @@ $access_content = elgg_view('input/access', array(
 	'value' => $access_id
 ));
 
+$comments_label = elgg_echo('comments');
+$comments_content = elgg_view('input/dropdown', array(
+	'name' => 'comments_on',
+	'value' => $comments_on,
+	'options_values' => array('On' => elgg_echo('on'), 'Off' => elgg_echo('off'))
+));
+
 $submit_input = elgg_view('input/submit', array(
 	'id' => 'simplekaltura_submit',
 	'name' => 'save',
 	'value' => elgg_echo('save')
 ));
-
 
 // Hidden inputs for kaltura entries
 $k_guid_input = elgg_view('input/hidden', array(
@@ -135,6 +142,10 @@ $new_js
 	<div>
 		<label>$tag_label</label><br />
         $tag_input
+	</div><br />
+	<div>
+		<label>$comments_label</label><br />
+		$comments_content
 	</div><br />
 	<div>
 		<label>$access_label</label><br />

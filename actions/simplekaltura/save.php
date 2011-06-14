@@ -18,6 +18,7 @@ $description = get_input('video_description');
 $tags = get_input('video_tags');
 $tags_str  = string_to_tag_array($tags);
 $access = get_input('video_access');
+$comments_on = get_input('comments_on', 'On');
 
 $guid = get_input('guid');
 $video = get_entity($guid);
@@ -54,6 +55,7 @@ $video->title = $title;
 $video->description = $description;
 $video->tags = $tags_str;
 $video->access_id = $access;
+$video->comments_on = $comments_on;
 
 // If error saving, register error and return
 if (!$video->save()) {

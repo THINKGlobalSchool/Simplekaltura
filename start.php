@@ -27,8 +27,6 @@
  *
  * - Popup stuff.
  *
- * - Remove extra view stuff in entity view.
- *
  */
 
 register_elgg_event_handler('init', 'system', 'simplekaltura_init');
@@ -38,9 +36,6 @@ function simplekaltura_init() {
 
 	elgg_register_library('simplekaltura', "$plugin_root/lib/simplekaltura_lib.php");
 	elgg_register_library('KalturaClient', "$plugin_root/vendors/kaltura_client_v3/KalturaClient.php");
-
-	$url = elgg_get_simplecache_url('js', 'simplekaltura');
-	elgg_register_js('simplekaltura', $url);
 
 	// helper libs
 	$libs = array('listing-popup', 'uploader', 'widget', 'swfobject', 'html5');
@@ -54,7 +49,7 @@ function simplekaltura_init() {
 	elgg_register_page_handler('videos', 'simplekaltura_page_handler');
 
 	// menus
-	add_menu(elgg_echo("simplekaltura:spotvideo"), 'pg/videos');
+	add_menu(elgg_echo("simplekaltura:spotvideo"), 'videos');
 
 	// actions
 	$actions_root = "$plugin_root/actions/simplekaltura";
@@ -93,13 +88,12 @@ function simplekaltura_init() {
  *  New video:        videos/add/<guid>
  *  Edit video:       videos/edit/<guid>
  *  Group videos:     videos/group/<guid>/owner
+ *  Popup video:      videos/popup/<guid>
  *
  * @param string $page
  */
 function simplekaltura_page_handler($page) {
-	global $CONFIG;
 	elgg_push_context('simplekaltura');
-
 	elgg_push_breadcrumb(elgg_echo('videos'), 'videos');
 
 	if (!isset($page[0])) {
@@ -124,12 +118,19 @@ function simplekaltura_page_handler($page) {
 			break;
 
 		case 'add':
+			elgg_load_library('simplekaltura');
 			include "$pages_dir/add.php";
 			break;
 
 		case 'edit':
+			elgg_load_library('simplekaltura');
 			set_input('guid', elgg_extract(1, $page));
 			include "$pages_dir/edit.php";
+			break;
+
+		case 'popup':
+			set_input('guid', elgg_extract(1, $page));
+			include "$pages_dir/popup.php";
 			break;
 
 		case 'all':
@@ -148,7 +149,7 @@ function simplekaltura_page_handler($page) {
  * @return string request url
  */
 function simplekaltura_url_handler($entity) {
-	return elgg_get_site_url() . "pg/videos/view/{$entity->guid}/";
+	return elgg_get_site_url() . "videos/view/{$entity->guid}/";
 }
 
 /* Handler to register a timeline icon for simplekaltura videos */
@@ -184,43 +185,4 @@ function simplekaltura_icon_url_override($hook, $type, $returnvalue, $params) {
 
 		return $thumbnail_url;
 	}
-}
-
-
-/**
- * Prepares form vars for simplekaltura_video objects
- *
- * @param ElggObject $entity Optional entity to base values on
- * @return array
- */
-function simplekaltura_prepare_form_vars($entity = null) {
-	// input names => defaults
-	$values = array(
-		'title' => '',
-		'description' => '',
-		'access_id' => ACCESS_DEFAULT,
-		'tags' => '',
-		'container_guid' => elgg_get_page_owner_guid(),
-		'guid' => null,
-		'entity' => $entity
-	);
-
-	if ($entity) {
-		foreach (array_keys($values) as $field) {
-			if (isset($entity->$field)) {
-				$values[$field] = $entity->$field;
-			}
-		}
-	}
-
-	if (elgg_is_sticky_form('simplekaltura')) {
-		$sticky_values = elgg_get_sticky_values('rubrics');
-		foreach ($sticky_values as $key => $value) {
-			$values[$key] = $value;
-		}
-	}
-
-	elgg_clear_sticky_form('simplekaltura');
-
-	return $values;
 }
