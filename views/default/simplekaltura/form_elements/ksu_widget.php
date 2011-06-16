@@ -43,7 +43,7 @@ $flashVars["jsDelegate"]   		= "delegate";
 		};
 		var attributes  = {
 			id: "simplekaltura-uploader",
-			name: "KUpload",
+			name: "KUpload"
 		};
 		// set flashVar object
 		var flashVars = <?php echo json_encode($flashVars); ?>;
