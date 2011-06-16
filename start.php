@@ -10,8 +10,6 @@
  *
  *
  * /////////// @TODO ///////////////
- * - Entity views/listings
- * - What to do for deletes?
  *
  * - Because "videos" and "simplekaltura" are both used in code, we have to
  *   use both in the strings. This is a bit messy.
@@ -20,8 +18,6 @@
  *   The plugin hook is deprecated.
  *
  * - Move download link to entity menu?
- *
- * - What is Ubertags?
  *
  * - Figure out when to do the pull from Kaltura for stats. Bulk updates every 15 minutes are best,
  *   but IIRC it was previously doing updates on every entity view.
@@ -56,7 +52,7 @@ function simplekaltura_init() {
 	$actions_root = "$plugin_root/actions/simplekaltura";
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
 	elgg_register_action('simplekaltura/update', "$actions_root/update.php");
-	elgg_register_action('simplekaltura/delete', "$actions_root/delete.php");
+	elgg_register_action('videos/delete', "$actions_root/delete.php");
 
 	// entity url and icon handlers
 	register_entity_url_handler('simplekaltura_url_handler', 'object', 'simplekaltura_video');

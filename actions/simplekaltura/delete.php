@@ -10,7 +10,8 @@
  *
  */
 
-gatekeeper();
+elgg_load_library('simplekaltura');
+elgg_load_library('KalturaClient');
 
 $guid = get_input('guid', null);
 $video = get_entity($guid);
