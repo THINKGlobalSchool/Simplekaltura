@@ -31,15 +31,6 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 
 
 /* CUSTOM DIALOG */
-.simplekaltura-popup-dialog  {
-	display: none;
-	padding: 10px;
-	border: 8px solid #555555;
-	background: #ffffff;
-	-moz-border-radius:5px 5px 5px 5px;
-	-webkit-border-radius: 5px 5px 5px 5px;
-}
-
 #simplekaltura-upload-dialog  {
 	padding: 10px;
 	border: 8px solid #555555;

@@ -95,7 +95,7 @@ var titleInput;
 
 function onLoadHandler() {
 	// Set up user input fields
-	tagsInput = document.getElementById("video_tags");
+	tagsInput = $('input[name="video_tags"]');
 	titleInput = document.getElementById("video_title");
 }
 
@@ -142,7 +142,7 @@ function removeSelectedFile(index) {
  */
 function processUserInput() {
 	var title = titleInput.value;
-	var tags = tagsInput.value.split(",");
+	var tags = tagsInput.val().split(",");
 
 	// Check for required title
 	if (title) {
