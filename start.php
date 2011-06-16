@@ -63,7 +63,7 @@ function simplekaltura_init() {
 	elgg_register_plugin_hook_handler('entity:icon:url', 'object', 'simplekaltura_icon_url_override');
 
 	// Timeline icon handler
-	elgg_register_plugin_hook_handler('ubertags:timeline:icon', 'simplekaltura_video', 'ubertags_timeline_video_icon_handler');
+	elgg_register_plugin_hook_handler('tagdashboards:timeline:icon', 'simplekaltura_video', 'tagdashboards_timeline_video_icon_handler');
 
 	// Register type
 	elgg_register_entity_type('object', 'simplekaltura_video');
@@ -71,9 +71,9 @@ function simplekaltura_init() {
 	// register CRON hook to poll video plays/duration/etc..
 	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
 
-	// Register some hooks for Ubertags support
-	if (elgg_is_active_plugin('ubertags')) {
-		elgg_register_plugin_hook_handler('ubertags:subtype:heading', 'simplekaltura_video', 'simplekaltura_subtype_title_handler');
+	// Register some hooks for tagdashboards support
+	if (elgg_is_active_plugin('tagdashboards')) {
+		elgg_register_plugin_hook_handler('tagdashboards:subtype:heading', 'simplekaltura_video', 'simplekaltura_subtype_title_handler');
 	}
 
 	return true;
@@ -154,7 +154,7 @@ function simplekaltura_url_handler($entity) {
 }
 
 /* Handler to register a timeline icon for simplekaltura videos */
-function ubertags_timeline_video_icon_handler($hook, $type, $returnvalue, $params) {
+function tagdashboards_timeline_video_icon_handler($hook, $type, $returnvalue, $params) {
 	if ($type == 'simplekaltura_video') {
 		return elgg_get_site_url() . "mod/simplekaltura/images/simplekaltura_video.gif";
 	}

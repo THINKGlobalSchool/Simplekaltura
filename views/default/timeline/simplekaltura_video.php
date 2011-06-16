@@ -9,19 +9,18 @@
  * @link http://www.thinkglobalschool.com/
  * 
  */
+elgg_load_library('simplekaltura');
 
 if (!($thumbnail_url = $vars['entity']->thumbnailUrl)) {
 	$thumbnail_url = get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $vars['entity']->kaltura_entryid;
 }
 
 $comments_count = elgg_count_comments($vars['entity']);
-$likes_count = elgg_count_likes($vars['entity']);
+$likes_count = likes_count($vars['entity']);
 
-$id = $vars['entity']->kaltura_entryid;
-$pop_url = elgg_get_site_url() . "mod/simplekaltura/popwidget.php?height=330&width=100%25&autoplay=true&entryid=$id";
+$pop_url = simplekaltura_get_swf_url($vars['entity']);
 
-echo  "<div style='display: none;' id='popup-dialog-$id' class='simplekaltura-popup-dialog'></div>
-	<img onclick='javascript:timeline_load_popup_by_id(\"popup-dialog-$id\", \"$pop_url\")' width='153px' src='$thumbnail_url' /><br /><div class='entity_subtext timeline-entity-subtext'>
+echo  "<a href='$pop_url' class='timeline-lightbox'><img width='153px' src='$thumbnail_url' /></a><br />
+	<div class='elgg-subtext timeline-entity-subtext'>
 		Likes: $likes_count $views_string Comments: $comments_count
 	</div>". elgg_get_excerpt($vars['entity']->description);
-?>
