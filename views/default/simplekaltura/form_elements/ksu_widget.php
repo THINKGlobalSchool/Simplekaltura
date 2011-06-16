@@ -29,9 +29,9 @@ $flashVars["jsDelegate"]   		= "delegate";
 ?>
 
 <div id="simplekaltura-flashContainer">
-	<input type="button" id="simplekaltura-uploader-submit" class="submit_button" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">
 	<div id="simplekaltura-selected-files">
 	</div>
+	<input type="button" id="simplekaltura-uploader-submit" class="submit_button" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">
 	<div id="simplekaltura-uploader-container">
 	</div>
 	<script language="JavaScript" type="text/javascript">

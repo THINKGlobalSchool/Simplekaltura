@@ -106,12 +106,12 @@ function onLoadHandler() {
 function createSelectedFilesHTML(files) {
 	var content = '';
 	for (file in files) {
-		content += "<span class='simplekaltura-selected-file'>";
+		content += "<span>";
 		content += files[file].title;
-		content += "<span class='simplekaltura-file-size'>";
+		content += "<span class='pls'>";
 		content += bytesToSize(files[file].bytesTotal, 2); // Make this a little easier to read
 		content += "</span>";
-		content += "<span class='delete_button' style='float: left; margin-top: 3px; margin-right: 4px;'><a onclick='removeSelectedFile(" + file + ");'>x</a></span>";
+		content += "<a onclick='removeSelectedFile(" + file + ");'><span class='elgg-icon elgg-icon-delete left prm'></span></a>";
 		content += "</span>";
 	}
 

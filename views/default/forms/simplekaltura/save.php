@@ -160,7 +160,7 @@ $new_js
 		$k_bytesloaded_input
 		$k_filetype_input
 	</div>
-	<div class="hidden" id="simplekaltura-upload-dialog">
+	<div class="hidden" id="simplekaltura-upload-dialog" class="elgg-lightbox">
 		<p>Uploading... <span id="simplekaltura-upload-percent"></span></p>
 		<div id='simplekaltura-upload-progress'></div>
 	</div>
