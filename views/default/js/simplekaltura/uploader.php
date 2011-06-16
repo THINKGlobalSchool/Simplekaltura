@@ -105,15 +105,15 @@ function onLoadHandler() {
  */
 function createSelectedFilesHTML(files) {
 	var content = '';
-	for (file in files) {
+	$(files).each(function(i, e) {
 		content += "<span>";
-		content += files[file].title;
+		content += e.title;
 		content += "<span class='pls'>";
-		content += bytesToSize(files[file].bytesTotal, 2); // Make this a little easier to read
+		content += bytesToSize(e.bytesTotal, 2); // Make this a little easier to read
 		content += "</span>";
-		content += "<a onclick='removeSelectedFile(" + file + ");'><span class='elgg-icon elgg-icon-delete left prm'></span></a>";
+		content += "<a onclick='removeSelectedFile(" + i + ");'><span class='elgg-icon elgg-icon-delete left prm'></span></a>";
 		content += "</span>";
-	}
+	});
 
 	$('#simplekaltura-selected-files').html(content);
 }

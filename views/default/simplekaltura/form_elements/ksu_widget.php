@@ -35,24 +35,26 @@ $flashVars["jsDelegate"]   		= "delegate";
 	<div id="simplekaltura-uploader-container">
 	</div>
 	<script language="JavaScript" type="text/javascript">
-		var params = {
-			allowScriptAccess: "always",
-			allowNetworking: "all",
-			wmode: "transparent"
+		$(function(){
+			var params = {
+				allowScriptAccess: "always",
+				allowNetworking: "all",
+				wmode: "transparent"
 
-		};
-		var attributes  = {
-			id: "simplekaltura-uploader",
-			name: "KUpload"
-		};
-		// set flashVar object
-		var flashVars = <?php echo json_encode($flashVars); ?>;
+			};
+			var attributes  = {
+				id: "simplekaltura-uploader",
+				name: "KUpload"
+			};
+			// set flashVar object
+			var flashVars = <?php echo json_encode($flashVars); ?>;
 
-		// get the width and height of the button to mask
-		// @todo this feels like a really odd way to make this button.
-		var width = $('#simplekaltura-uploader-submit').innerWidth()
-		var height = $('#simplekaltura-uploader-submit').innerHeight()
+			// get the width and height of the button to mask
+			// @todo this feels like a really odd way to make this button.
+			var width = $('#simplekaltura-uploader-submit').innerWidth()
+			var height = $('#simplekaltura-uploader-submit').innerHeight()
 
-		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+			swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+		});
 	</script>
 </div>
