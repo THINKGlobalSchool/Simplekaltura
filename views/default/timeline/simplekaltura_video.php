@@ -20,7 +20,7 @@ $likes_count = likes_count($vars['entity']);
 
 $pop_url = simplekaltura_get_swf_url($vars['entity']);
 
-echo  "<a href='$pop_url' class='tagdashboards-lightbox'><img width='153px' src='$thumbnail_url' /></a><br />
+echo  "<a href='$pop_url' class='modules-lightbox'><img width='153px' src='$thumbnail_url' /></a><br />
 	<div class='elgg-subtext timeline-entity-subtext'>
 		Likes: $likes_count $views_string Comments: $comments_count
 	</div>". elgg_get_excerpt($vars['entity']->description);
