@@ -12,7 +12,7 @@
 elgg_load_library('simplekaltura');
 
 if (!($thumbnail_url = $vars['entity']->thumbnailUrl)) {
-	$thumbnail_url = get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $vars['entity']->kaltura_entryid;
+	$thumbnail_url = elgg_get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $vars['entity']->kaltura_entryid;
 }
 
 $comments_count = elgg_count_comments($vars['entity']);

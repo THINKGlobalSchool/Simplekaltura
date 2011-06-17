@@ -8,8 +8,8 @@ elgg_load_js('simplekaltura:swfobject');
 elgg_load_js('simplekaltura:html5');
 
 // Session vars
-$kaltura_partner_id = get_plugin_setting('kaltura_partnerid', 'simplekaltura');
-$partner_user_id = get_plugin_setting('kaltura_partnerid', 'simplekaltura');
+$kaltura_partner_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
+$partner_user_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 
 // Get client
 $client = simplekaltura_create_client();
@@ -29,32 +29,30 @@ $flashVars["jsDelegate"]   		= "delegate";
 ?>
 
 <div id="simplekaltura-flashContainer">
+	<input type="button" id="simplekaltura-uploader-submit" class="submit_button" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">
 	<div id="simplekaltura-selected-files">
 	</div>
-	<input type="button" id="simplekaltura-uploader-submit" class="submit_button" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">
 	<div id="simplekaltura-uploader-container">
 	</div>
 	<script language="JavaScript" type="text/javascript">
-		$(function(){
-			var params = {
-				allowScriptAccess: "always",
-				allowNetworking: "all",
-				wmode: "transparent"
+		var params = {
+			allowScriptAccess: "always",
+			allowNetworking: "all",
+			wmode: "transparent"
 
-			};
-			var attributes  = {
-				id: "simplekaltura-uploader",
-				name: "KUpload"
-			};
-			// set flashVar object
-			var flashVars = <?php echo json_encode($flashVars); ?>;
+		};
+		var attributes  = {
+			id: "simplekaltura-uploader",
+			name: "KUpload",
+		};
+		// set flashVar object
+		var flashVars = <?php echo json_encode($flashVars); ?>;
 
-			// get the width and height of the button to mask
-			// @todo this feels like a really odd way to make this button.
-			var width = $('#simplekaltura-uploader-submit').innerWidth()
-			var height = $('#simplekaltura-uploader-submit').innerHeight()
+		// get the width and height of the button to mask
+		// @todo this feels like a really odd way to make this button.
+		var width = $('#simplekaltura-uploader-submit').innerWidth()
+		var height = $('#simplekaltura-uploader-submit').innerHeight()
 
-			swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
-		});
+		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 	</script>
 </div>

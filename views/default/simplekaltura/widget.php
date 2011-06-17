@@ -10,10 +10,10 @@
  * 
  */
 
-$player_width 		= elgg_extract('width', $vars, get_plugin_setting('kaltura_player_width', 'simplekaltura'));
-$player_height 		= elgg_extract('height', $vars, get_plugin_setting('kaltura_player_height', 'simplekaltura'));
-$widgetid 			= "_" . get_plugin_setting('kaltura_partnerid', 'simplekaltura');   // specific player instance (default to '_'+partnerId)
-$uiConfId 			= get_plugin_setting('kaltura_custom_player_id', 'simplekaltura'); 	// Which player to use
+$player_width 		= elgg_extract('width', $vars, elgg_get_plugin_setting('kaltura_player_width', 'simplekaltura'));
+$player_height 		= elgg_extract('height', $vars, elgg_get_plugin_setting('kaltura_player_height', 'simplekaltura'));
+$widgetid 			= "_" . elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');   // specific player instance (default to '_'+partnerId)
+$uiConfId 			= elgg_get_plugin_setting('kaltura_custom_player_id', 'simplekaltura'); 	// Which player to use
 $entryid 			= $vars['entity']->kaltura_entryid;			                        // ENTRY ID TO PLAYBACK
 $host 				= "www.kaltura.com";                      							// THE URL TO THE KALTURA SERVER 
 $debugmode 			= "0";                                       						// DEBUGGING OF PLUGINS 

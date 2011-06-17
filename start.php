@@ -177,7 +177,7 @@ function simplekaltura_icon_url_override($hook, $type, $returnvalue, $params) {
 	if (elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 		$thumbnail_url = $vars['entity']->thumbnailUrl;
 		if (!$thumbnail_url) {
-			$thumbnail_url = get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $video->kaltura_entryid;
+			$thumbnail_url = elgg_get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $video->kaltura_entryid;
 		}
 
 		return $thumbnail_url;

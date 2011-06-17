@@ -68,7 +68,7 @@ $entry = new KalturaMediaEntry();
 
 // only for new videos
 if (!$guid) {
-	$entry->adminTags = get_plugin_setting('kaltura_admin_tags', 'simplekaltura');
+	$entry->adminTags = elgg_get_plugin_setting('kaltura_admin_tags', 'simplekaltura');
 }
 $entry->tags = $tags;
 $entry->name = $video->title;

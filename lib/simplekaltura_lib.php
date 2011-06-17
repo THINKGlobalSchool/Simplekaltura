@@ -15,7 +15,7 @@
  * @return KalturaConfiguration
  */
 function simplekaltura_create_config() {
-	$kaltura_partner_id = get_plugin_setting('kaltura_partnerid', 'simplekaltura');
+	$kaltura_partner_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 	$config		= new KalturaConfiguration($kaltura_partner_id);
 	return $config;
 }
@@ -27,14 +27,14 @@ function simplekaltura_create_config() {
  */
 function simplekaltura_create_client($admin = false) {
 	// Get settings
-	$partner_user_id = get_plugin_setting('kaltura_partnerid', 'simplekaltura');
+	$partner_user_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 
 	//Construction of Kaltura objects for session initiation
 	$config 	= simplekaltura_create_config();
 	$client 	= new KalturaClient($config);
 	$partner	= $client->partner->getSecrets($config->partnerId,
-											get_plugin_setting('kaltura_email_account', 'simplekaltura'),
-											get_plugin_setting('kaltura_password_account', 'simplekaltura')
+											elgg_get_plugin_setting('kaltura_email_account', 'simplekaltura'),
+											elgg_get_plugin_setting('kaltura_password_account', 'simplekaltura')
 											);
 
 	if ($admin) {
@@ -165,7 +165,7 @@ function simplekaltura_bulk_update() {
 
 	// Set up filter
 	$filter = new KalturaMediaEntryFilter();
-	$filter->tagsAdminTagsMultiLikeOr = get_plugin_setting('kaltura_admin_tags', 'simplekaltura');
+	$filter->tagsAdminTagsMultiLikeOr = elgg_get_plugin_setting('kaltura_admin_tags', 'simplekaltura');
 
 	// Grab entries
 	$result = $client->media->listAction($filter, $pager);
@@ -295,8 +295,8 @@ function simplekaltura_get_swf_url(ElggEntity $video) {
 		return false;
 	}
 
-	$widgetid = "_" . get_plugin_setting('kaltura_partnerid', 'simplekaltura');
-	$uiConfId = get_plugin_setting('kaltura_custom_player_id', 'simplekaltura');
+	$widgetid = "_" . elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
+	$uiConfId = elgg_get_plugin_setting('kaltura_custom_player_id', 'simplekaltura');
 	$entryid = $video->kaltura_entryid;
 
 	return "http://www.kaltura.com/index.php/kwidget"
