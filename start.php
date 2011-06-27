@@ -45,9 +45,10 @@ function simplekaltura_init() {
 	elgg_extend_view('css/elgg', 'simplekaltura/css');
 	elgg_register_page_handler('videos', 'simplekaltura_page_handler');
 
-	// menus
-	add_menu(elgg_echo("simplekaltura:spotvideo"), 'videos');
-
+	// Add to main menu
+	$item = new ElggMenuItem('simplekaltura', elgg_echo('simplekaltura:spotvideo'), 'videos');
+	elgg_register_menu_item('site', $item);
+	
 	// actions
 	$actions_root = "$plugin_root/actions/simplekaltura";
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
