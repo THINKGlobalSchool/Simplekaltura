@@ -13,7 +13,6 @@ $content = elgg_view_form('simplekaltura/save', array(), $vars);
 
 $body = elgg_view_layout('content', array(
 	'filter' => '',
-	'buttons' => '',
 	'context' => 'videos',
 	'content' => $content,
 	'title' => $title,

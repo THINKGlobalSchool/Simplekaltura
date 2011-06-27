@@ -17,7 +17,6 @@ if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 
 $body = elgg_view_layout('content', array(
 	'filter' => '',
-	'buttons' => '',
 	'content' => $content,
 	'context' => 'videos',
 	'title' => $title,

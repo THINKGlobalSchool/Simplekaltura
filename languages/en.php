@@ -28,7 +28,6 @@ $english = array(
 	'videos:add' => 'Upload New Video',
 	'simplekaltura:edit' => 'Edit Video',
 	'simplekaltura:all' => 'All Videos',
-	'simplekaltura:owner' => 'Your Videos',
 	'simplekaltura:friends' => '%s\'s Friends\' Videos',
 
 	// Labels
