@@ -59,6 +59,7 @@ $english = array(
 
 	// River
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',
+	'river:comment:object:simplekaltura_video' => '%s commented on a Video titled %s',
 
 
 	// Messages
