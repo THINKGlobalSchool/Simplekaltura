@@ -24,9 +24,9 @@ $title = elgg_echo('simplekaltura:owner', array($page_owner->name));
 $filter_context = '';
 if ($page_owner->getGUID() == elgg_get_logged_in_user_guid()) {
 	$filter_context = 'mine';
-	elgg_register_add_button('videos');
+	elgg_register_title_button('videos');
 } else if (elgg_instanceof($page_owner, 'group')) {
-	elgg_register_add_button('videos');
+	elgg_register_title_button('videos');
 }
 
 $vars = array(

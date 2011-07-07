@@ -15,7 +15,7 @@ if (!$content) {
 	$content = elgg_echo('simplekaltura:no_content');
 }
 
-elgg_register_add_button('videos');
+elgg_register_title_button('videos');
 
 $body = elgg_view_layout('content', array(
 	'context' => 'videos',
