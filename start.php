@@ -33,6 +33,7 @@ function simplekaltura_init() {
 
 	elgg_register_library('simplekaltura', "$plugin_root/lib/simplekaltura_lib.php");
 	elgg_register_library('KalturaClient', "$plugin_root/vendors/kaltura_client_v3/KalturaClient.php");
+	elgg_load_library('simplekaltura');
 
 	// helper libs
 	$libs = array('listing-popup', 'uploader', 'widget', 'swfobject', 'html5');
@@ -67,6 +68,7 @@ function simplekaltura_init() {
 
 	// register CRON hook to poll video plays/duration/etc..
 	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
+	
 
 	// Register some hooks for tagdashboards support
 	if (elgg_is_active_plugin('tagdashboards')) {
@@ -116,12 +118,10 @@ function simplekaltura_page_handler($page) {
 			break;
 
 		case 'add':
-			elgg_load_library('simplekaltura');
 			include "$pages_dir/add.php";
 			break;
 
 		case 'edit':
-			elgg_load_library('simplekaltura');
 			set_input('guid', elgg_extract(1, $page));
 			include "$pages_dir/edit.php";
 			break;
