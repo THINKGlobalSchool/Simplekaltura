@@ -15,7 +15,7 @@ $description = elgg_extract('description', $vars);
 $tags = elgg_extract('tags', $vars);
 $access_id = elgg_extract('access_id', $vars, ACCESS_LOGGED_IN);
 $guid = elgg_extract('guid', $vars);
-$container_guid = elgg_extract('container_guid', $vars);
+$container_guid = elgg_extract('container_guid', $vars, elgg_get_page_owner_guid());
 $entity = elgg_extract('entity', $vars);
 $comments_on = elgg_extract('comments_on', $vars, 'On');
 

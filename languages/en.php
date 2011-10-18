@@ -55,6 +55,7 @@ $english = array(
 	'simplekaltura:label:admintags' => 'Admin Tags (Used to identify this particular Elgg site\'s videos)',
 	'simplekaltura:label:unavailable' => 'Unavailable',
 	'simplekaltura:label:download' => 'Download Video',
+	'simplekaltura:label:groupvideos' => 'Group spot videos',
 
 
 	// River
@@ -74,6 +75,7 @@ $english = array(
 
 	// Other content
 	'simplekaltura:no_content' => 'No content',
+	'groups:enablesimplekaltura' => 'Enable group spot videos',
 
 
 );

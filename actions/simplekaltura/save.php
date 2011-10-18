@@ -19,6 +19,7 @@ $tags = get_input('video_tags');
 $tags_str  = string_to_tag_array($tags);
 $access = get_input('video_access');
 $comments_on = get_input('comments_on', 'On');
+$container_guid = get_input('container_guid');
 
 $guid = get_input('guid');
 $video = get_entity($guid);
@@ -45,6 +46,7 @@ if ($guid) {
 	// Set elgg stuff
 	$video = new ElggObject();
 	$video->subtype = 'simplekaltura_video';
+	$video->container_guid = $container_guid;
 	$video->kaltura_guid = $k_guid;
 	$video->kaltura_entryid = $k_entryid;
 	$video->kaltura_bytesloaded = $k_bytesloaded;

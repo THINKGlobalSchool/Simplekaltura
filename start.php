@@ -50,6 +50,12 @@ function simplekaltura_init() {
 	$item = new ElggMenuItem('simplekaltura', elgg_echo('simplekaltura:spotvideo'), 'videos');
 	elgg_register_menu_item('site', $item);
 	
+	// add the group pages tool option     
+	add_group_tool_option('simplekaltura',elgg_echo('groups:enablesimplekaltura'), TRUE);
+	
+	// Profile block hook	
+	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'simplekaltura_owner_block_menu');
+	
 	// actions
 	$actions_root = "$plugin_root/actions/simplekaltura";
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
@@ -107,30 +113,28 @@ function simplekaltura_page_handler($page) {
 		case 'owner':
 			include "$pages_dir/owner.php";
 			break;
-
 		case 'friends':
 			include "$pages_dir/friends.php";
 			break;
-
 		case 'view':
 			set_input('guid', elgg_extract(1, $page));
 			include "$pages_dir/view.php";
 			break;
-
 		case 'add':
 			include "$pages_dir/add.php";
 			break;
-
 		case 'edit':
 			set_input('guid', elgg_extract(1, $page));
 			include "$pages_dir/edit.php";
 			break;
-
+		case 'group':
+			group_gatekeeper();
+			include "$pages_dir/owner.php";
+			break;
 		case 'popup':
 			set_input('guid', elgg_extract(1, $page));
 			include "$pages_dir/popup.php";
 			break;
-
 		case 'all':
 		default:
 			include "$pages_dir/all.php";
@@ -183,4 +187,28 @@ function simplekaltura_icon_url_override($hook, $type, $returnvalue, $params) {
 
 		return $thumbnail_url;
 	}
+}
+
+/**
+ * Plugin hook to add simplekaltura videos to the profile block
+ * 	
+ * @param unknown_type $hook
+ * @param unknown_type $type
+ * @param unknown_type $value
+ * @param unknown_type $params
+ * @return unknown
+ */
+function simplekaltura_owner_block_menu($hook, $type, $value, $params) {
+	if (elgg_instanceof($params['entity'], 'user')) {
+		$url = "videos/owner/{$params['entity']->username}";
+		$item = new ElggMenuItem('simplekaltura', elgg_echo('simplekaltura:spotvideo'), $url);
+		$value[] = $item;
+	} else {
+		if ($params['entity']->simplekaltura_enable == 'yes') {
+			$url = "videos/group/{$params['entity']->guid}/all";
+			$item = new ElggMenuItem('simplekaltura', elgg_echo('simplekaltura:label:groupvideos'), $url);
+			$value[] = $item;
+		}
+	}
+	return $value;
 }
