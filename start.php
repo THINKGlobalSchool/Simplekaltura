@@ -40,6 +40,7 @@ function simplekaltura_init() {
 
 	foreach ($libs as $lib) {
 		$url = elgg_get_simplecache_url('js', "simplekaltura/$lib");
+		elgg_register_simplecache_view("js/simplekaltura/$lib");	
 		elgg_register_js("simplekaltura:$lib", $url);
 	}
 
