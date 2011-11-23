@@ -38,6 +38,7 @@ $swf_url            = simplekaltura_get_swf_url($vars['entity']);
 	<param name="allowFullScreen" value="true" />
 	<param name="allowNetworking" value="all" />
 	<param name="allowScriptAccess" value="always" />
+	<param name="wmode" value="transparent" />
 	<param name="bgcolor" value="#000000" />
 	<param name="flashVars" value="&autoPlay=<?php echo $autoPlay; ?>&entryId=<?php echo $entryid; ?>" />
 	<param name="movie" value="<?php echo $swf_url;?>" />
