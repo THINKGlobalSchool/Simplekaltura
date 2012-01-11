@@ -26,7 +26,7 @@
  *
  */
 
-register_elgg_event_handler('init', 'system', 'simplekaltura_init');
+elgg_register_event_handler('init', 'system', 'simplekaltura_init');
 
 function simplekaltura_init() {
 	$plugin_root = dirname(__FILE__);
@@ -64,7 +64,7 @@ function simplekaltura_init() {
 	elgg_register_action('videos/delete', "$actions_root/delete.php");
 
 	// entity url and icon handlers
-	register_entity_url_handler('simplekaltura_url_handler', 'object', 'simplekaltura_video');
+	elgg_register_entity_url_handler('object', 'simplekaltura_video', 'simplekaltura_url_handler');
 	elgg_register_plugin_hook_handler('entity:icon:url', 'object', 'simplekaltura_icon_url_override');
 
 	// Timeline icon handler
