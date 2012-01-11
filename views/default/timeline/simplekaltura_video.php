@@ -15,7 +15,7 @@ if (!($thumbnail_url = $vars['entity']->thumbnailUrl)) {
 	$thumbnail_url = elgg_get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $vars['entity']->kaltura_entryid;
 }
 
-$comments_count = elgg_count_comments($vars['entity']);
+$comments_count = $vars['entity']->countComments();
 $likes_count = likes_count($vars['entity']);
 
 $pop_url = simplekaltura_get_swf_url($vars['entity']);
