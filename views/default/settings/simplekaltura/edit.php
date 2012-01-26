@@ -14,7 +14,7 @@
 	<label><?php echo elgg_echo('simplekaltura:label:admintags'); ?></label><br /><br />
 	<?php 
 	echo elgg_view('input/text', array(
-										'internalname' => 'params[kaltura_admin_tags]', 
+										'name' => 'params[kaltura_admin_tags]', 
 										'value' => $vars['entity']->kaltura_admin_tags)
 										); 
 	?>
@@ -23,7 +23,7 @@
 	<label><?php echo elgg_echo('simplekaltura:label:partnerid'); ?></label><br /><br />
 	<?php 
 	echo elgg_view('input/text', array(
-										'internalname' => 'params[kaltura_partnerid]', 
+										'name' => 'params[kaltura_partnerid]', 
 										'value' => $vars['entity']->kaltura_partnerid)
 										); 
 	?>
@@ -32,7 +32,7 @@
 	<label><?php echo elgg_echo('simplekaltura:label:emailaccount'); ?></label><br /><br />
 	<?php 
 	echo elgg_view('input/text', array(
-										'internalname' => 'params[kaltura_email_account]', 
+										'name' => 'params[kaltura_email_account]', 
 										'value' => $vars['entity']->kaltura_email_account)
 										); 
 	?>
@@ -41,7 +41,7 @@
 	<label><?php echo elgg_echo('simplekaltura:label:passwordaccount'); ?></label><br /><br />
 	<?php 
 	echo elgg_view('input/password', array(
-										'internalname' => 'params[kaltura_password_account]', 
+										'name' => 'params[kaltura_password_account]', 
 										'value' => $vars['entity']->kaltura_password_account)
 										); 
 	?>
@@ -54,7 +54,7 @@
 		$id = '1000106'; // Default Kaltura ID
 	}
 	echo elgg_view('input/text', array(
-										'internalname' => 'params[kaltura_custom_player_id]', 
+										'name' => 'params[kaltura_custom_player_id]', 
 										'value' => $id)
 										); 
 	?>
@@ -67,7 +67,7 @@
 		$height = '330'; // Default Height
 	}
 	echo elgg_view('input/text', array(
-										'internalname' => 'params[kaltura_player_height]', 
+										'name' => 'params[kaltura_player_height]', 
 										'value' => $height)
 										); 
 	?>
@@ -80,7 +80,7 @@
 		$width = '400'; // Default Width
 	}
 	echo elgg_view('input/text', array(
-										'internalname' => 'params[kaltura_player_width]', 
+										'name' => 'params[kaltura_player_width]', 
 										'value' => $width)
 										); 
 	?>
@@ -93,7 +93,7 @@
 		$url = 'http://cdn.kaltura.com/p/0/thumbnail/entry_id/'; // Default Width
 	}
 	echo elgg_view('input/text', array(
-										'internalname' => 'params[kaltura_thumbnail_url]', 
+										'name' => 'params[kaltura_thumbnail_url]', 
 										'value' => $url)
 										); 
 	?>
