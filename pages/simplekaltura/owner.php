@@ -5,6 +5,10 @@
 
 $page_owner = elgg_get_page_owner_entity();
 
+if (!$page_owner) {
+	forward('videos');
+}
+
 elgg_push_breadcrumb($page_owner->name);
 
 $content .= elgg_list_entities(array(
