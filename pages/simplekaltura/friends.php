@@ -24,7 +24,8 @@ $body = elgg_view_layout('content', array(
 	'filter_context' => 'friends',
 	'content' => $content,
 	'context' => 'videos',
-	'title' => $title
+	'title' => $title,
+	'sidebar' => elgg_view('simplekaltura/sidebar', array('page' => 'friends')),
 ));
 
 echo elgg_view_page($title, $body);

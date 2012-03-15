@@ -37,7 +37,8 @@ $vars = array(
 	'filter_context' => $filter_context,
 	'content' => $content,
 	'context' => 'videos',
-	'title' => $title
+	'title' => $title,
+	'sidebar' => elgg_view('simplekaltura/sidebar', array('page' => 'owner')),
 );
 
 // don't show filter if out of filter context
