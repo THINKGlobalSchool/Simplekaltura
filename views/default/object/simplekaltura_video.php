@@ -116,19 +116,7 @@ $video_info
 $body
 HTML;
 
-}
-/*
-@todo add support for gallery view mode
-
-elseif (elgg_in_context('gallery')) {
-	echo '<div class="video-gallery-item">';
-	echo "<h3>" . $video->title . "</h3>";
-	echo elgg_view_entity_icon($file, 'medium');
-	echo "<p class='subtitle'>$owner_link $date</p>";
-	echo '</div>';
-}
-*/
-else {
+} else {
 	// for the popup display
 	elgg_load_js('lightbox');
 	elgg_load_css('lightbox');
@@ -139,18 +127,40 @@ else {
 	$icon = elgg_view_entity_icon($video, 'medium', array(
 		'href' => $pop_url,
 		'rel' => 'fancyvideo',
-		'link_class' => 'elgg-lightbox'
+		'link_class' => 'elgg-lightbox',
+		'title' => 'asdasda',
 	));
-//	$icon = '<div class="elgg-simplekaltura-video-icon">' . $icon . '</div>';
 
-	$params = array(
-		'entity' => $video,
-		'metadata' => $metadata,
-		'subtitle' => $subtitle,
-		'tags' => $tags,
-		'content' => $excerpt
-	);
-	$list_body = elgg_view('page/components/summary', $params);
+	if (elgg_in_context('gallery')) {	
+		$icon = elgg_view('output/img', array(
+			'src' => $video->getIconURL('medium'),
+			'alt' => $title,
+		));
+		
+		$url = $video->getURL();
+		$trunc_title = elgg_get_excerpt($video->title, 75);
+		
+		$content = <<<HTML
+			<div class='simplekaltura-video-gallery-item'>
+				<h3><a href="$url">$trunc_title</a></h3>
+				<div class='simplekaltura-video-gallery-icon'>
+					<a href="$pop_url" class="elgg-lightbox" title="$video->title">$icon</a>
+				</div>
+				<div class='elgg-subtext'>$author_text $date</div>
+			</div>
+HTML;
 
-	echo elgg_view_image_block($icon, $list_body);
+		echo $content;
+	} else {
+		$params = array(
+			'entity' => $video,
+			'metadata' => $metadata,
+			'subtitle' => $subtitle,
+			'tags' => $tags,
+			'content' => $excerpt
+		);
+		$list_body = elgg_view('page/components/summary', $params);
+
+		echo elgg_view_image_block($icon, $list_body);
+	}
 }

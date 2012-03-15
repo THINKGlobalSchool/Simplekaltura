@@ -58,3 +58,22 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	height:100%; 
 	background: #9D1520; 
 }
+
+/* GALLERY */
+.simplekaltura-video-gallery-item {
+	padding: 5px 10px 10px;
+	text-align: center;
+}
+
+.simplekaltura-video-gallery-icon {
+	margin-left: auto;
+	margin-right: auto;
+	width: 126px;
+	margin-bottom: 5px;
+	margin-top: 3px;
+}
+
+.simplekaltura-video-gallery-icon img {
+	border: 3px solid #FFFFFF;
+	box-shadow: 0px 0px 3px #666666;
+}
