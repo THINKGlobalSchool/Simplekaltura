@@ -19,7 +19,7 @@ $title = $video->title;
 
 elgg_push_breadcrumb($title);
 
-$content = elgg_view_entity($video, true);
+$content = elgg_view_entity($video, array('full_view' => TRUE));
 //$content .= elgg_view_comments($video);
 
 $body = elgg_view_layout('content', array(
