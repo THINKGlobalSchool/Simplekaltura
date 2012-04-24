@@ -14,10 +14,6 @@
  * - Because "videos" and "simplekaltura" are both used in code, we have to
  *   use both in the strings. This is a bit messy.
  * - This plugin doesn't lend itself well to sticky forms. Not sure what to do about that.
- * - Comments should be added in the object/simplekaltura_video view or the page handler scripts.
- *   The plugin hook is deprecated.
- *
- * - Move download link to entity menu?
  *
  * - Figure out when to do the pull from Kaltura for stats. Bulk updates every 15 minutes are best,
  *   but IIRC it was previously doing updates on every entity view.
@@ -36,13 +32,18 @@ function simplekaltura_init() {
 	elgg_load_library('simplekaltura');
 
 	// helper libs
-	$libs = array('listing-popup', 'uploader', 'widget', 'swfobject', 'html5');
+	$libs = array('listing-popup', 'uploader', 'widget', 'swfobject', 'html5', 'utility');
 
 	foreach ($libs as $lib) {
 		$url = elgg_get_simplecache_url('js', "simplekaltura/$lib");
 		elgg_register_simplecache_view("js/simplekaltura/$lib");	
 		elgg_register_js("simplekaltura:$lib", $url);
 	}
+
+	// Include kaltura's html5 js library
+	//elgg_register_js('kaltura.html5', 'http://html5.kaltura.org/js');
+	elgg_load_js('simplekaltura:html5');
+	elgg_load_js('simplekaltura:utility');
 
 	elgg_extend_view('css/elgg', 'simplekaltura/css');
 	elgg_register_page_handler('videos', 'simplekaltura_page_handler');
@@ -56,6 +57,9 @@ function simplekaltura_init() {
 	
 	// Profile block hook	
 	elgg_register_plugin_hook_handler('register', 'menu:owner_block', 'simplekaltura_owner_block_menu');
+	
+	// Modify entity menu for addional video items
+	elgg_register_plugin_hook_handler('register', 'menu:entity', 'simplekaltura_setup_entity_menu');
 	
 	// actions
 	$actions_root = "$plugin_root/actions/simplekaltura";
@@ -193,11 +197,12 @@ function simplekaltura_icon_url_override($hook, $type, $returnvalue, $params) {
 /**
  * Plugin hook to add simplekaltura videos to the profile block
  * 	
- * @param unknown_type $hook
- * @param unknown_type $type
- * @param unknown_type $value
- * @param unknown_type $params
- * @return unknown
+ * @param sting  $hook   hook
+ * @param string $type   type
+ * @param mixed  $value  Value
+ * @param mixed  $params Params
+ *
+ * @return array
  */
 function simplekaltura_owner_block_menu($hook, $type, $value, $params) {
 	if (elgg_instanceof($params['entity'], 'user')) {
@@ -211,5 +216,37 @@ function simplekaltura_owner_block_menu($hook, $type, $value, $params) {
 			$value[] = $item;
 		}
 	}
+	return $value;
+}
+
+/**
+ * Add download link to video entity menu
+ *
+ * @param sting  $hook   hook
+ * @param string $type   type
+ * @param mixed  $value  Value
+ * @param mixed  $params Params
+ *
+ * @return array
+ */
+function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
+	$entity = $params['entity'];
+
+	if (elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
+		// Add download link if we have a download url
+		$download_url = $entity->downloadUrl;
+		if ($download_url) {
+			$options = array(
+				'name' => 'download_video',
+				'text' => elgg_echo('simplekaltura:label:download'),
+				'title' => 'add_to_portfolio',
+				'href' => $download_url,
+				'section' => 'actions',
+			);
+
+			$value[] = ElggMenuItem::factory($options);
+		}
+	}
+
 	return $value;
 }

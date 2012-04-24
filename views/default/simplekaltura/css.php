@@ -20,6 +20,10 @@
 	color:#333; font-size:16px; 
 }
 
+#simplekaltura-flashContainer span.pls {
+	color:#666; font-size: 14px;
+}
+
 object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	position:absolute; top:0; left:0; z-index:999;
 }
@@ -76,4 +80,13 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 .simplekaltura-video-gallery-icon img {
 	border: 3px solid #FFFFFF;
 	box-shadow: 0px 0px 3px #666666;
+}
+
+/* OBJECT VIEW */
+.elgg-kaltura-player {
+	border-top: 1px solid #CCC;
+	border-bottom: 1px solid #CCC;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-top: 15px;
 }

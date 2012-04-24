@@ -80,19 +80,11 @@ if ($full) {
 		'value' => $video->description
 	));
 
-	$download_url = $vars['entity']->downloadUrl;
-	$download_link = '';
-	if ($download_url) {
-		$download_link = "<a href='$download_url'>" . elgg_echo('simplekaltura:label:download') . "</a>";
-	}
-
-	$body .= '<hr />';
 	$body .= '<div class="elgg-kaltura-player center">';
 	$body .= elgg_view('simplekaltura/widget', $vars);
 	$body .= "<br />$download_link</div>";
 
 	if ($video->comments_on != 'Off') {
-		$body .= '<hr>';
 		$body .= '<a name="comments"></a>';
 		$body .= elgg_view_comments($video);
 	}
@@ -126,9 +118,8 @@ HTML;
 
 	$icon = elgg_view_entity_icon($video, 'medium', array(
 		'href' => $pop_url,
-		'rel' => 'fancyvideo',
-		'link_class' => 'elgg-lightbox',
-		'title' => 'asdasda',
+		'link_class' => 'simplekaltura-lightbox',
+		'title' => 'simplekaltura_lightbox',
 	));
 
 	if (elgg_in_context('gallery')) {	

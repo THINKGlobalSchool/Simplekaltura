@@ -5,7 +5,6 @@ elgg_load_library('KalturaClient');
 elgg_load_js('simplekaltura:uploader');
 elgg_load_js('simplekaltura:widget');
 elgg_load_js('simplekaltura:swfobject');
-elgg_load_js('simplekaltura:html5');
 
 // Session vars
 $kaltura_partner_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
@@ -29,7 +28,7 @@ $flashVars["jsDelegate"]   		= "delegate";
 ?>
 
 <div id="simplekaltura-flashContainer">
-	<input type="button" id="simplekaltura-uploader-submit" class="submit_button" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">
+	<input type="button" id="simplekaltura-uploader-submit" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">
 	<div id="simplekaltura-selected-files">
 	</div>
 	<div id="simplekaltura-uploader-container">

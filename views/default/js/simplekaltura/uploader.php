@@ -108,7 +108,7 @@ function createSelectedFilesHTML(files) {
 	$(files).each(function(i, e) {
 		content += "<span>";
 		content += e.title;
-		content += "<span class='pls'>";
+		content += "<span class='pls' style='font-color: #666'>";
 		content += bytesToSize(e.bytesTotal, 2); // Make this a little easier to read
 		content += "</span>";
 		content += "<a onclick='removeSelectedFile(" + i + ");'><span class='elgg-icon elgg-icon-delete left prm'></span></a>";
