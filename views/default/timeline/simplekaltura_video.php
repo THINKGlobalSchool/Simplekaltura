@@ -18,7 +18,7 @@ if (!($thumbnail_url = $vars['entity']->thumbnailUrl)) {
 $comments_count = $vars['entity']->countComments();
 $likes_count = likes_count($vars['entity']);
 
-$pop_url = simplekaltura_get_swf_url($vars['entity']);
+$pop_url = elgg_get_site_url() . 'videos/popup/' . $vars['entity']->guid;
 
 echo  "<a href='$pop_url' class='modules-lightbox'><img width='153px' src='$thumbnail_url' /></a><br />
 	<div class='elgg-subtext timeline-entity-subtext'>

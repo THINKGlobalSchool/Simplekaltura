@@ -90,3 +90,10 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	padding-bottom: 10px;
 	margin-top: 15px;
 }
+
+/* POPUP DIV */
+.elgg-kaltura-popup {
+	height: 450px;
+	width: 600px;
+	overflow: hidden;
+}
