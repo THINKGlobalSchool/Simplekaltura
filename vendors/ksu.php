@@ -3,7 +3,7 @@
 
 <!--include external scripts and define constants -->
 <?php 
-	require_once("kaltura_client_v3/KalturaClient.php"); 
+	require_once("kaltura_client/KalturaClient.php"); 
 	
 	//define constants
 	define("KALTURA_PARTNER_ID", '12345');

@@ -28,7 +28,7 @@ function simplekaltura_init() {
 	$plugin_root = dirname(__FILE__);
 
 	elgg_register_library('simplekaltura', "$plugin_root/lib/simplekaltura_lib.php");
-	elgg_register_library('KalturaClient', "$plugin_root/vendors/kaltura_client_v3/KalturaClient.php");
+	elgg_register_library('KalturaClient', "$plugin_root/vendors/kaltura_client/KalturaClient.php");
 	elgg_load_library('simplekaltura');
 
 	// helper libs
