@@ -19,10 +19,9 @@ $flashVars["partnerId"]			= $kaltura_partner_id;
 $flashVars["subPId"] 			= $kaltura_partner_id *100;
 $flashVars["entryId"] 	 		= -1;
 $flashVars["ks"]   				= $client->getKs();
-$flashVars["conversionProfile"]	= 5;
 $flashVars["maxFileSize"]   	= 2000;
 $flashVars["maxTotalSize"]   	= 5000;
-$flashVars["uiConfId"]   		= 11500;
+$flashVars["uiConfId"]   		= 8003811;
 $flashVars["jsDelegate"]   		= "delegate";
 
 ?>
@@ -52,6 +51,6 @@ $flashVars["jsDelegate"]   		= "delegate";
 		var width = $('#simplekaltura-uploader-submit').innerWidth()
 		var height = $('#simplekaltura-uploader-submit').innerHeight()
 
-		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/11500", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/8003811", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 	</script>
 </div>

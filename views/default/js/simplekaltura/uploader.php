@@ -104,16 +104,22 @@ function onLoadHandler() {
  * Creates HTML to display information about their selected file
  */
 function createSelectedFilesHTML(files) {
-	var content = '';
+	var content = "<span>";
+	content += files[0].toString();
+	content += "<a onclick='removeSelectedFile();'><span style='z-index: 1000;' class='elgg-icon elgg-icon-delete left prm'></span></a>";
+	content += "</span>";
+
+	/*
 	$(files).each(function(i, e) {
 		content += "<span>";
-		content += e.title;
+		content += files[0];
 		content += "<span class='pls' style='font-color: #666'>";
 		content += bytesToSize(e.bytesTotal, 2); // Make this a little easier to read
 		content += "</span>";
 		content += "<a onclick='removeSelectedFile(" + i + ");'><span class='elgg-icon elgg-icon-delete left prm'></span></a>";
 		content += "</span>";
 	});
+	*/
 
 	$('#simplekaltura-selected-files').html(content);
 }
@@ -122,8 +128,8 @@ function createSelectedFilesHTML(files) {
 /**
  * Removes a file from the uploader
  */
-function removeSelectedFile(index) {
-	flashObj.removeFiles(index, index);
+function removeSelectedFile() {
+	flashObj.removeFiles(0, 0);
 
 	// Disable the submit button
 	$('#simplekaltura_submit').attr('disabled', 'disabled');
@@ -133,8 +139,8 @@ function removeSelectedFile(index) {
 	$("#simplekaltura-uploader").removeClass('z-negative');
 	$("#simplekaltura-uploader-submit").show();
 
-	// Grab files and display for user
-	createSelectedFilesHTML(flashObj.getFiles());
+	// Clear selected files
+	$('#simplekaltura-selected-files').html('');
 }
 
 /**

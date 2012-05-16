@@ -33,9 +33,9 @@ function simplekaltura_create_client($admin = false) {
 	$config 	= simplekaltura_create_config();
 	$client 	= new KalturaClient($config);
 	$partner	= $client->partner->getSecrets($config->partnerId,
-											elgg_get_plugin_setting('kaltura_email_account', 'simplekaltura'),
-											elgg_get_plugin_setting('kaltura_password_account', 'simplekaltura')
-											);
+		elgg_get_plugin_setting('kaltura_email_account', 'simplekaltura'),
+		elgg_get_plugin_setting('kaltura_password_account', 'simplekaltura')
+	);
 
 	if ($admin) {
 		$st = KalturaSessionType::ADMIN;
