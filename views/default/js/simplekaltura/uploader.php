@@ -38,7 +38,7 @@ delegate.selectHandler = function() {
 	$('#simplekaltura_submit').removeClass('disabled');
 
 	// Grab files and display for user
-	createSelectedFilesHTML(flashObj.getFiles());
+	createSelectedFilesHTML(flashObj.getFiles(), flashObj.getTotalSize());
 }
 
 delegate.singleUploadCompleteHandler = function(args) {
@@ -103,9 +103,13 @@ function onLoadHandler() {
 /**
  * Creates HTML to display information about their selected file
  */
-function createSelectedFilesHTML(files) {
+function createSelectedFilesHTML(files, size) {
+	console.log(size);
 	var content = "<span>";
 	content += files[0].toString();
+	content += "<span class='pls' style='font-color: #666'>";
+	content += bytesToSize(size, 2); // Make this a little easier to read
+	content += "</span>";
 	content += "<a onclick='removeSelectedFile();'><span style='z-index: 1000;' class='elgg-icon elgg-icon-delete left prm'></span></a>";
 	content += "</span>";
 
