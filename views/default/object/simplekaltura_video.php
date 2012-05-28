@@ -131,13 +131,16 @@ HTML;
 		$url = $video->getURL();
 		$trunc_title = elgg_get_excerpt($video->title, 75);
 		
+		$play_info = elgg_echo('simplekaltura:label:vidplays', array($plays));
+		
 		$content = <<<HTML
 			<div class='simplekaltura-video-gallery-item'>
 				<h3><a href="$url">$trunc_title</a></h3>
 				<div class='simplekaltura-video-gallery-icon'>
-					<a href="$pop_url" class="elgg-lightbox" title="$video->title">$icon</a>
+					<a href="$pop_url" class="simplekaltura-lightbox">$icon</a>
 				</div>
 				<div class='elgg-subtext'>$author_text $date</div>
+				<div class='elgg-subtext'>$play_info</div>
 			</div>
 HTML;
 

@@ -56,6 +56,7 @@ $english = array(
 	'simplekaltura:label:unavailable' => 'Unavailable',
 	'simplekaltura:label:download' => 'Download Video',
 	'simplekaltura:label:groupvideos' => 'Group spot videos',
+	'simplekaltura:label:mostplayed' => 'Most Played',
 
 
 	// River

@@ -80,6 +80,8 @@ function simplekaltura_init() {
 	// register CRON hook to poll video plays/duration/etc..
 	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
 	
+	// Most Played Sidebar
+	elgg_extend_view('simplekaltura/sidebar', 'simplekaltura/most_played');
 
 	// Register some hooks for tagdashboards support
 	if (elgg_is_active_plugin('tagdashboards')) {
