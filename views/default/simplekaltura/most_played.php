@@ -16,6 +16,7 @@ $options = array(
 	'order_by_metadata' => array('name' => 'plays', 'as' => 'integer', 'direction' => 'DESC'),
 	'full_view' => FALSE,
 	'limit' => 5,
+	'offset' => 0,
 	'pagination' => FALSE,
 );
 
