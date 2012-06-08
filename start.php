@@ -80,6 +80,9 @@ function simplekaltura_init() {
 	// register CRON hook to poll video plays/duration/etc..
 	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
 	
+	// Hook into facebook open graph image
+	elgg_register_plugin_hook_handler('opengraph:image', 'facebook', 'simplekaltura_opengraph_image_handler');
+	
 	// Most Played Sidebar
 	elgg_extend_view('simplekaltura/sidebar', 'simplekaltura/most_played');
 
@@ -251,4 +254,22 @@ function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
 	}
 
 	return $value;
+}
+
+/**
+ * Provide video thumbnail for open graph image
+ *
+ * @param sting  $hook   view
+ * @param string $type   input/tags
+ * @param mixed  $return  Value
+ * @param mixed  $params Params
+ *
+ * @return array
+ */
+function simplekaltura_opengraph_image_handler($hook, $type, $return, $params) {
+	$entity = $params['entity'];
+	if (elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
+		return $entity->getIconURL();
+	}
+	return $return;
 }
