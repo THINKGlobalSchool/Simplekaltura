@@ -97,3 +97,8 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	width: 600px;
 	overflow: hidden;
 }
+
+/* Entity Menu Icons */
+.elgg-menu-item-download-video {
+	background-position: 0 -252px !important;
+}

@@ -244,9 +244,10 @@ function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
 			$options = array(
 				'name' => 'download_video',
 				'text' => elgg_echo('simplekaltura:label:download'),
-				'title' => 'add_to_portfolio',
+				'title' => 'download_video',
 				'href' => $download_url,
 				'section' => 'actions',
+				'priority' => 300,
 			);
 
 			$value[] = ElggMenuItem::factory($options);
@@ -257,7 +258,7 @@ function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
 }
 
 /**
- * Provide video thumbnail for open graph image
+ * Provide video thumbnail
  *
  * @param sting  $hook   view
  * @param string $type   input/tags
