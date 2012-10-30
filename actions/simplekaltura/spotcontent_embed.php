@@ -18,6 +18,7 @@ if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 	register_error(elgg_echo('simplekaltura:error:notfound'));
 } else {
 	$encoded_content = rawurlencode(elgg_view('simplekaltura/widget', array(
+		'custom_uiconfid' => '10201381', // Embed specific player
 		'entity' => $video, 
 		'width' => '725',
 		'height' => '540',
