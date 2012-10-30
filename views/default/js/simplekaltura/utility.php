@@ -33,9 +33,11 @@ elgg.simplekaltura_utility.lightbox_init = function() {
 			window['doPlayCallback'] = function(playerId ){
 				//
 			};
-			
-			var kdp = null;
-			
+	
+			if (!kWidget.isIOS()) {
+				entry_id += '/video.swf';
+			}
+	
 			kWidget.embed({
 				'targetId': target_id,
 				'wid': wid,
@@ -48,9 +50,7 @@ elgg.simplekaltura_utility.lightbox_init = function() {
 					'height' : 450,
 				},
 				'readyCallback': function( playerId ){
-					/* Don't need this */
-					//kdp = document.getElementById(playerId);
-					//kdp.addJsListener( 'doPlay', 'doPlayCallback');
+					//
 				}
 			});
 		},
