@@ -15,7 +15,7 @@ $english = array(
 	'video' => 'Video',
 	'videos' => 'Videos',
 	'item:object:video' => 'Video',
-	'item:object:simplekaltura_video' => 'Simplekaltura Video',
+	'item:object:simplekaltura_video' => 'Spot Videos',
 	'simplekaltura_video:new' => 'Upload New Video',
 	'simplekaltura_video' => 'Videos',
 	'simplekaltura:owner' => '%s\'s videos',
@@ -60,6 +60,7 @@ $english = array(
 	'simplekaltura:label:embedcode' => 'Embed Code',
 	'simplekaltura:label:viewonspot' => 'View this video on THINK Spot!',
 	'simplekaltura:label:copypaste' => 'Copy and paste the code below:',
+	'simplekaltura:label:embedvideo' => 'Embed Video',
 
 	// River
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',

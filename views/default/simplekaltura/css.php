@@ -109,3 +109,7 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	font-size: 12px;
 	height: 145px;
 }
+
+.simplekaltura-spotcontent-embed {
+	font-size: 11px;
+}

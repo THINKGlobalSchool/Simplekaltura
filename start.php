@@ -62,6 +62,7 @@ function simplekaltura_init() {
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
 	elgg_register_action('simplekaltura/update', "$actions_root/update.php");
 	elgg_register_action('simplekaltura/get_embed', "$actions_root/get_embed.php");
+	elgg_register_action('simplekaltura/spotcontent_embed', "$actions_root/spotcontent_embed.php");
 	elgg_register_action('videos/delete', "$actions_root/delete.php");
 
 	// entity url and icon handlers
@@ -79,6 +80,11 @@ function simplekaltura_init() {
 	
 	// Hook into facebook open graph image
 	elgg_register_plugin_hook_handler('opengraph:image', 'facebook', 'simplekaltura_opengraph_image_handler');
+	
+	// Customize the simplekaltura embed entity menu
+	if (elgg_is_active_plugin('tgsembed')) {
+			elgg_register_plugin_hook_handler('register', 'menu:simpleicon-entity', 'simplekaltura_setup_simpleicon_entity_menu');
+	}
 	
 	// Most Played Sidebar
 	elgg_extend_view('simplekaltura/sidebar', 'simplekaltura/most_played');
@@ -271,6 +277,38 @@ function simplekaltura_opengraph_image_handler($hook, $type, $return, $params) {
 	$entity = $params['entity'];
 	if (elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
 		return $entity->getIconURL();
+	}
+	return $return;
+}
+
+/**
+ * Register items for the simpleicon entity menu
+ *
+ * @param sting  $hook   view
+ * @param string $type   input/tags
+ * @param mixed  $return  Value
+ * @param mixed  $params Params
+ *
+ * @return array
+ */
+function simplekaltura_setup_simpleicon_entity_menu($hook, $type, $return, $params) {
+	if (get_input('embed_spot_content')) {
+		$entity = $params['entity'];
+		
+		if (elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
+			// Item to add object to portfolio
+			$options = array(
+				'name' => 'embed_video',
+				'text' => elgg_echo('simplekaltura:label:embedvideo'),
+				'title' => 'embed_video',
+				'href' => "#{$entity->guid}",
+				'class' => 'simplekaltura-spotcontent-embed elgg-button elgg-button-action',
+				'section' => 'info',
+			);
+			
+			$return[] = ElggMenuItem::factory($options);
+			return $return;
+		}
 	}
 	return $return;
 }

@@ -15,6 +15,9 @@ elgg.provide('elgg.simplekaltura_utility');
 // Init function 
 elgg.simplekaltura_utility.init = function() {	
 	elgg.simplekaltura_utility.lightbox_init();
+	
+	// Spot content video embed click event
+	$(document).delegate('.simplekaltura-spotcontent-embed', 'click', elgg.simplekaltura_utility.videoEmbedClick);
 }
 
 // Init simplekaltura lightboxes
@@ -61,6 +64,35 @@ elgg.simplekaltura_utility.lightbox_init = function() {
 	});
 }
 
+// Spot content video embed click event
+elgg.simplekaltura_utility.videoEmbedClick = function(event) {
+	if (!$(this).hasClass('disabled')) {
+		// href will be #{guid}
+		var entity_guid = $(this).attr('href').substring(1);
+
+		$(this).addClass('disabled');
+
+		$_this = $(this);
+
+		// Get embed
+		elgg.action('simplekaltura/spotcontent_embed', {
+			data: {
+				video_guid: entity_guid,
+				internal_embed: true,
+			}, 
+			success: function(data) {	
+				if (data.status != -1) {
+					elgg.tgsembed.insert(data.output);
+				} else {
+					// Error
+					$_this.removeClass('disabled');
+				}
+			},
+		});
+	}
+	event.preventDefault();
+}
+
 elgg.register_hook_handler('init', 'system', elgg.simplekaltura_utility.init);
 elgg.register_hook_handler('populated', 'modules', elgg.simplekaltura_utility.lightbox_init);
 
@@ -79,7 +111,7 @@ function customFunc1 (entryId){
 		}, 
 		success: function(data) {	
 			$('.elgg-kaltura-embed-container').removeClass('elgg-ajax-loader');
-			if (data.status == 0) {
+			if (data.status != -1) {
 				$('.elgg-kaltura-embed-container').html(data.output);
 			}
 		},
