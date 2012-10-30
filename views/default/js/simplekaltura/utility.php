@@ -63,3 +63,25 @@ elgg.simplekaltura_utility.lightbox_init = function() {
 
 elgg.register_hook_handler('init', 'system', elgg.simplekaltura_utility.init);
 elgg.register_hook_handler('populated', 'modules', elgg.simplekaltura_utility.lightbox_init);
+
+// Custom Kaltura Buttons
+function customFunc1 (entryId){ 
+	// Get video guid
+	var video_guid = $('#video_guid_' + entryId).val();
+
+	// Ajax Spinner
+	$('.elgg-kaltura-embed-container').addClass('elgg-ajax-loader');
+
+	// Get embed
+	elgg.action('simplekaltura/get_embed', {
+		data: {
+			video_guid: video_guid,
+		}, 
+		success: function(data) {	
+			$('.elgg-kaltura-embed-container').removeClass('elgg-ajax-loader');
+			if (data.status == 0) {
+				$('.elgg-kaltura-embed-container').html(data.output);
+			}
+		},
+	});
+}

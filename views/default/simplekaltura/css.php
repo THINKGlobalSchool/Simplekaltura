@@ -102,3 +102,10 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 .elgg-menu-item-download-video {
 	background-position: 0 -252px !important;
 }
+
+/* EMBED CODE */
+.elgg-kaltura-embed-code {
+	margin-top: 5px;
+	font-size: 12px;
+	height: 145px;
+}

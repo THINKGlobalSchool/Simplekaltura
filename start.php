@@ -17,9 +17,6 @@
  *
  * - Figure out when to do the pull from Kaltura for stats. Bulk updates every 15 minutes are best,
  *   but IIRC it was previously doing updates on every entity view.
- *
- * - View counter doesn't seem to work correctly. It's also a bit off on spotmigration.
- *
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');
@@ -40,8 +37,7 @@ function simplekaltura_init() {
 		elgg_register_js("simplekaltura:$lib", $url);
 	}
 
-	// Include kaltura's html5 js library
-	//elgg_register_js('kaltura.html5', 'http://html5.kaltura.org/js');
+	// Include html5 js library
 	elgg_load_js('simplekaltura:html5');
 	elgg_load_js('simplekaltura:utility');
 
@@ -65,6 +61,7 @@ function simplekaltura_init() {
 	$actions_root = "$plugin_root/actions/simplekaltura";
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
 	elgg_register_action('simplekaltura/update', "$actions_root/update.php");
+	elgg_register_action('simplekaltura/get_embed', "$actions_root/get_embed.php");
 	elgg_register_action('videos/delete', "$actions_root/delete.php");
 
 	// entity url and icon handlers
@@ -91,7 +88,10 @@ function simplekaltura_init() {
 		elgg_register_plugin_hook_handler('tagdashboards:subtype:heading', 'simplekaltura_video', 'simplekaltura_subtype_title_handler');
 	}
 
-	return true;
+	// Ajax whitelist
+	//elgg_register_ajax_view('simplekaltura/embed');
+	
+	return TRUE;
 }
 
 /**

@@ -104,7 +104,7 @@ function onLoadHandler() {
  * Creates HTML to display information about their selected file
  */
 function createSelectedFilesHTML(files, size) {
-	console.log(size);
+	//console.log(size);
 	var content = "<span>";
 	content += files[0].toString();
 	content += "<span class='pls' style='font-color: #666'>";

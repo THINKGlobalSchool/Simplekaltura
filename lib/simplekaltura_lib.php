@@ -290,13 +290,12 @@ function simplekaltura_prepare_form_vars($entity = null) {
  * @param ElggEntity $video
  * @return string The URL for the swf object on Kaltura's server
  */
-function simplekaltura_get_swf_url(ElggEntity $video) {
+function simplekaltura_get_swf_url(ElggEntity $video, $uiConfId) {
 	if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 		return false;
 	}
 
 	$widgetid = "_" . elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
-	$uiConfId = elgg_get_plugin_setting('kaltura_custom_player_id', 'simplekaltura');
 	$entryid = $video->kaltura_entryid;
 
 	return "http://www.kaltura.com/index.php/kwidget"

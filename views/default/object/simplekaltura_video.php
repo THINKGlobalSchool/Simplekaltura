@@ -74,15 +74,21 @@ if (elgg_in_context('widgets')) {
 	$metadata = '';
 }
 
+// Hidden entity guid
+$entity_hidden = elgg_view('input/hidden', array(
+		'id' => 'video_guid_' . $video->kaltura_entryid,
+		'value' => $video->guid,
+));
+
 if ($full) {
-//if ($full && !elgg_in_context('gallery')) {
 	$body = elgg_view('output/longtext', array(
 		'value' => $video->description
 	));
 
-	$body .= '<div class="elgg-kaltura-player center">';
-	$body .= elgg_view('simplekaltura/widget', $vars);
-	$body .= "<br />$download_link</div>";
+	$body .= "<div class='elgg-kaltura-player center'>" . elgg_view('simplekaltura/widget', $vars) . "</div>";
+	
+	// Embed container
+	$body .= "<div class='elgg-kaltura-embed-container'></div>";
 
 	if ($video->comments_on != 'Off') {
 		$body .= '<a name="comments"></a>';
@@ -103,9 +109,10 @@ if ($full) {
 	$video_info = elgg_view_image_block($owner_icon, $list_body);
 
 	echo <<<HTML
-$header
-$video_info
-$body
+	$header
+	$video_info
+	$body
+	$entity_hidden
 HTML;
 
 } else {
@@ -157,4 +164,5 @@ HTML;
 
 		echo elgg_view_image_block($icon, $list_body);
 	}
+	echo $entity_hidden;
 }

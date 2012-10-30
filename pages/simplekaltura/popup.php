@@ -57,8 +57,7 @@ $content = <<<HTML
 			$autoplay_input
 		</div>
 	</div>
-	<script type="text/javascript">
-	</script>
+	<div class='elgg-kaltura-embed-container'></div>
 HTML;
 
 echo $content;

@@ -57,7 +57,9 @@ $english = array(
 	'simplekaltura:label:download' => 'Download Video',
 	'simplekaltura:label:groupvideos' => 'Group spot videos',
 	'simplekaltura:label:mostplayed' => 'Most Played',
-
+	'simplekaltura:label:embedcode' => 'Embed Code',
+	'simplekaltura:label:viewonspot' => 'View this video on THINK Spot!',
+	'simplekaltura:label:copypaste' => 'Copy and paste the code below:',
 
 	// River
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',
@@ -73,12 +75,11 @@ $english = array(
 	'simplekaltura:error:notfound' => 'Video not found',
 	'simplekaltura:error:apierror' => 'Kaltura API Error',
 	'simplekaltura:error:titlerequired' => 'Title is required',
+	'simplekaltura:error:nonpublic' => 'Video must be public!',
 
 	// Other content
 	'simplekaltura:no_content' => 'No content',
 	'groups:enablesimplekaltura' => 'Enable group spot videos',
-
-
 );
 
 add_translation('en', $english);
