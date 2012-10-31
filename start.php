@@ -304,6 +304,7 @@ function simplekaltura_setup_simpleicon_entity_menu($hook, $type, $return, $para
 				'href' => "#{$entity->guid}",
 				'class' => 'simplekaltura-spotcontent-embed elgg-button elgg-button-action',
 				'section' => 'info',
+				'priority' => 1,
 			);
 			
 			$return[] = ElggMenuItem::factory($options);
