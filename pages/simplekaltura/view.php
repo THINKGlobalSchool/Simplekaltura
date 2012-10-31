@@ -5,6 +5,11 @@
 
 $video = get_entity(get_input('guid'));
 
+if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
+	register_error(elgg_echo('noaccess'));
+	forward();
+}
+
 $page_owner = elgg_get_page_owner_entity();
 
 $crumbs_title = $page_owner->name;
