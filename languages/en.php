@@ -61,6 +61,7 @@ $english = array(
 	'simplekaltura:label:viewonspot' => 'View this video on THINK Spot!',
 	'simplekaltura:label:copypaste' => 'Copy and paste the code below:',
 	'simplekaltura:label:embedvideo' => 'Embed Video',
+	'simplekaltura:label:viewvideo' => 'View Original Video',
 
 	// River
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',
