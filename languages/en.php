@@ -67,6 +67,11 @@ $english = array(
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',
 	'river:comment:object:simplekaltura_video' => '%s commented on a Video titled %s',
 
+	// Notifications
+	'simplekaltura:notification:subject' => 'New Spot Video',
+	'simplekaltura:notification:body' => "%s posted a new Spot Video titled: %s\n\n%s\n\nTo watch the video click here:\n%s
+",
+
 
 	// Messages
 	'simplekaltura:success:save' => 'Successfully saved Video',
