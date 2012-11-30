@@ -7,7 +7,8 @@ $video = get_entity(get_input('guid'));
 
 if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 	register_error(elgg_echo('noaccess'));
-	forward();
+	$_SESSION['last_forward_from'] = current_page_url();
+	forward('');
 }
 
 $page_owner = elgg_get_page_owner_entity();
