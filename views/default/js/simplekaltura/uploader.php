@@ -29,6 +29,10 @@ delegate.readyHandler = function() {
 }
 
 delegate.selectHandler = function() {
+	// Debug code
+	console.log('selectHandler');
+	console.log(flashObj);
+
 	// Hide select button
 	$("#simplekaltura-uploader").addClass('z-negative');
 	$("#simplekaltura-uploader-submit").hide();
@@ -152,6 +156,13 @@ function removeSelectedFile() {
  */
 function processUserInput() {
 	var title = titleInput.value;
+
+	var params = {form: tagsInput.closest('form')};
+
+	if (!elgg.trigger_hook('checkTags', 'typeaheadtags', params, null)) {
+		return false;
+	}
+
 	var tags = tagsInput.val().split(",");
 
 	// Check for required title
@@ -160,7 +171,7 @@ function processUserInput() {
 		flashObj.setTags(tags, 0, 0);
 		return true;
 	} else {
-		$('#video_title_container').append("<span class='simplekaltura-error'>* Title is required</span>");
+		elgg.register_error(elgg.echo('simplekaltura:error:titlerequired'));
 		return false;
 	}
 }

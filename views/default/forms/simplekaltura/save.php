@@ -25,7 +25,7 @@ $widget = '';
 if (!$entity) {
 	$widget = elgg_view('simplekaltura/form_elements/ksu_widget');
 
-	$new_js = <<<JS
+	$new_js = <<<JAVASCRIPT
 <script type='text/javascript'>
 	$(document).ready(function () {
 		$('#simplekaltura_submit').attr('disabled', 'disabled');
@@ -47,7 +47,7 @@ if (!$entity) {
 		});
 	});
 </script>
-JS;
+JAVASCRIPT;
 }
 
 $container_hidden = elgg_view('input/hidden', array(
