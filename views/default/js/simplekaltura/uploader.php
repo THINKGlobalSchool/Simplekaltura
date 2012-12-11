@@ -26,11 +26,14 @@ delegate.readyHandler = function() {
 
 	// Only going to allow one upload from this form
 	flashObj.setMaxUploads(1);
+
+	// Debug
+	console.log('readyHandler()');
 }
 
 delegate.selectHandler = function() {
 	// Debug code
-	console.log('selectHandler');
+	console.log('selectHandler()');
 	console.log(flashObj);
 
 	// Hide select button
@@ -50,6 +53,9 @@ delegate.singleUploadCompleteHandler = function(args) {
 
 delegate.allUploadsCompleteHandler = function() {
 	addEntries();
+
+	// Debug
+	console.log('allUploadsCompleteHandler()');
 }
 
 delegate.entriesAddedHandler = function(entries) {
@@ -61,6 +67,9 @@ delegate.entriesAddedHandler = function(entries) {
 
 	// Finally submit the post form
 	$('#simplekaltura_submit').parents('form').submit();
+
+	// Debug
+	console.log('entriesAddedHandler()');
 }
 
 delegate.progressHandler = function(args) {
