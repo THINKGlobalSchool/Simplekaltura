@@ -23,7 +23,11 @@ elgg.simplekaltura_utility.init = function() {
 // Init simplekaltura lightboxes
 elgg.simplekaltura_utility.lightbox_init = function() {
 	// Set up kaltura lightboxes
-	$(".simplekaltura-lightbox").fancybox({
+	$(".simplekaltura-lightbox").fancybox(elgg.simplekaltura_utility.get_lightbox_init());
+}
+
+elgg.simplekaltura_utility.get_lightbox_init = function() {
+	return {
 		'onComplete': function() {
 			// Get kaltura settings/options
 			var $container	= $('#kaltura-dynamic-container');	
@@ -61,7 +65,7 @@ elgg.simplekaltura_utility.lightbox_init = function() {
 		},
 		'onClosed': function() {
 		}
-	});
+	};
 }
 
 // Spot content video embed click event
