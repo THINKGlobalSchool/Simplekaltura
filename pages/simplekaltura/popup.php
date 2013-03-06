@@ -61,3 +61,6 @@ $content = <<<HTML
 HTML;
 
 echo $content;
+
+// Add a view to extend popup
+echo elgg_view('simplekaltura/popup', array('entity' => $video));
