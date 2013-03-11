@@ -12,9 +12,6 @@
 
 $plugin = $vars['entity'];
 
-
-var_dump($plugin->kaltura_largethumb_width);
-
 // Player id
 $player_id = $plugin->kaltura_custom_player_id ? $plugin->kaltura_custom_player_id : '1000106';
 
