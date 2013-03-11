@@ -132,6 +132,11 @@ img.simplekaltura-video-gallery-icon {
 	padding: 15px;
 }
 
+.simplekaltura-random-thumbnail img {
+	width: <?php echo elgg_get_plugin_setting('kaltura_mediumthumb_width', 'simplekaltura');?>px;
+	height: <?php echo elgg_get_plugin_setting('kaltura_mediumthumb_height', 'simplekaltura');?>px;
+}
+
 .simplekaltura-random-thumbnail.selected {
 	background: none repeat scroll 0 0 #999999;
 }
