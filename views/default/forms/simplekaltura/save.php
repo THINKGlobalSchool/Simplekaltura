@@ -10,6 +10,11 @@
  *
  */
 
+elgg_load_library('simplekaltura');
+elgg_load_library('KalturaClient');
+
+elgg_load_js('simplekaltura:thumbs');
+
 $title = elgg_extract('title', $vars);
 $description = elgg_extract('description', $vars);
 $tags = elgg_extract('tags', $vars);
@@ -18,6 +23,7 @@ $guid = elgg_extract('guid', $vars);
 $container_guid = elgg_extract('container_guid', $vars, elgg_get_page_owner_guid());
 $entity = elgg_extract('entity', $vars);
 $comments_on = elgg_extract('comments_on', $vars, 'On');
+$thumbnail_second = elgg_extract('thumbnail_second', $vars);
 
 $widget = '';
 
@@ -48,6 +54,27 @@ if (!$entity) {
 	});
 </script>
 JAVASCRIPT;
+} else {
+	// Get entry to check status
+	$entry = simplekaltura_get_entry($entity->kaltura_entryid);
+
+	// Check for ready status
+	if ($entry->status == KalturaEntryStatus::READY) {
+		$thumbnail_label = elgg_echo('simplekaltura:label:selectthumbnail');
+
+		$thumbnail_input = elgg_view('input/simplekaltura_thumbs', array(
+			'name' => 'thumbnail_second',
+			'value' => $thumbnail_second,
+			'video_guid' => $entity->guid,
+		));
+
+		$thumbnail_content = "<div>
+				<label>$thumbnail_label</label><br />
+      			$thumbnail_input
+			</div><br />";
+	} else {
+		echo "<div class='elgg-message elgg-state-notice'>" . elgg_echo('simplekaltura:notconverted') . "</div>";
+	}
 }
 
 $container_hidden = elgg_view('input/hidden', array(
@@ -127,11 +154,12 @@ $form_body = <<<EOT
 
 $new_js
 
-<div class='margin_top simplekaltura'>
+<div class='simplekaltura'>
 	<div id='video_title_container'>
 		<label>$title_label</label><br />
         $title_input
 	</div><br />
+	$thumbnail_content
 	<div>
 		<label>$description_label</label><br />
         $description_input

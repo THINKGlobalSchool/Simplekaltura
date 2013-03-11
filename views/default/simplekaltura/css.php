@@ -69,17 +69,18 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 	text-align: center;
 }
 
-.simplekaltura-video-gallery-icon {
+
+img.simplekaltura-video-gallery-icon {
+	border: 3px solid #FFFFFF;
+	box-shadow: 0px 0px 3px #666666;
 	margin-left: auto;
 	margin-right: auto;
 	width: 126px;
 	margin-bottom: 5px;
-	margin-top: 3px;
 }
 
-.simplekaltura-video-gallery-icon img {
-	border: 3px solid #FFFFFF;
-	box-shadow: 0px 0px 3px #666666;
+.simplekaltura-video-gallery-item img.simplekaltura-video-gallery-icon {
+	margin-top: 3px;
 }
 
 /* OBJECT VIEW */
@@ -112,4 +113,29 @@ object#simplekaltura-uploader, embed.simplekaltura-uploader {
 
 .simplekaltura-spotcontent-embed {
 	font-size: 11px;
+}
+
+/** THUMBNAILS INPUT **/
+.simplekaltura-random-thumbnails {
+	text-align: center;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.simplekaltura-random-thumbnail {
+	background: none repeat scroll 0 0 #DDDDDD;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+	display: inline-block;
+	margin: 5px;
+	padding: 15px;
+}
+
+.simplekaltura-random-thumbnail.selected {
+	background: none repeat scroll 0 0 #999999;
+}
+
+.simplekaltura-regenerate-thumbs {
+	float: right;
 }

@@ -123,16 +123,18 @@ HTML;
 	// Grab thumbnail but make it popup the video player instead of link to the Elgg view
 	$pop_url = elgg_get_site_url() . 'videos/popup/' . $video->guid;
 	
-	$icon = elgg_view_entity_icon($video, 'medium', array(
+	$icon = elgg_view_entity_icon($video, 'small', array(
 		'href' => $pop_url,
 		'link_class' => 'simplekaltura-lightbox',
 		'title' => 'simplekaltura_lightbox',
+		//'img_class' => 'simplekaltura-video-gallery-icon',
 	));
 
 	if (elgg_in_context('gallery')) {	
 		$icon = elgg_view('output/img', array(
-			'src' => $video->getIconURL('medium'),
+			'src' => $video->getIconURL('small'),
 			'alt' => $title,
+			'class' => 'simplekaltura-video-gallery-icon',
 		));
 		
 		$url = $video->getURL();
@@ -143,9 +145,7 @@ HTML;
 		$content = <<<HTML
 			<div class='simplekaltura-video-gallery-item'>
 				<h3><a href="$url">$trunc_title</a></h3>
-				<div class='simplekaltura-video-gallery-icon'>
-					<a href="$pop_url" class="simplekaltura-lightbox">$icon</a>
-				</div>
+				<a href="$pop_url" class="simplekaltura-lightbox">$icon</a>
 				<div class='elgg-subtext'>$author_text $date</div>
 				<div class='elgg-subtext'>$play_info</div>
 			</div>

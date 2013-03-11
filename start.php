@@ -17,6 +17,8 @@
  *
  * - Figure out when to do the pull from Kaltura for stats. Bulk updates every 15 minutes are best,
  *   but IIRC it was previously doing updates on every entity view.
+ * 
+ * - Add activate script
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');
@@ -29,7 +31,7 @@ function simplekaltura_init() {
 	elgg_load_library('simplekaltura');
 
 	// helper libs
-	$libs = array('listing-popup', 'uploader', 'widget', 'swfobject', 'html5', 'utility');
+	$libs = array('uploader', 'widget', 'swfobject', 'html5', 'utility', 'thumbs');
 
 	foreach ($libs as $lib) {
 		$url = elgg_get_simplecache_url('js', "simplekaltura/$lib");
@@ -61,7 +63,6 @@ function simplekaltura_init() {
 	register_notification_object('object', 'simplekaltura_video', elgg_echo('simplekaltura:notification:subject'));
 	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'simplekaltura_notify_message');
 
-	
 	// actions
 	$actions_root = "$plugin_root/actions/simplekaltura";
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
@@ -100,7 +101,7 @@ function simplekaltura_init() {
 	}
 
 	// Ajax whitelist
-	//elgg_register_ajax_view('simplekaltura/embed');
+	elgg_register_ajax_view('input/simplekaltura_thumbs');
 	
 	return TRUE;
 }
@@ -190,7 +191,6 @@ function simplekaltura_subtype_title_handler($hook, $type, $returnvalue, $params
 	}
 }
 
-
 /**
  * Override the default entity icon for videos
  *
@@ -201,12 +201,7 @@ function simplekaltura_icon_url_override($hook, $type, $returnvalue, $params) {
 	$size = $params['size'];
 	
 	if (elgg_instanceof($video, 'object', 'simplekaltura_video')) {
-		$thumbnail_url = $vars['entity']->thumbnailUrl;
-		if (!$thumbnail_url) {
-			$thumbnail_url = elgg_get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $video->kaltura_entryid;
-		}
-
-		return $thumbnail_url;
+		return simplekaltura_build_thumbnail_url($video->kaltura_entryid, $size, $video->thumbnail_second);
 	}
 }
 

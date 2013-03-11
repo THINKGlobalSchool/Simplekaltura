@@ -15,6 +15,8 @@ if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 	$content = elgg_view_form("simplekaltura/save", array(), $vars);
 }
 
+$title = elgg_echo('simplekaltura:label:editvideo', array($video->title));
+
 $body = elgg_view_layout('content', array(
 	'filter' => '',
 	'content' => $content,

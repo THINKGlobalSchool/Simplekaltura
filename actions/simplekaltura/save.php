@@ -25,11 +25,37 @@ $guid = get_input('guid');
 $video = get_entity($guid);
 $new = false;
 
+// Need at least a title
+if (!$title) {
+	register_error(elgg_echo('simplekaltura:error:titlerequired'));
+	forward(REFERER);
+}
+
 // edit
 if ($guid) {
 	if (!elgg_instanceof($video, 'object', 'simplekaltura_video') || !$video->canEdit()) {
 		register_error('simplekaltura:error:notfound');
 		forward(REFERER);
+	}
+
+	// Get thumbnail second
+	$thumbnail_second = get_input('thumbnail_second');
+
+	// If we second isn't empty
+	if (!empty($thumbnail_second)) {
+		// If it's a valid int
+		if ((int)$thumbnail_second) {
+			if ((int)$thumbnail_second <= $video->duration) {
+				// Set thumbnail second for thumbnail generation
+				$video->thumbnail_second = (int)$thumbnail_second;
+			} else {
+				register_error(elgg_echo('simplekaltura:error:invalidsecondduration', array($video->duration)));
+				forward(REFERER);
+			}
+		} else {
+			register_error(elgg_echo('simplekaltura:error:invalidsecond'));
+			forward(REFERER);
+		}	
 	}
 } else {
 	// Kaltura related

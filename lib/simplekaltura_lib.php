@@ -262,6 +262,7 @@ function simplekaltura_prepare_form_vars($entity = null) {
 		'guid' => null,
 		'comments_on' => 'On',
 		'entity' => $entity,
+		'thumbnail_second' => '',
 	);
 
 	if ($entity) {
@@ -282,6 +283,40 @@ function simplekaltura_prepare_form_vars($entity = null) {
 	elgg_clear_sticky_form('simplekaltura');
 
 	return $values;
+}
+
+/**
+ * Build thumbnail url from video info and admin settings
+ * 
+ * @param string $entry_id The video
+ * @param string $size     Size of the thumbnail (small/medium/large)
+ * @return string
+ */
+function simplekaltura_build_thumbnail_url($entry_id, $size = NULL, $video_second = NULL) {
+	if (!$size) {
+		$size = 'small'; // Default to small
+	}
+
+	$width = elgg_get_plugin_setting("kaltura_{$size}thumb_width", 'simplekaltura');
+	$height = elgg_get_plugin_setting("kaltura_{$size}thumb_height", 'simplekaltura');
+
+	$thumbnail_url = elgg_get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $entry_id;
+	
+	// Set cropping type
+	$thumbnail_url .= "/type/3";
+
+	// Set width
+	$thumbnail_url .= "/width/{$width}";
+
+	// Set height
+	$thumbnail_url .= "/height/{$height}";
+
+	// Set video second
+	if ($video_second) {	
+		$thumbnail_url .= "/vid_sec/{$video_second}";
+	}
+
+	return $thumbnail_url;
 }
 
 /**
