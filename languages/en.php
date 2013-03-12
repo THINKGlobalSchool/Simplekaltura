@@ -54,9 +54,8 @@ $english = array(
 	'simplekaltura:label:copypaste' => 'Copy and paste the code below:',
 	'simplekaltura:label:embedvideo' => 'Embed Video',
 	'simplekaltura:label:viewvideo' => 'View Original Video',
+	'simplekaltura:label:currentthumbnail' => 'Current Thumbnail',
 	'simplekaltura:label:selectthumbnail' => 'Select Thumbnail',
-	'simplekaltura:label:thumbnailsecond' => 'At second: ',
-	'simplekaltura:label:regenerate' => 'Regenerate Thumbnails',
 	'simplekaltura:label:editvideo' => 'Edit Video: "%s"',
 
 	// Admin

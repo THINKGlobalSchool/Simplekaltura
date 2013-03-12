@@ -8,23 +8,17 @@
  * @copyright THINK Global School 2010 - 2013
  * @link http://www.thinkglobalschool.com/
  *
- * @uses $vars['thumbnail_second']
- * @uses $vars['video_guid']
+ * @uses $vars['entity']
+ * @uses $vars['name']
  */
 
-$video = get_entity(elgg_extract('video_guid', $vars));
+$video = elgg_extract('entity', $vars);
 
 if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 	return;
 }
 
-// Get thumbnail second
-$thumbnail_second = elgg_extract('thumbnail_second', $vars);
-
-// Default to video's thumbnail second value if unset
-if (!$thumbnail_second) {
-	$thumbnail_second = $video->thumbnail_second;
-}
+$thumbnail_second = $video->thumbnail_second;
 
 // Get field name
 $name = elgg_extract('name', $vars);
@@ -36,23 +30,19 @@ if (!$name) {
 // Get video duration
 $duration = $video->duration;
 
-// Generate three random thumbnails
-$random_sec1 = rand(1, $duration);
-$random_thumb1 = elgg_view('output/img', array(
-	'src' => simplekaltura_build_thumbnail_url($video->kaltura_entryid, 'medium', $random_sec1),
+// Get current thumbnail
+$current_thumb = elgg_view('output/img', array(
+	'src' => simplekaltura_build_thumbnail_url($video->kaltura_entryid, 'large', $thumbnail_second),
 ));
 
-$random_sec2 = rand(1, $duration);
-$random_thumb2 = elgg_view('output/img', array(
-	'src' => simplekaltura_build_thumbnail_url($video->kaltura_entryid, 'medium', $random_sec2),
+$select_thumb = elgg_view('output/img', array(
+	'src' => simplekaltura_build_thumbnail_url($video->kaltura_entryid, 'large', 1),
+	'id' => 'simplekaltura-select-thumbnail',
 ));
 
-$random_sec3 = rand(1, $duration);
-$random_thumb3 = elgg_view('output/img', array(
-	'src' => simplekaltura_build_thumbnail_url($video->kaltura_entryid, 'medium', $random_sec3),
-));
+$current_label = elgg_echo('simplekaltura:label:currentthumbnail');
+$select_label = elgg_echo('simplekaltura:label:selectthumbnail');
 
-$thumbnail_second_label = elgg_echo('simplekaltura:label:thumbnailsecond');
 $thumbnail_second_input = elgg_view('input/text', array(
 	'text' => elgg_echo('simplekaltura:label:second'),
 	'value' => $thumbnail_second,
@@ -60,40 +50,25 @@ $thumbnail_second_input = elgg_view('input/text', array(
 	'id' => 'thumbs-name',
 ));
 
-// Regenerate thumbs button
-$regenerate_button = elgg_view('input/button', array(
-	'value' => elgg_echo('simplekaltura:label:regenerate'),
-	'class' => 'simplekaltura-regenerate-thumbs elgg-button-action',
-)); 
-
-// Hidden video guid
-$video_hidden = elgg_view('input/hidden', array(
-	'name' => 'video_guid',
-	'value' => $video->guid
-));
-
 $content = <<<HTML
-	<div class='simplekaltura-random-thumbnails'>
-		<div class='simplekaltura-random-thumbnail'>
-			$random_thumb1<br />
-			<input type="radio" name='thumbnail_second_radio' value="$random_sec1" />
+	<div class='simplekaltura-edit-thumbnails'>
+		<div class='simplekaltura-edit-thumbnail'>
+			<div class='pbm'>
+				<label>$current_label</label>
+			</div>
+			$current_thumb
 		</div>
-		<div class='simplekaltura-random-thumbnail'>
-			$random_thumb2<br />
-			<input type="radio" name='thumbnail_second_radio' value="$random_sec2" />
-		</div>
-		<div class='simplekaltura-random-thumbnail'>
-			$random_thumb3<br />
-			<input type="radio" name='thumbnail_second_radio' value="$random_sec3" />
+		<div class='simplekaltura-edit-thumbnail'>
+			<div class='pbm'>
+				<label>$select_label</label>
+			</div>
+			$select_thumb<br />
+			<span class='elgg-subtext'></span>
+			<div id='simplekaltura-thumbnail-slider' class='mas'><span class='duration hidden'>$duration</span></div>
 		</div>
 	</div>
-	$regenerate_button
-	$video_hidden
-	<div class='clearfix'></div>
-	<div>
-		<label>$thumbnail_second_label</label><br />
-		$thumbnail_second_input
-	</div>
+	<div class='clearfix hidden'>$thumbnail_second_input</div>
+
 HTML;
 
 echo $content;

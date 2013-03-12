@@ -15,6 +15,8 @@ elgg_load_library('KalturaClient');
 
 elgg_load_js('simplekaltura:thumbs');
 
+elgg_load_css('simplekaltura-jquery-ui');
+
 $title = elgg_extract('title', $vars);
 $description = elgg_extract('description', $vars);
 $tags = elgg_extract('tags', $vars);
@@ -60,16 +62,11 @@ JAVASCRIPT;
 
 	// Check for ready status
 	if ($entry->status == KalturaEntryStatus::READY) {
-		$thumbnail_label = elgg_echo('simplekaltura:label:selectthumbnail');
-
 		$thumbnail_input = elgg_view('input/simplekaltura_thumbs', array(
-			'name' => 'thumbnail_second',
-			'value' => $thumbnail_second,
-			'video_guid' => $entity->guid,
+			'entity' => $entity,
 		));
 
 		$thumbnail_content = "<div>
-				<label>$thumbnail_label</label><br />
       			$thumbnail_input
 			</div><br />";
 	} else {

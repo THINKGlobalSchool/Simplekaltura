@@ -116,31 +116,39 @@ img.simplekaltura-video-gallery-icon {
 }
 
 /** THUMBNAILS INPUT **/
-.simplekaltura-random-thumbnails {
+.simplekaltura-edit-thumbnails {
 	text-align: center;
 	margin-top: 10px;
 	margin-bottom: 10px;
-}
-
-.simplekaltura-random-thumbnail {
-	background: none repeat scroll 0 0 #DDDDDD;
+	overflow: hidden;
 	-moz-border-radius: 5px 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px 5px;
 	border-radius: 5px 5px 5px 5px;
-	display: inline-block;
+	border: 2px solid #CCCCCC;
+	background: #EEEEEE;
+}
+
+.simplekaltura-edit-thumbnail {
+	float: left;
 	margin: 5px;
 	padding: 15px;
 }
 
-.simplekaltura-random-thumbnail img {
-	width: <?php echo elgg_get_plugin_setting('kaltura_mediumthumb_width', 'simplekaltura');?>px;
-	height: <?php echo elgg_get_plugin_setting('kaltura_mediumthumb_height', 'simplekaltura');?>px;
+.simplekaltura-edit-thumbnail img {
+	width: <?php echo elgg_get_plugin_setting('kaltura_largethumb_width', 'simplekaltura');?>px;
+	height: <?php echo elgg_get_plugin_setting('kaltura_largethumb_height', 'simplekaltura');?>px;
+	-moz-box-shadow: 0 1px 5px #333333;
+	-webkit-box-shadow: 0 1px 5px #333333;
+	box-shadow: 0 1px 5px #333333;
+	padding: 3px;
 }
 
-.simplekaltura-random-thumbnail.selected {
-	background: none repeat scroll 0 0 #999999;
+.simplekaltura-edit-thumbnail .ui-slider-handle {
+	background: none repeat scroll 0 0 #CCCCCC !important;
+	border: 1px solid #AAAAAA !important;
 }
 
-.simplekaltura-regenerate-thumbs {
-	float: right;
+.simplekaltura-edit-thumbnail .ui-slider-handle.ui-state-active {
+	background: none repeat scroll 0 0 #AAAAAA !important;
+	border: 1px solid #999999 !important;
 }

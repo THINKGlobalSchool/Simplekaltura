@@ -46,6 +46,10 @@ function simplekaltura_init() {
 	elgg_extend_view('css/elgg', 'simplekaltura/css');
 	elgg_register_page_handler('videos', 'simplekaltura_page_handler');
 
+	$url = elgg_get_simplecache_url('css', 'jquery.ui_1.8.16');
+	elgg_register_simplecache_view('css/jquery.ui_1.8.16');
+	elgg_register_css('simplekaltura-jquery-ui', $url);
+
 	// Add to main menu
 	$item = new ElggMenuItem('simplekaltura', elgg_echo('simplekaltura:spotvideo'), 'videos');
 	elgg_register_menu_item('site', $item);
@@ -99,9 +103,6 @@ function simplekaltura_init() {
 	if (elgg_is_active_plugin('tagdashboards')) {
 		elgg_register_plugin_hook_handler('tagdashboards:subtype:heading', 'simplekaltura_video', 'simplekaltura_subtype_title_handler');
 	}
-
-	// Ajax whitelist
-	elgg_register_ajax_view('input/simplekaltura_thumbs');
 	
 	return TRUE;
 }

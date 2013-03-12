@@ -14,60 +14,48 @@ elgg.provide('elgg.simplekaltura_thumbs');
 
 // Init function 
 elgg.simplekaltura_thumbs.init = function() {
-	// Delegate change handler for radio buttons
-	$(document).delegate('input[name="thumbnail_second_radio"]', 'change', elgg.simplekaltura_thumbs.radioChange);
+	$('#simplekaltura-thumbnail-slider').slider({
+		max: $('#simplekaltura-thumbnail-slider').find('span.duration').html(),
+		min: 1,
+		step: 1,
+		change: function(event, ui) {
+			// Get slider value
+			var value = $(this).slider('value');
 
-	// Delegate keyup handler for thumbnail second text input
-	$(document).delegate('input[name="thumbnail_second"]', 'keyup', elgg.simplekaltura_thumbs.secondKeyup);	
+			// Find thumbnail element
+			var select_thumbnail = $(this).siblings('#simplekaltura-select-thumbnail');
 
-	// Delegate click handler for regenerate thumbs button
-	$(document).delegate('input.simplekaltura-regenerate-thumbs', 'click', elgg.simplekaltura_thumbs.regenerateClick);
+			// Get the thumbnail url without the vid_sec parameter
+		 	var src = select_thumbnail.attr('src').substring(0, select_thumbnail.attr('src').indexOf('vid_sec'));
+		 	
+		 	// Update thumbnail src
+			select_thumbnail.attr('src', src + 'vid_sec/' + value);
 
-	// Delegate click handler for random image divs
-	$(document).delegate('.simplekaltura-random-thumbnail', 'click', elgg.simplekaltura_thumbs.randomClick);
-}
+			// Set hidden value for thumbnail second
+			$("input#thumbs-name").val(value);
 
-// On Change handler for radio buttons
-elgg.simplekaltura_thumbs.radioChange = function(event) {
-	var second = $(this).val();
-	$(this).parent('.simplekaltura-random-thumbnail').addClass('selected').siblings().removeClass('selected');
-	$('input[name="thumbnail_second"]').val(second);
-	event.preventDefault();
-}
-
-// Keyup handler for thumbnail second input
-elgg.simplekaltura_thumbs.secondKeyup = function(event) {
-	// Uncheck selected radio button
-	$('input[name="thumbnail_second_radio"]:checked').prop('checked', false);
-	event.preventDefault();
-}
-
-// Click handler for regenerate thumbs button
-elgg.simplekaltura_thumbs.regenerateClick = function(event) {
-	var name = $('input#thumbs-name').attr('name');
-	var video_guid = $('input[name="video_guid"]').val();
-
-	$('.simplekaltura-random-thumbnails').html('<div class="elgg-ajax-loader"></div>');
-
-	elgg.get({
-			url: elgg.config.wwwroot + 'ajax/view/input/simplekaltura_thumbs',
-			data: {
-				name: name,
-				video_guid: video_guid
-			},
-			dataType: "html",
-			cache: true,
-			success: function(data) {
-				$('.simplekaltura-random-thumbnails').replaceWith($(data).filter('.simplekaltura-random-thumbnails'));
-			}
+			// Update time element
+			var time = $(this).siblings('span.elgg-subtext');
+			time = time.html(elgg.simplekaltura_thumbs.toHHMMSS(value));
+		}, 
+		create: function(event, ui) {
+			var time = $(this).siblings('span.elgg-subtext');
+			time.html(elgg.simplekaltura_thumbs.toHHMMSS($(this).slider('value')));
+		}
 	});
-	event.preventDefault();
 }
 
-// Click handler for regenerate thumbs button
-elgg.simplekaltura_thumbs.randomClick = function(event) {
-	// Select and trigger change for radio button child
-	$(this).children('input[name="thumbnail_second_radio"]').prop('checked', true).trigger('change');
+elgg.simplekaltura_thumbs.toHHMMSS = function(seconds) {
+    sec_numb    = parseInt(seconds);
+    var hours   = Math.floor(sec_numb / 3600);
+    var minutes = Math.floor((sec_numb - (hours * 3600)) / 60);
+    var seconds = sec_numb - (hours * 3600) - (minutes * 60);
+
+    if (hours   < 10) {hours   = "0"+hours;}
+    if (minutes < 10) {minutes = "0"+minutes;}
+    if (seconds < 10) {seconds = "0"+seconds;}
+    var time    = hours+':'+minutes+':'+seconds;
+    return time;
 }
 
 elgg.register_hook_handler('init', 'system', elgg.simplekaltura_thumbs.init);
