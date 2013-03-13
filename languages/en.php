@@ -46,6 +46,7 @@ $english = array(
 	'simplekaltura:label:vidlength' => 'Length: %s ',
 	'simplekaltura:label:vidplays' => 'Plays: %s ',
 	'simplekaltura:label:unavailable' => 'Unavailable',
+	'simplekaltura:label:default' => 'Default',
 	'simplekaltura:label:download' => 'Download Video',
 	'simplekaltura:label:groupvideos' => 'Group spot videos',
 	'simplekaltura:label:mostplayed' => 'Most Played',

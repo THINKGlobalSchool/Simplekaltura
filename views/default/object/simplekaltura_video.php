@@ -39,8 +39,13 @@ $video_icon = '';
 
 $plays = (is_int($vars['entity']->plays)) ? $vars['entity']->plays : elgg_echo('simplekaltura:label:unavailable');
 
-$kaltura_metadata = elgg_echo('simplekaltura:label:vidlength',
-		array(simplekaltura_sec2hms($vars['entity']->duration)));
+$duration = simplekaltura_sec2hms($vars['entity']->duration);
+
+if (!$duration) {
+	$duration = elgg_echo('simplekaltura:label:unavailable');
+}
+
+$kaltura_metadata = elgg_echo('simplekaltura:label:vidlength', array($duration));
 
 $kaltura_metadata .= elgg_echo('simplekaltura:label:vidplays', array($plays));
 

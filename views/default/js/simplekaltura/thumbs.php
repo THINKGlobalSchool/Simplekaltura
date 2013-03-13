@@ -14,6 +14,11 @@ elgg.provide('elgg.simplekaltura_thumbs');
 
 // Init function 
 elgg.simplekaltura_thumbs.init = function() {
+	// Load handler for thumbnail select image
+	$('#simplekaltura-select-thumbnail').load(function(event) {
+		$(this).show(); // If previously hidden, show the element
+	});
+
 	$('#simplekaltura-thumbnail-slider').slider({
 		max: $('#simplekaltura-thumbnail-slider').find('span.duration').html(),
 		min: 1,
@@ -23,7 +28,13 @@ elgg.simplekaltura_thumbs.init = function() {
 			var value = $(this).slider('value');
 
 			// Find thumbnail element
-			var select_thumbnail = $(this).siblings('#simplekaltura-select-thumbnail');
+			var select_thumbnail = $('#simplekaltura-select-thumbnail');
+			
+			// Hide thumbnail element
+			select_thumbnail.hide();
+
+			// Show ajax loader in wrapper
+			select_thumbnail.parent().addClass('elgg-ajax-loader');
 
 			// Get the thumbnail url without the vid_sec parameter
 		 	var src = select_thumbnail.attr('src').substring(0, select_thumbnail.attr('src').indexOf('vid_sec'));
@@ -45,6 +56,7 @@ elgg.simplekaltura_thumbs.init = function() {
 	});
 }
 
+// Convert seconds to friendly HH:MM:SS 
 elgg.simplekaltura_thumbs.toHHMMSS = function(seconds) {
     sec_numb    = parseInt(seconds);
     var hours   = Math.floor(sec_numb / 3600);

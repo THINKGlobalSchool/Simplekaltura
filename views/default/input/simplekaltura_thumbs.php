@@ -20,6 +20,12 @@ if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 
 $thumbnail_second = $video->thumbnail_second;
 
+$thumbnail_second_formatted = simplekaltura_sec2hms($thumbnail_second, TRUE);
+
+if (!$thumbnail_second_formatted) {
+	$thumbnail_second_formatted = elgg_echo('simplekaltura:label:default');
+}
+
 // Get field name
 $name = elgg_extract('name', $vars);
 
@@ -56,13 +62,14 @@ $content = <<<HTML
 			<div class='pbm'>
 				<label>$current_label</label>
 			</div>
-			$current_thumb
+			<div class='simplekaltura-edit-thumbnail-wrapper'>$current_thumb</div>
+			<span class='elgg-subtext'>$thumbnail_second_formatted</span>
 		</div>
 		<div class='simplekaltura-edit-thumbnail'>
 			<div class='pbm'>
 				<label>$select_label</label>
 			</div>
-			$select_thumb<br />
+			<div class='simplekaltura-edit-thumbnail-wrapper'>$select_thumb</div>
 			<span class='elgg-subtext'></span>
 			<div id='simplekaltura-thumbnail-slider' class='mas'><span class='duration hidden'>$duration</span></div>
 		</div>

@@ -241,7 +241,7 @@ function simplekaltura_sec2hms ($sec, $padHours = false) {
 	    // done!
 	    return $hms;
 	} else {
-		return elgg_echo('simplekaltura:label:unavailable');
+		return FALSE;
 	}
 }
 

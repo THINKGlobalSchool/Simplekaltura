@@ -134,13 +134,14 @@ img.simplekaltura-video-gallery-icon {
 	padding: 15px;
 }
 
-.simplekaltura-edit-thumbnail img {
+.simplekaltura-edit-thumbnail-wrapper {
 	width: <?php echo elgg_get_plugin_setting('kaltura_largethumb_width', 'simplekaltura');?>px;
 	height: <?php echo elgg_get_plugin_setting('kaltura_largethumb_height', 'simplekaltura');?>px;
 	-moz-box-shadow: 0 1px 5px #333333;
 	-webkit-box-shadow: 0 1px 5px #333333;
 	box-shadow: 0 1px 5px #333333;
 	padding: 3px;
+	margin-bottom: 5px;
 }
 
 .simplekaltura-edit-thumbnail .ui-slider-handle {
