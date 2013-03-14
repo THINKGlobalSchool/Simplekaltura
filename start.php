@@ -19,6 +19,7 @@
  *   but IIRC it was previously doing updates on every entity view.
  * 
  * - Add activate script
+ * - Pull tgs embed code out of plugin
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');
@@ -93,7 +94,7 @@ function simplekaltura_init() {
 	
 	// Customize the simplekaltura embed entity menu
 	if (elgg_is_active_plugin('tgsembed')) {
-			elgg_register_plugin_hook_handler('register', 'menu:simpleicon-entity', 'simplekaltura_setup_simpleicon_entity_menu');
+		elgg_register_plugin_hook_handler('register', 'menu:simpleicon-entity', 'simplekaltura_setup_simpleicon_entity_menu');
 	}
 	
 	// Most Played Sidebar

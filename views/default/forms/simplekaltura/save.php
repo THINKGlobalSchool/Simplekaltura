@@ -15,8 +15,6 @@ elgg_load_library('KalturaClient');
 
 elgg_load_js('simplekaltura:thumbs');
 
-elgg_load_css('simplekaltura-jquery-ui');
-
 $title = elgg_extract('title', $vars);
 $description = elgg_extract('description', $vars);
 $tags = elgg_extract('tags', $vars);
@@ -57,6 +55,8 @@ if (!$entity) {
 </script>
 JAVASCRIPT;
 } else {
+	elgg_load_css('simplekaltura-jquery-ui');
+
 	// Get entry to check status
 	$entry = simplekaltura_get_entry($entity->kaltura_entryid);
 
