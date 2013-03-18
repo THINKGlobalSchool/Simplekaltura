@@ -59,9 +59,12 @@ JAVASCRIPT;
 
 	// Get entry to check status
 	$entry = simplekaltura_get_entry($entity->kaltura_entryid);
-
+	
 	// Check for ready status
 	if ($entry->status == KalturaEntryStatus::READY) {
+		// Update local entity
+		simplekaltura_update_video($entity);
+
 		$thumbnail_input = elgg_view('input/simplekaltura_thumbs', array(
 			'entity' => $entity,
 		));
