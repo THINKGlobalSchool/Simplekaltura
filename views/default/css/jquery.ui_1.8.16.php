@@ -8,8 +8,6 @@
  * @copyright THINK Global School 2010 - 2013
  * @link http://www.thinkglobalschool.com/
  *
- * @uses $vars['thumbnail_second']
- * @uses $vars['video_guid']
  */
 
 $css_path = elgg_get_config('path');

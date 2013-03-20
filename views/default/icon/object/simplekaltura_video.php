@@ -2,9 +2,15 @@
 /**
  * Simple Kaltura video icon
  *
- * C&P from elgg/views/default/icon/default.php to add $vars['link_class']
+ * Modified from elgg/views/default/icon/default.php
  *
- * @todo When http://trac.elgg.org/ticket/3567 is implement this file can be removed!
+ * - Includes plugin settings for thumbnail width/height
+ *
+ * @package Simplekaltura
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
+ * @author Jeff Tilson
+ * @copyright THINK Global School 2010 - 2013
+ * @link http://www.thinkglobalschool.com/
  *
  * @uses $vars['entity']     The entity the icon represents - uses getIconURL() method
  * @uses $vars['size']       small, medium (default), large

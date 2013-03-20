@@ -1,6 +1,19 @@
 <?php
-/** Convert Existing Kaltura Entries **/
+/**
+ * Simple Kaltura convert all videos to new flavors script (experimental)
+ *
+ * Note: This script is only used for converting existing kaltura videos to new 'flavors'
+ *       Flavors need to enabled in your Kaltura.com account!
+ * 
+ * @package Simplekaltura
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
+ * @author Jeff Tilson
+ * @copyright THINK Global School 2010 - 2013
+ * @link http://www.thinkglobalschool.com/
+ * 
+ */
 require_once(dirname(dirname(dirname(dirname(__FILE__)))) . "/engine/start.php");
+
 global $CONFIG;
 admin_gatekeeper();
 

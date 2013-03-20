@@ -1,9 +1,17 @@
 <?php
+/**
+ * Simple Kaltura KSU widget
+ *
+ * @package Simplekaltura
+ * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
+ * @author Jeff Tilson
+ * @copyright THINK Global School 2010 - 2013
+ * @link http://www.thinkglobalschool.org
+ */
 
 elgg_load_library('simplekaltura');
 elgg_load_library('KalturaClient');
 elgg_load_js('simplekaltura:uploader');
-elgg_load_js('simplekaltura:widget');
 elgg_load_js('simplekaltura:swfobject');
 
 // Session vars
