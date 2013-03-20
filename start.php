@@ -13,12 +13,10 @@
  *
  * - This plugin doesn't lend itself well to sticky forms. Not sure what to do about that.
  * 
- * - Add activate script
  * - Pull out tgs code:
  *      - embed
  *      - modules
  *      - timeline/tagdb
- * - Make 'spot videos'  configurable
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');
@@ -44,15 +42,22 @@ function simplekaltura_init() {
 	elgg_load_js('simplekaltura:utility');
 
 	elgg_extend_view('css/elgg', 'simplekaltura/css');
-	elgg_register_page_handler('videos', 'simplekaltura_page_handler');
 
 	$url = elgg_get_simplecache_url('css', 'jquery.ui_1.8.16');
 	elgg_register_simplecache_view('css/jquery.ui_1.8.16');
 	elgg_register_css('simplekaltura-jquery-ui', $url);
 
-	// Add to main menu
-	$item = new ElggMenuItem('simplekaltura', elgg_echo('simplekaltura:spotvideo'), 'videos');
-	elgg_register_menu_item('site', $item);
+	// If plugin is properly configured
+	if (simplekaltura_is_configured()) {
+		// Add to main menu
+		$item = new ElggMenuItem('simplekaltura', elgg_get_plugin_setting('kaltura_menu_title', 'simplekaltura'), 'videos');
+		elgg_register_menu_item('site', $item);
+
+		// Register page handler
+		elgg_register_page_handler('videos', 'simplekaltura_page_handler');
+	} else {
+		elgg_add_admin_notice('simpkaltura_not_configured', elgg_echo('simplekaltura:error:pluginnotconfigured'));
+	}
 	
 	// add the group pages tool option     
 	add_group_tool_option('simplekaltura',elgg_echo('groups:enablesimplekaltura'), TRUE);
@@ -219,7 +224,7 @@ function simplekaltura_icon_url_override($hook, $type, $returnvalue, $params) {
 function simplekaltura_owner_block_menu($hook, $type, $value, $params) {
 	if (elgg_instanceof($params['entity'], 'user')) {
 		$url = "videos/owner/{$params['entity']->username}";
-		$item = new ElggMenuItem('simplekaltura', elgg_echo('simplekaltura:spotvideo'), $url);
+		$item = new ElggMenuItem('simplekaltura', elgg_get_plugin_setting('kaltura_menu_title', 'simplekaltura'), $url);
 		$value[] = $item;
 	} else {
 		if ($params['entity']->simplekaltura_enable == 'yes') {

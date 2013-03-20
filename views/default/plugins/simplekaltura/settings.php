@@ -8,33 +8,63 @@
  * @copyright THINK Global School 2010 - 2013
  * @link http://www.thinkglobalschool.com/
  * 
+ * @todo tab layout?
  */
 
 $plugin = $vars['entity'];
 
 // Player id
-$player_id = $plugin->kaltura_custom_player_id ? $plugin->kaltura_custom_player_id : '1000106';
+$player_id = $plugin->kaltura_custom_player_id;
 
 // Player height
-$player_height = $plugin->kaltura_player_height ? $plugin->kaltura_player_height : '330'; 
+$player_height = $plugin->kaltura_player_height;
 
 // Player width
-$player_width = $plugin->kaltura_player_width ? $plugin->kaltura_player_width : '400';
+$player_width = $plugin->kaltura_player_width;
 
 // Thumbnail url
-$thumbnail_url = $plugin->kaltura_thumbnail_url ? $plugin->kaltura_thumbnail_url : 'http://cdn.kaltura.com/p/0/thumbnail/entry_id/'; // Default url;
+$thumbnail_url = $plugin->kaltura_thumbnail_url;
 
 // Thumbnail dimensions
-$smallthumb_height = $plugin->kaltura_smallthumb_height ? $plugin->kaltura_smallthumb_height : '67';
-$smallthumb_width = $plugin->kaltura_smallthumb_width ? $plugin->kaltura_smallthumb_width : '120';
+$smallthumb_height = $plugin->kaltura_smallthumb_height;
+$smallthumb_width = $plugin->kaltura_smallthumb_width;
 
-$mediumthumb_height = $plugin->kaltura_mediumthumb_height ? $plugin->kaltura_mediumthumb_height : '150';
-$mediumthumb_width = $plugin->kaltura_mediumthumb_width ? $plugin->kaltura_mediumthumb_width : '200';
+$mediumthumb_height = $plugin->kaltura_mediumthumb_height;
+$mediumthumb_width = $plugin->kaltura_mediumthumb_width;
 
-$largethumb_height = $plugin->kaltura_largethumb_height ? $plugin->kaltura_largethumb_height : '230';
-$largethumb_width = $plugin->kaltura_largethumb_width ? $plugin->kaltura_largethumb_width : '307';
+$largethumb_height = $plugin->kaltura_largethumb_height;
+$largethumb_width = $plugin->kaltura_largethumb_width;
 
-/************** Configuration Module **************/
+// Popup dimensions
+$popup_height = $plugin->kaltura_popup_height;
+$popup_width = $plugin->kaltura_popup_width;
+
+// Upload maximum size
+$upload_max = $plugin->kaltura_upload_max;
+
+// Main menu title
+$menu_title = $plugin->kaltura_menu_title;
+
+/************** Site Configuration Module **************/
+$site_config_label = elgg_echo('simplekaltura:admin:siteconfig');
+
+// Max upload size input
+$menu_label = elgg_echo('simplekaltura:admin:menutitle');
+$menu_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_menu_title]', 
+	'value' => $menu_title
+));
+
+$site_config_body = <<<HTML
+	<div>
+		<label>$menu_label</label>
+		$menu_input
+	</div>
+HTML;
+
+echo elgg_view_module('inline', $site_config_label, $site_config_body);
+
+/************** Kaltura Configuration Module **************/
 $config_label = elgg_echo('simplekaltura:admin:kalturaconfig');
 
 // Admin tags input
@@ -116,12 +146,12 @@ $player_body = <<<HTML
 		$customplayerid_input
 	</div><br />
 	<div>
-		<label>$playerheight_label</label>
-		$playerheight_input
-	</div><br />
-	<div>
 		<label>$playerwidth_label</label>
 		$playerwidth_input
+	</div><br />
+	<div>
+		<label>$playerheight_label</label>
+		$playerheight_input
 	</div>
 HTML;
 
@@ -214,3 +244,53 @@ $thumb_body = <<<HTML
 HTML;
 
 echo elgg_view_module('inline', $thumb_label, $thumb_body);
+
+
+/************** Popup Module **************/
+$popup_label = elgg_echo('simplekaltura:admin:popupconfig');
+
+// Popup height
+$popupheight_label = elgg_echo('simplekaltura:admin:popupheight');
+$popupheight_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_popup_height]', 
+	'value' => $popup_height
+));
+
+// Popup width
+$popupwidth_label = elgg_echo('simplekaltura:admin:popupwidth');
+$popupwidth_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_popup_width]', 
+	'value' => $popup_width
+));
+
+$popup_body = <<<HTML
+	<div>
+		<label>$popupwidth_label</label>
+		$popupwidth_input
+	</div><br />
+	<div>
+		<label>$popupheight_label</label>
+		$popupheight_input
+	</div>
+HTML;
+
+echo elgg_view_module('inline', $popup_label, $popup_body);
+
+/************** Upload Module **************/
+$upload_label = elgg_echo('simplekaltura:admin:uploadconfig');
+
+// Max upload size input
+$upload_max_label = elgg_echo('simplekaltura:admin:uploadmax');
+$upload_max_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_upload_max]', 
+	'value' => $upload_max
+));
+
+$upload_body = <<<HTML
+	<div>
+		<label>$upload_max_label</label>
+		$upload_max_input
+	</div>
+HTML;
+
+echo elgg_view_module('inline', $upload_label, $upload_body);

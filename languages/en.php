@@ -15,12 +15,11 @@ $english = array(
 	'video' => 'Video',
 	'videos' => 'Videos',
 	'item:object:video' => 'Video',
-	'item:object:simplekaltura_video' => 'Spot Videos',
+	'item:object:simplekaltura_video' => 'Videos',
 	'simplekaltura_video:new' => 'Upload New Video',
 	'simplekaltura_video' => 'Videos',
 	'simplekaltura:owner' => '%s\'s videos',
 	'simplekaltura:none' => 'No Videos',
-	'simplekaltura:spotvideo' => 'Spot Videos',
 
 	// Titles
 	'admin:plugin_settings:simplekaltura' => 'Simple Kaltura Settings',
@@ -48,7 +47,7 @@ $english = array(
 	'simplekaltura:label:unavailable' => 'Unavailable',
 	'simplekaltura:label:default' => 'Default',
 	'simplekaltura:label:download' => 'Download Video',
-	'simplekaltura:label:groupvideos' => 'Group spot videos',
+	'simplekaltura:label:groupvideos' => 'Group videos',
 	'simplekaltura:label:mostplayed' => 'Most Played',
 	'simplekaltura:label:embedcode' => 'Embed Code',
 	'simplekaltura:label:viewonspot' => 'View this video on THINK Spot!',
@@ -64,6 +63,9 @@ $english = array(
 	'simplekaltura:admin:kalturaconfig' => 'Kaltura Configuration',
 	'simplekaltura:admin:playerconfig' => 'Player Configuration',
 	'simplekaltura:admin:thumbconfig' => 'Thumbnail Configuration',
+	'simplekaltura:admin:popupconfig' => 'Popup Configuration',
+	'simplekaltura:admin:uploadconfig' => 'Upload Configuration',
+	'simplekaltura:admin:siteconfig' => 'General Site Configuration',
 	'simplekaltura:admin:admintags' => 'Admin Tags (Used to identify this particular Elgg site\'s videos)',
 	'simplekaltura:admin:partnerid' => 'Partner ID',
 	'simplekaltura:admin:emailaccount' => 'Email Address',
@@ -77,14 +79,18 @@ $english = array(
 	'simplekaltura:admin:largethumb' => 'Large Thumbnail',
 	'simplekaltura:admin:width' => 'Width',
 	'simplekaltura:admin:height' => 'Height',
+	'simplekaltura:admin:popupheight' => 'Popup Height',
+	'simplekaltura:admin:popupwidth' => 'Popup Width',
+	'simplekaltura:admin:uploadmax' => 'Maximum Upload Size (MB)',
+	'simplekaltura:admin:menutitle' => 'Site menu title',
 
 	// River
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',
 	'river:comment:object:simplekaltura_video' => '%s commented on a Video titled %s',
 
 	// Notifications
-	'simplekaltura:notification:subject' => 'New Spot Video',
-	'simplekaltura:notification:body' => "%s posted a new Spot Video titled: %s\n\n%s\n\nTo watch the video click here:\n%s
+	'simplekaltura:notification:subject' => 'New Video',
+	'simplekaltura:notification:body' => "%s posted a new Video titled: %s\n\n%s\n\nTo watch the video click here:\n%s
 ",
 
 
@@ -100,11 +106,13 @@ $english = array(
 	'simplekaltura:error:nonpublic' => 'Video must be public!',
 	'simplekaltura:error:invalidsecond' => 'Invalid value for thumbnail second',
 	'simplekaltura:error:invalidsecondduration' => 'Value must be less than video duration (%s seconds)',
+	'simplekaltura:error:pluginnotconfigured' => 'Simplekaltura is not properly configured!<br />One or more required settings is not set.<br />Check the <a href="' . elgg_get_site_url() .'/admin/plugin_settings/simplekaltura">plugin settings</a> page.',
+	'simplekaltura:error:filetoolarge' => 'Selected file exceeds maximum upload size (%s MB)',
 	'simplekaltura:notconverted' => 'Warning: Video has not yet finished converting. Thumbnail selection is unavailable while conversion in progress.',
 
 	// Other content
 	'simplekaltura:no_content' => 'No content',
-	'groups:enablesimplekaltura' => 'Enable group spot videos',
+	'groups:enablesimplekaltura' => 'Enable group videos',
 );
 
 add_translation('en', $english);

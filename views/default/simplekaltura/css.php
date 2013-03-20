@@ -64,8 +64,6 @@ img.simplekaltura-video-gallery-icon {
 
 /* POPUP DIV */
 .elgg-kaltura-popup {
-	height: 450px;
-	width: 600px;
 	overflow: hidden;
 }
 

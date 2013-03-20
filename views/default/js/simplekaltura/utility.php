@@ -12,6 +12,9 @@
 //<script>
 elgg.provide('elgg.simplekaltura_utility');
 
+elgg.simplekaltura_utility.popupWidth = "<?php echo elgg_get_plugin_setting('kaltura_popup_width'); ?>";
+elgg.simplekaltura_utility.popupHeight = "<?php echo elgg_get_plugin_setting('kaltura_popup_height'); ?>";
+
 // Init function 
 elgg.simplekaltura_utility.init = function() {	
 	elgg.simplekaltura_utility.lightbox_init();
@@ -55,8 +58,8 @@ elgg.simplekaltura_utility.get_lightbox_init = function() {
 				'flashvars':{
 					'externalInterfaceDisabled' : false,
 					'autoPlay' : autoplay,
-					'width' : 600,
-					'height' : 450,
+					'width' : elgg.simplekaltura_utility.popupWidth,
+					'height' : elgg.simplekaltura_utility.popupHeight,
 				},
 				'readyCallback': function( playerId ){
 					//

@@ -341,3 +341,25 @@ function simplekaltura_get_swf_url(ElggEntity $video, $uiConfId) {
 		// same origin policies.
 		. '/video.swf';
 }
+
+/**
+ * Check if plugin is configured
+ */
+function simplekaltura_is_configured() {
+	$plugin = elgg_get_plugin_from_id('simplekaltura');
+
+	$required = array(
+		'kaltura_admin_tags',
+		'kaltura_partnerid',
+		'kaltura_email_account',
+		'kaltura_password_account',
+	);
+
+	foreach ($required as $setting) {
+		if (!$plugin->getSetting($setting)) {
+			return false;
+		}
+	}
+
+	return true;
+}

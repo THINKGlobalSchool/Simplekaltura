@@ -8,11 +8,14 @@
  * @copyright THINK Global School 2010 - 2013
  * @link http://www.thinkglobalschool.com/
  *
+ * @todo make this a typical elgg js lib
  */
 ?>
 //<script type="text/javascript">
 var flashObj;
 var delegate = {};
+
+var maxUpload = "<?php echo elgg_get_plugin_setting('kaltura_upload_max', 'simplekaltura'); ?>";
 
 // Set some stuff
 $(document).ready(function () {
@@ -36,15 +39,21 @@ delegate.selectHandler = function() {
 	//console.log('selectHandler()');
 	//console.log(flashObj);
 
-	// Hide select button
-	$("#simplekaltura-uploader").addClass('z-negative');
-	$("#simplekaltura-uploader-submit").hide();
+	var fileSize = (flashObj.getTotalSize() / 1024 / 1024);
 
-	// Enable the submit button
-	$('#simplekaltura-submit').removeAttr('disabled').removeClass('elgg-state-disabled');
+	if (fileSize < maxUpload) {
+		// Hide select button
+		$("#simplekaltura-uploader").addClass('z-negative');
+		$("#simplekaltura-uploader-submit").hide();
 
-	// Grab files and display for user
-	createSelectedFilesHTML(flashObj.getFiles(), flashObj.getTotalSize());
+		// Enable the submit button
+		$('#simplekaltura-submit').removeAttr('disabled').removeClass('elgg-state-disabled');
+
+		// Grab files and display for user
+		createSelectedFilesHTML(flashObj.getFiles(), flashObj.getTotalSize());
+	} else {
+		elgg.register_error(elgg.echo('simplekaltura:error:filetoolarge', [maxUpload]));
+	}
 }
 
 delegate.singleUploadCompleteHandler = function(args) {

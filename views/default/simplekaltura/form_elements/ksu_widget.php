@@ -18,19 +18,22 @@ elgg_load_js('simplekaltura:swfobject');
 $kaltura_partner_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 $partner_user_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 
+// Upload size
+$upload_max = elgg_get_plugin_setting('kaltura_upload_max', 'simplekaltura');
+
 // Get client
 $client = simplekaltura_create_client();
 
 $flashVars = array();
-$flashVars["uid"]   			= $partner_user_id;
-$flashVars["partnerId"]			= $kaltura_partner_id;
-$flashVars["subPId"] 			= $kaltura_partner_id *100;
-$flashVars["entryId"] 	 		= -1;
-$flashVars["ks"]   				= $client->getKs();
-$flashVars["maxFileSize"]   	= 5000;
-$flashVars["maxTotalSize"]   	= 5000;
-$flashVars["uiConfId"]   		= 8003811;
-$flashVars["jsDelegate"]   		= "delegate";
+$flashVars["uid"]          = $partner_user_id;
+$flashVars["partnerId"]    = $kaltura_partner_id;
+$flashVars["subPId"]       = $kaltura_partner_id *100;
+$flashVars["entryId"]      = -1;
+$flashVars["ks"]           = $client->getKs();
+$flashVars["maxFileSize"]  = $upload_max;
+$flashVars["maxTotalSize"] = $upload_max;
+$flashVars["uiConfId"]     = 8003811;
+$flashVars["jsDelegate"]   = "delegate";
 
 ?>
 

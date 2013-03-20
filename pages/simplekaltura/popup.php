@@ -48,9 +48,12 @@ $autoplay_input = elgg_view('input/hidden', array(
 	'value' => $autoplay,
 ));
 
+$width = elgg_get_plugin_setting('kaltura_popup_width');
+$height = elgg_get_plugin_setting('kaltura_popup_height');
+
 $content = <<<HTML
 	<div class='elgg-kaltura-popup'>
-		<div id="kaltura-dynamic-container" style="width:600px;height:450px;">
+		<div id="kaltura-dynamic-container" style="width:{$width}px;height:{$height}px;">
 			$wid_input
 			$uiconf_id_input
 			$entry_id_input
