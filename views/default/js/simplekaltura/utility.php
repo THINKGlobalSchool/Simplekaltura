@@ -22,8 +22,10 @@ elgg.simplekaltura_utility.init = function() {
 
 // Init simplekaltura lightboxes
 elgg.simplekaltura_utility.lightbox_init = function() {
-	// Set up kaltura lightboxes
-	$(".simplekaltura-lightbox").fancybox(elgg.simplekaltura_utility.get_lightbox_init());
+	// Set up kaltura lightboxes (if elements exist)
+	if ($('.simplekaltura-lightbox').length) {
+		$(".simplekaltura-lightbox").fancybox(elgg.simplekaltura_utility.get_lightbox_init());
+	}
 }
 
 elgg.simplekaltura_utility.get_lightbox_init = function() {

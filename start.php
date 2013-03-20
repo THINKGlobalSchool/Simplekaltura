@@ -11,16 +11,14 @@
  *
  * /////////// @TODO ///////////////
  *
- * - Because "videos" and "simplekaltura" are both used in code, we have to
- *   use both in the strings. This is a bit messy.
  * - This plugin doesn't lend itself well to sticky forms. Not sure what to do about that.
- *
- * - Figure out when to do the pull from Kaltura for stats. Bulk updates every 15 minutes are best,
- *   but IIRC it was previously doing updates on every entity view.
  * 
  * - Add activate script
- * - Pull tgs embed code out of plugin
- * - Remove timeline code
+ * - Pull out tgs code:
+ *      - embed
+ *      - modules
+ *      - timeline/tagdb
+ * - Make 'spot videos'  configurable
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');

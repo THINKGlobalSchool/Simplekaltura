@@ -28,21 +28,20 @@ delegate.readyHandler = function() {
 	flashObj.setMaxUploads(1);
 
 	// Debug
-	console.log('readyHandler()');
+	//console.log('readyHandler()');
 }
 
 delegate.selectHandler = function() {
 	// Debug code
-	console.log('selectHandler()');
-	console.log(flashObj);
+	//console.log('selectHandler()');
+	//console.log(flashObj);
 
 	// Hide select button
 	$("#simplekaltura-uploader").addClass('z-negative');
 	$("#simplekaltura-uploader-submit").hide();
 
 	// Enable the submit button
-	$('#simplekaltura_submit').removeAttr('disabled');
-	$('#simplekaltura_submit').removeClass('disabled');
+	$('#simplekaltura-submit').removeAttr('disabled').removeClass('elgg-state-disabled');
 
 	// Grab files and display for user
 	createSelectedFilesHTML(flashObj.getFiles(), flashObj.getTotalSize());
@@ -55,7 +54,7 @@ delegate.allUploadsCompleteHandler = function() {
 	addEntries();
 
 	// Debug
-	console.log('allUploadsCompleteHandler()');
+	//console.log('allUploadsCompleteHandler()');
 }
 
 delegate.entriesAddedHandler = function(entries) {
@@ -66,17 +65,22 @@ delegate.entriesAddedHandler = function(entries) {
 	$('#k_guid').val(entries[0].guid);
 
 	// Finally submit the post form
-	$('#simplekaltura_submit').parents('form').submit();
+	$('#simplekaltura-submit').parents('form').submit();
 
 	// Debug
-	console.log('entriesAddedHandler()');
+	//console.log('entriesAddedHandler()');
 }
 
 delegate.progressHandler = function(args) {
 	//console.log(args[2].title + ": " + args[0] + " / " + args[1]);
 	var p_value = Math.round((args[0] / args[1]) * 100) ;
 	$("#simplekaltura-upload-progress").progressbar("option", "value", p_value);
-	$("#simplekaltura-upload-percent").html(p_value + '%');
+
+	var $dialog_title = $("#ui-dialog-title-simplekaltura-upload-dialog");
+
+	var title = $dialog_title.html().substring(0, elgg.echo('simplekaltura:label:uploadingdialogtitle').length);
+	
+	$dialog_title.html(title + ' ' + p_value + '%');
 }
 
 delegate.uiConfErrorHandler = function() {
@@ -89,6 +93,10 @@ function upload() {
 		$('#simplekaltura-upload-dialog').show();
 		$('#simplekaltura-upload-dialog').dialog("open");
 		$("#simplekaltura-upload-progress").progressbar({ value: 0 });
+
+		// Disable submit
+		$('#simplekaltura-submit').attr('disabled', 'disabled').addClass('elgg-state-disabled');;
+
 		// Upload!
 		flashObj.upload();
 	}
@@ -123,20 +131,8 @@ function createSelectedFilesHTML(files, size) {
 	content += "<span class='pls' style='font-color: #666'>";
 	content += bytesToSize(size, 2); // Make this a little easier to read
 	content += "</span>";
-	content += "<a onclick='removeSelectedFile();'><span style='z-index: 1000;' class='elgg-icon elgg-icon-delete left prm'></span></a>";
+	content += "<a class='pls' onclick='removeSelectedFile();'><span style='z-index: 1000;' class='elgg-icon elgg-icon-delete left prm'></span></a>";
 	content += "</span>";
-
-	/*
-	$(files).each(function(i, e) {
-		content += "<span>";
-		content += files[0];
-		content += "<span class='pls' style='font-color: #666'>";
-		content += bytesToSize(e.bytesTotal, 2); // Make this a little easier to read
-		content += "</span>";
-		content += "<a onclick='removeSelectedFile(" + i + ");'><span class='elgg-icon elgg-icon-delete left prm'></span></a>";
-		content += "</span>";
-	});
-	*/
 
 	$('#simplekaltura-selected-files').html(content);
 }
@@ -149,8 +145,7 @@ function removeSelectedFile() {
 	flashObj.removeFiles(0, 0);
 
 	// Disable the submit button
-	$('#simplekaltura_submit').attr('disabled', 'disabled');
-	$('#simplekaltura_submit').addClass('disabled');
+	$('#simplekaltura-submit').attr('disabled', 'disabled').addClass('elgg-state-disabled');;
 
 	// Show select button
 	$("#simplekaltura-uploader").removeClass('z-negative');

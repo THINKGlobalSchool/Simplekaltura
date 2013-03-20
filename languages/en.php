@@ -58,6 +58,7 @@ $english = array(
 	'simplekaltura:label:currentthumbnail' => 'Current Thumbnail',
 	'simplekaltura:label:selectthumbnail' => 'Select Thumbnail',
 	'simplekaltura:label:editvideo' => 'Edit Video: "%s"',
+	'simplekaltura:label:uploadingdialogtitle' => 'Uploading...',
 
 	// Admin
 	'simplekaltura:admin:kalturaconfig' => 'Kaltura Configuration',

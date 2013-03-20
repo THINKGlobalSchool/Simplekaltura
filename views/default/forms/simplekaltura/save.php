@@ -14,6 +14,7 @@ elgg_load_library('simplekaltura');
 elgg_load_library('KalturaClient');
 
 elgg_load_js('simplekaltura:thumbs');
+elgg_load_css('simplekaltura-jquery-ui');
 
 $title = elgg_extract('title', $vars);
 $description = elgg_extract('description', $vars);
@@ -34,11 +35,11 @@ if (!$entity) {
 	$new_js = <<<JAVASCRIPT
 <script type='text/javascript'>
 	$(document).ready(function () {
-		$('#simplekaltura_submit').attr('disabled', 'disabled');
-		$('#simplekaltura_submit').addClass('disabled');
+		// Init upload dialog
 		$('#simplekaltura-upload-dialog').dialog({
 			autoOpen: false,
 			width: 400,
+			height: 85,
 			modal: true,
 			draggable: false,
 			resizeable: false,
@@ -47,16 +48,16 @@ if (!$entity) {
 			},
 			closeOnEscape: false
 		});
-		$('#simplekaltura_submit').click(function () {
+
+		// Click handler for save button
+		$('#simplekaltura-submit').click(function(event) {
 			upload();
-			return false;
+			event.preventDefault();
 		});
 	});
 </script>
 JAVASCRIPT;
 } else {
-	elgg_load_css('simplekaltura-jquery-ui');
-
 	// Get entry to check status
 	$entry = simplekaltura_get_entry($entity->kaltura_entryid);
 	
@@ -123,9 +124,11 @@ $comments_content = elgg_view('input/dropdown', array(
 ));
 
 $submit_input = elgg_view('input/submit', array(
-	'id' => 'simplekaltura_submit',
+	'id' => 'simplekaltura-submit',
 	'name' => 'save',
-	'value' => elgg_echo('save')
+	'value' => elgg_echo('save'),
+	'disabled' => 'DISABLED',
+	'class' => 'elgg-button-submit elgg-state-disabled'
 ));
 
 // Hidden inputs for kaltura entries
@@ -149,11 +152,11 @@ $k_filetype_input = elgg_view('input/hidden', array(
 	'id' => 'k_filetype'
 ));
 
+$dialog_title = elgg_echo('simplekaltura:label:uploadingdialogtitle');
+
 // Build Form Body
-$form_body = <<<EOT
-
+$form_body = <<<HTML
 $new_js
-
 <div class='simplekaltura'>
 	<div id='video_title_container'>
 		<label>$title_label</label><br />
@@ -188,12 +191,10 @@ $new_js
 		$k_bytesloaded_input
 		$k_filetype_input
 	</div>
-	<div class="hidden" id="simplekaltura-upload-dialog" class="elgg-lightbox">
-		<p>Uploading... <span id="simplekaltura-upload-percent"></span></p>
+	<div class="hidden" id="simplekaltura-upload-dialog" class="elgg-lightbox" title="$dialog_title">
 		<div id='simplekaltura-upload-progress'></div>
 	</div>
 </div>
-
-EOT;
+HTML;
 
 echo $form_body;
