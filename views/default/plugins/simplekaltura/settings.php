@@ -22,6 +22,15 @@ $player_height = $plugin->kaltura_player_height;
 // Player width
 $player_width = $plugin->kaltura_player_width;
 
+// Embed player id
+$embed_player_id = $plugin->kaltura_custom_embed_player_id;
+
+// Embed player height
+$embed_player_height = $plugin->kaltura_embed_player_height;
+
+// Embed player width
+$embed_player_width = $plugin->kaltura_embed_player_width;
+
 // Thumbnail url
 $thumbnail_url = $plugin->kaltura_thumbnail_url;
 
@@ -140,6 +149,27 @@ $playerwidth_input = elgg_view('input/text', array(
 	'value' => $player_width
 ));
 
+// Embed player id
+$embed_customplayerid_label = elgg_echo('simplekaltura:admin:customplayerid');
+$embed_customplayerid_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_custom_embed_player_id]', 
+	'value' => $embed_player_id
+));
+
+// Embed player height
+$embed_playerheight_label = elgg_echo('simplekaltura:admin:playerheight');
+$embed_playerheight_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_embed_player_height]', 
+	'value' => $embed_player_height
+));
+
+// Embed player width
+$embed_playerwidth_label = elgg_echo('simplekaltura:admin:playerwidth');
+$embed_playerwidth_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_embed_player_width]', 
+	'value' => $embed_player_width
+));
+
 $player_body = <<<HTML
 	<div>
 		<label>$customplayerid_label</label>
@@ -152,6 +182,18 @@ $player_body = <<<HTML
 	<div>
 		<label>$playerheight_label</label>
 		$playerheight_input
+	</div><br />
+	<div>
+		<label>$embed_customplayerid_label</label>
+		$embed_customplayerid_input
+	</div><br />
+	<div>
+		<label>$embed_playerwidth_label</label>
+		$embed_playerwidth_input
+	</div><br />
+	<div>
+		<label>$embed_playerheight_label</label>
+		$embed_playerheight_input
 	</div>
 HTML;
 

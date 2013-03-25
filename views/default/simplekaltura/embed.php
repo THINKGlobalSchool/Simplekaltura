@@ -15,16 +15,21 @@ $guid = elgg_extract('video_guid', $vars);
 $video = get_entity($guid);
 $entryId = $video->kaltura_entryid;
 
-$spot_link_label = elgg_echo('simplekaltura:label:viewonspot');
+$site_link_label = elgg_echo('simplekaltura:label:viewonsite', array(elgg_get_site_entity()->name));
+
+// Embed player dimensions/config
+$width = elgg_get_plugin_setting('kaltura_embed_player_width', 'simplekaltura');
+$height = elgg_get_plugin_setting('kaltura_embed_player_width', 'simplekaltura');
+$embed_player = elgg_get_plugin_setting('kaltura_custom_embed_player_id', 'simplekaltura');
 
 $embed_code = elgg_view('simplekaltura/widget', array(
-	'custom_uiconfid' => '10201381', // Embed specific player
-	'width' => '725',
-	'height' => '540',
+	'custom_uiconfid' => $embed_player,
+	'width' => $width,
+	'height' => $height,
 	'entity' => $video, 
 ));
 
-$embed_code .= "<a href='{$video->getURL()}'>{$spot_link_label}</a>";
+$embed_code .= "<a href='{$video->getURL()}'>{$site_link_label}</a>";
 
 
 $embed_text = "<label>" . elgg_echo('simplekaltura:label:copypaste') . "</label>";

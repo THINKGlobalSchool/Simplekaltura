@@ -17,9 +17,16 @@ $defaults = array(
 	// Player id
 	'kaltura_custom_player_id' => '1000106',
 
+	// Embed player id
+	'kaltura_custom_embed_player_id' => '1000106',
+
 	// Player dimensions
 	'kaltura_player_height' => '330',
 	'kaltura_player_width' => '400',
+
+	// Embed player dimensions
+	'kaltura_embed_player_height' => '540',
+	'kaltura_embed_player_width' => '725',
 	
 	// Thumbnail url
 	'kaltura_thumbnail_url' => 'http://cdn.kaltura.com/p/0/thumbnail/entry_id/',

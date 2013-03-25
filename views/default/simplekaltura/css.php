@@ -82,10 +82,6 @@ img.simplekaltura-video-gallery-icon {
 	height: 145px;
 }
 
-.simplekaltura-spotcontent-embed {
-	font-size: 11px;
-}
-
 /** THUMBNAILS INPUT **/
 .simplekaltura-edit-thumbnails {
 	text-align: center;

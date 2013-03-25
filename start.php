@@ -12,8 +12,6 @@
  * /////////// @TODO ///////////////
  *
  * - This plugin doesn't lend itself well to sticky forms. Not sure what to do about that.
- * 
- * - Admin setting for embed player
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');
