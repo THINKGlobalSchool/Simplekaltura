@@ -132,7 +132,6 @@ HTML;
 		'href' => $pop_url,
 		'link_class' => 'simplekaltura-lightbox',
 		'title' => 'simplekaltura_lightbox',
-		//'img_class' => 'simplekaltura-video-gallery-icon',
 	));
 
 	if (elgg_in_context('gallery')) {	

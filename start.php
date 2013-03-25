@@ -13,10 +13,8 @@
  *
  * - This plugin doesn't lend itself well to sticky forms. Not sure what to do about that.
  * 
- * - Pull out tgs code:
- *      - embed
- *      - modules
- *      - timeline/tagdb
+ * - Admin setting for embed player
+ * - Move 'popup' to ajax view
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');
@@ -50,7 +48,7 @@ function simplekaltura_init() {
 	// If plugin is properly configured
 	if (simplekaltura_is_configured()) {
 		// Add to main menu
-		$item = new ElggMenuItem('simplekaltura', elgg_get_plugin_setting('kaltura_menu_title', 'simplekaltura'), 'videos');
+		$item = new ElggMenuItem('simplekaltura', elgg_get_plugin_setting('kaltura_entity_title', 'simplekaltura'), 'videos');
 		elgg_register_menu_item('site', $item);
 
 		// Register page handler
@@ -77,15 +75,11 @@ function simplekaltura_init() {
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
 	elgg_register_action('simplekaltura/update', "$actions_root/update.php");
 	elgg_register_action('simplekaltura/get_embed', "$actions_root/get_embed.php");
-	elgg_register_action('simplekaltura/spotcontent_embed', "$actions_root/spotcontent_embed.php");
 	elgg_register_action('videos/delete', "$actions_root/delete.php");
 
 	// entity url and icon handlers
 	elgg_register_entity_url_handler('object', 'simplekaltura_video', 'simplekaltura_url_handler');
 	elgg_register_plugin_hook_handler('entity:icon:url', 'object', 'simplekaltura_icon_url_override');
-
-	// Timeline icon handler
-	elgg_register_plugin_hook_handler('tagdashboards:timeline:icon', 'simplekaltura_video', 'tagdashboards_timeline_video_icon_handler');
 
 	// Register type
 	elgg_register_entity_type('object', 'simplekaltura_video');
@@ -93,21 +87,8 @@ function simplekaltura_init() {
 	// register CRON hook to poll video plays/duration/etc..
 	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
 	
-	// Hook into facebook open graph image
-	elgg_register_plugin_hook_handler('opengraph:image', 'facebook', 'simplekaltura_opengraph_image_handler');
-	
-	// Customize the simplekaltura embed entity menu
-	if (elgg_is_active_plugin('tgsembed')) {
-		elgg_register_plugin_hook_handler('register', 'menu:simpleicon-entity', 'simplekaltura_setup_simpleicon_entity_menu');
-	}
-	
 	// Most Played Sidebar
 	elgg_extend_view('simplekaltura/sidebar', 'simplekaltura/most_played');
-
-	// Register some hooks for tagdashboards support
-	if (elgg_is_active_plugin('tagdashboards')) {
-		elgg_register_plugin_hook_handler('tagdashboards:subtype:heading', 'simplekaltura_video', 'simplekaltura_subtype_title_handler');
-	}
 	
 	return TRUE;
 }
@@ -182,21 +163,6 @@ function simplekaltura_url_handler($entity) {
 	return elgg_get_site_url() . "videos/view/{$entity->guid}/";
 }
 
-/* Handler to register a timeline icon for simplekaltura videos */
-function tagdashboards_timeline_video_icon_handler($hook, $type, $returnvalue, $params) {
-	if ($type == 'simplekaltura_video') {
-		return elgg_get_site_url() . "mod/simplekaltura/images/simplekaltura_video.gif";
-	}
-	return false;
-}
-
-/* Handler to change name of Albums to Photos */
-function simplekaltura_subtype_title_handler($hook, $type, $returnvalue, $params) {
-	if ($type == 'simplekaltura_video') {
-		return 'Spot Videos';
-	}
-}
-
 /**
  * Override the default entity icon for videos
  *
@@ -224,7 +190,7 @@ function simplekaltura_icon_url_override($hook, $type, $returnvalue, $params) {
 function simplekaltura_owner_block_menu($hook, $type, $value, $params) {
 	if (elgg_instanceof($params['entity'], 'user')) {
 		$url = "videos/owner/{$params['entity']->username}";
-		$item = new ElggMenuItem('simplekaltura', elgg_get_plugin_setting('kaltura_menu_title', 'simplekaltura'), $url);
+		$item = new ElggMenuItem('simplekaltura', elgg_get_plugin_setting('kaltura_entity_title', 'simplekaltura'), $url);
 		$value[] = $item;
 	} else {
 		if ($params['entity']->simplekaltura_enable == 'yes') {
@@ -270,58 +236,7 @@ function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
 }
 
 /**
- * Provide video thumbnail
- *
- * @param sting  $hook   view
- * @param string $type   input/tags
- * @param mixed  $return  Value
- * @param mixed  $params Params
- *
- * @return array
- */
-function simplekaltura_opengraph_image_handler($hook, $type, $return, $params) {
-	$entity = $params['entity'];
-	if (elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
-		return $entity->getIconURL();
-	}
-	return $return;
-}
-
-/**
- * Register items for the simpleicon entity menu
- *
- * @param sting  $hook   view
- * @param string $type   input/tags
- * @param mixed  $return  Value
- * @param mixed  $params Params
- *
- * @return array
- */
-function simplekaltura_setup_simpleicon_entity_menu($hook, $type, $return, $params) {
-	if (get_input('embed_spot_content')) {
-		$entity = $params['entity'];
-		
-		if (elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
-			// Item to add object to portfolio
-			$options = array(
-				'name' => 'embed_video',
-				'text' => elgg_echo('simplekaltura:label:embedvideo'),
-				'title' => 'embed_video',
-				'href' => "#{$entity->guid}",
-				'class' => 'simplekaltura-spotcontent-embed elgg-button elgg-button-action',
-				'section' => 'info',
-				'priority' => 1,
-			);
-			
-			$return[] = ElggMenuItem::factory($options);
-			return $return;
-		}
-	}
-	return $return;
-}
-
-/**
- * Set the notification message for spot videos
+ * Set the notification message for videos
  * 
  * @param string $hook    Hook name
  * @param string $type    Hook type

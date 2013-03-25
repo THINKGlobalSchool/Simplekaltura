@@ -48,7 +48,8 @@ $autoplay_input = elgg_view('input/hidden', array(
 	'value' => $autoplay,
 ));
 
-$width = elgg_get_plugin_setting('kaltura_popup_width');
+// Width and height need to set as style attribute on dynamic player container
+$width = elgg_get_plugin_setting('kaltura_popup_width');   
 $height = elgg_get_plugin_setting('kaltura_popup_height');
 
 $content = <<<HTML

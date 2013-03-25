@@ -42,23 +42,23 @@ $popup_width = $plugin->kaltura_popup_width;
 // Upload maximum size
 $upload_max = $plugin->kaltura_upload_max;
 
-// Main menu title
-$menu_title = $plugin->kaltura_menu_title;
+// Entity title
+$entity_title = $plugin->kaltura_entity_title;
 
 /************** Site Configuration Module **************/
 $site_config_label = elgg_echo('simplekaltura:admin:siteconfig');
 
 // Max upload size input
-$menu_label = elgg_echo('simplekaltura:admin:menutitle');
-$menu_input = elgg_view('input/text', array(
-	'name' => 'params[kaltura_menu_title]', 
-	'value' => $menu_title
+$entity_title_label = elgg_echo('simplekaltura:admin:entitytitle');
+$entity_title_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_entity_title]', 
+	'value' => $entity_title
 ));
 
 $site_config_body = <<<HTML
 	<div>
-		<label>$menu_label</label>
-		$menu_input
+		<label>$entity_title_label</label>
+		$entity_title_input
 	</div>
 HTML;
 

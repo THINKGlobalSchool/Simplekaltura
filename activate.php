@@ -41,8 +41,8 @@ $defaults = array(
 	// Maximum upload (MB)
 	'kaltura_upload_max' => 5000,
 
-	// Site menu title
-	'kaltura_menu_title' => 'Videos',
+	// Entity title
+	'kaltura_entity_title' => 'Videos',
 );
 
 // Set default config values

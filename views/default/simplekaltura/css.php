@@ -65,6 +65,9 @@ img.simplekaltura-video-gallery-icon {
 /* POPUP DIV */
 .elgg-kaltura-popup {
 	overflow: hidden;
+	/* Need to set popup dimensions here so the popup doesn't need to resize */
+	width: <?php echo elgg_get_plugin_setting('kaltura_popup_width', 'simplekaltura');?>px;
+	height: <?php echo elgg_get_plugin_setting('kaltura_popup_height', 'simplekaltura');?>px;
 }
 
 /* Entity Menu Icons */

@@ -9,13 +9,15 @@
  * @link http://www.thinkglobalschool.com/
  *
  */
+
+$entity_title = elgg_get_plugin_setting('kaltura_entity_title', 'simplekaltura');
+
 $english = array(
 
 	// Generic
 	'video' => 'Video',
 	'videos' => 'Videos',
-	'item:object:video' => 'Video',
-	'item:object:simplekaltura_video' => 'Videos',
+	'item:object:simplekaltura_video' => $entity_title,
 	'simplekaltura_video:new' => 'Upload New Video',
 	'simplekaltura_video' => 'Videos',
 	'simplekaltura:owner' => '%s\'s videos',
@@ -33,7 +35,6 @@ $english = array(
 	'simplekaltura:label:subtypes_settings_submit' => 'Submit Subtype Settings',
 	'simplekaltura:label:title' => 'Title',
 	'simplekaltura:label:description' => 'Description',
-	'simplekaltura:label:grouptags' => 'Group Videos',
 	'simplekaltura:label:deleteconfirm' => 'Are you sure you want to delete this Video?',
 	'simplekaltura:label:submitted_by' => 'Submitted by %s',
 	'simplekaltura:label:leaveacomment' => 'Leave a Comment / ',
@@ -47,12 +48,11 @@ $english = array(
 	'simplekaltura:label:unavailable' => 'Unavailable',
 	'simplekaltura:label:default' => 'Default',
 	'simplekaltura:label:download' => 'Download Video',
-	'simplekaltura:label:groupvideos' => 'Group videos',
+	'simplekaltura:label:groupvideos' => 'Group ' . strtolower($entity_title),
 	'simplekaltura:label:mostplayed' => 'Most Played',
 	'simplekaltura:label:embedcode' => 'Embed Code',
 	'simplekaltura:label:viewonspot' => 'View this video on THINK Spot!',
 	'simplekaltura:label:copypaste' => 'Copy and paste the code below:',
-	'simplekaltura:label:embedvideo' => 'Embed Video',
 	'simplekaltura:label:viewvideo' => 'View Original Video',
 	'simplekaltura:label:currentthumbnail' => 'Current Thumbnail',
 	'simplekaltura:label:selectthumbnail' => 'Select Thumbnail',
@@ -82,7 +82,7 @@ $english = array(
 	'simplekaltura:admin:popupheight' => 'Popup Height',
 	'simplekaltura:admin:popupwidth' => 'Popup Width',
 	'simplekaltura:admin:uploadmax' => 'Maximum Upload Size (MB)',
-	'simplekaltura:admin:menutitle' => 'Site menu title',
+	'simplekaltura:admin:entitytitle' => 'Entity title (includes main menu item)',
 
 	// River
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',

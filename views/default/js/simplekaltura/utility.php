@@ -18,9 +18,6 @@ elgg.simplekaltura_utility.popupHeight = "<?php echo elgg_get_plugin_setting('ka
 // Init function 
 elgg.simplekaltura_utility.init = function() {	
 	elgg.simplekaltura_utility.lightbox_init();
-	
-	// Spot content video embed click event
-	$(document).delegate('.simplekaltura-spotcontent-embed', 'click', elgg.simplekaltura_utility.videoEmbedClick);
 }
 
 // Init simplekaltura lightboxes
@@ -45,7 +42,7 @@ elgg.simplekaltura_utility.get_lightbox_init = function() {
 			window['doPlayCallback'] = function(playerId ){
 				//
 			};
-	
+
 			if (!kWidget.isIOS()) {
 				entry_id += '/video.swf';
 			}
@@ -73,37 +70,7 @@ elgg.simplekaltura_utility.get_lightbox_init = function() {
 	};
 }
 
-// Spot content video embed click event
-elgg.simplekaltura_utility.videoEmbedClick = function(event) {
-	if (!$(this).hasClass('disabled')) {
-		// href will be #{guid}
-		var entity_guid = $(this).attr('href').substring(1);
-
-		$(this).addClass('disabled');
-
-		$_this = $(this);
-
-		// Get embed
-		elgg.action('simplekaltura/spotcontent_embed', {
-			data: {
-				video_guid: entity_guid,
-				internal_embed: true,
-			}, 
-			success: function(data) {	
-				if (data.status != -1) {
-					elgg.tgsembed.insert(data.output);
-				} else {
-					// Error
-					$_this.removeClass('disabled');
-				}
-			},
-		});
-	}
-	event.preventDefault();
-}
-
 elgg.register_hook_handler('init', 'system', elgg.simplekaltura_utility.init);
-elgg.register_hook_handler('populated', 'modules', elgg.simplekaltura_utility.lightbox_init);
 
 // Custom Kaltura Buttons
 function customFunc1 (entryId){ 

@@ -28,9 +28,21 @@ $thumbnail_second = elgg_extract('thumbnail_second', $vars);
 
 $widget = '';
 
+// inital submit options
+$submit_options = array(
+	'id' => 'simplekaltura-submit',
+	'name' => 'save',
+	'value' => elgg_echo('save'),
+	'class' => 'elgg-button-submit'
+);
+
 // Only include the widget and js when adding
 if (!$entity) {
 	$widget = elgg_view('simplekaltura/form_elements/ksu_widget');
+
+	// Disable the submit button initially, this will be enabled later once a video is selected
+	$submit_options['disabled'] = 'DISABLED';
+	$submit_options['class'] .= ' elgg-state-disabled';
 
 	$new_js = <<<JAVASCRIPT
 <script type='text/javascript'>
@@ -123,13 +135,7 @@ $comments_content = elgg_view('input/dropdown', array(
 	'options_values' => array('On' => elgg_echo('on'), 'Off' => elgg_echo('off'))
 ));
 
-$submit_input = elgg_view('input/submit', array(
-	'id' => 'simplekaltura-submit',
-	'name' => 'save',
-	'value' => elgg_echo('save'),
-	'disabled' => 'DISABLED',
-	'class' => 'elgg-button-submit elgg-state-disabled'
-));
+$submit_input = elgg_view('input/submit', $submit_options);
 
 // Hidden inputs for kaltura entries
 $k_guid_input = elgg_view('input/hidden', array(
