@@ -19,7 +19,7 @@ $site_link_label = elgg_echo('simplekaltura:label:viewonsite', array(elgg_get_si
 
 // Embed player dimensions/config
 $width = elgg_get_plugin_setting('kaltura_embed_player_width', 'simplekaltura');
-$height = elgg_get_plugin_setting('kaltura_embed_player_width', 'simplekaltura');
+$height = elgg_get_plugin_setting('kaltura_embed_player_height', 'simplekaltura');
 $embed_player = elgg_get_plugin_setting('kaltura_custom_embed_player_id', 'simplekaltura');
 
 $embed_code = elgg_view('simplekaltura/widget', array(

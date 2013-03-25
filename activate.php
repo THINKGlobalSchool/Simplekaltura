@@ -29,7 +29,7 @@ $defaults = array(
 	'kaltura_embed_player_width' => '725',
 	
 	// Thumbnail url
-	'kaltura_thumbnail_url' => 'http://cdn.kaltura.com/p/0/thumbnail/entry_id/',
+	'kaltura_thumbnail_url' => 'http://cdn.kaltura.com/p/0/thumbnail/type/2/bgcolor/000000/entry_id/',
 
 	// Thumbnail dimensions
 	'kaltura_smallthumb_height' => '67',
