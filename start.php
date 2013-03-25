@@ -219,8 +219,7 @@ function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
 				'text' => elgg_echo('simplekaltura:label:download'),
 				'title' => 'download_video',
 				'href' => $download_url,
-				'section' => 'actions',
-				'priority' => 300,
+				'priority' => 200,
 			);
 
 			$value[] = ElggMenuItem::factory($options);

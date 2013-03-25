@@ -301,9 +301,6 @@ function simplekaltura_build_thumbnail_url($entry_id, $size = NULL, $video_secon
 	$height = elgg_get_plugin_setting("kaltura_{$size}thumb_height", 'simplekaltura');
 
 	$thumbnail_url = elgg_get_plugin_setting('kaltura_thumbnail_url', 'simplekaltura') . $entry_id;
-	
-	// Set cropping type, see: http://wiki.kaltura.org/wiki/index.php/KalturaAPI:thumbnail
-	$thumbnail_url .= "/type/1";
 
 	// Set width
 	$thumbnail_url .= "/width/{$width}";
