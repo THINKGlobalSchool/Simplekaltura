@@ -126,7 +126,7 @@ HTML;
 	elgg_load_css('lightbox');
 
 	// Grab thumbnail but make it popup the video player instead of link to the Elgg view
-	$pop_url = elgg_get_site_url() . 'videos/popup/' . $video->guid;
+	$pop_url = elgg_get_site_url() . 'ajax/view/simplekaltura/popup?entity_guid=' . $video->guid;
 	
 	$icon = elgg_view_entity_icon($video, 'small', array(
 		'href' => $pop_url,

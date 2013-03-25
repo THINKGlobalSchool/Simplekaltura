@@ -14,7 +14,6 @@
  * - This plugin doesn't lend itself well to sticky forms. Not sure what to do about that.
  * 
  * - Admin setting for embed player
- * - Move 'popup' to ajax view
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');
@@ -89,6 +88,9 @@ function simplekaltura_init() {
 	
 	// Most Played Sidebar
 	elgg_extend_view('simplekaltura/sidebar', 'simplekaltura/most_played');
+
+	// Whitelist ajax views
+	elgg_register_ajax_view('simplekaltura/popup');
 	
 	return TRUE;
 }
@@ -103,7 +105,6 @@ function simplekaltura_init() {
  *  New video:        videos/add/<guid>
  *  Edit video:       videos/edit/<guid>
  *  Group videos:     videos/group/<guid>/owner
- *  Popup video:      videos/popup/<guid>
  *
  * @param string $page
  */
@@ -139,10 +140,6 @@ function simplekaltura_page_handler($page) {
 		case 'group':
 			group_gatekeeper();
 			include "$pages_dir/owner.php";
-			break;
-		case 'popup':
-			set_input('guid', elgg_extract(1, $page));
-			include "$pages_dir/popup.php";
 			break;
 		case 'all':
 		default:

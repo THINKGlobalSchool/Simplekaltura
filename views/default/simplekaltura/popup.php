@@ -7,12 +7,20 @@
  * @author Jeff Tilson
  * @copyright THINK Global School 2010 - 2013
  * @link http://www.thinkglobalschool.com/
- * 
+ *
+ * @uses $vars['entity_guid']
  */
 
-$video_guid = get_input('guid');
+$video_guid = elgg_extract('entity_guid', $vars);
 $video = get_entity($video_guid);
-$autoplay = get_input('autoplay', 0);
+
+// Check valid entity
+if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
+	return FALSE;
+}
+
+$autoplay = elgg_extract('autoplay', $vars, 0);
+
 $wid = "_" . elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 $uiconf_id = elgg_get_plugin_setting('kaltura_custom_player_id', 'simplekaltura'); 
 $entry_id = $video->kaltura_entryid;
@@ -21,11 +29,6 @@ if ($autoplay) {
 	$autoplay = 'true';
 } else {
 	$autoplay = 'false';
-}
-
-// check for access on this and don't allow them to play vidoes in kaltura but not in our system.
-if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
-	return FALSE;
 }
 
 $wid_input = elgg_view('input/hidden', array(
@@ -49,8 +52,8 @@ $autoplay_input = elgg_view('input/hidden', array(
 ));
 
 // Width and height need to set as style attribute on dynamic player container
-$width = elgg_get_plugin_setting('kaltura_popup_width');   
-$height = elgg_get_plugin_setting('kaltura_popup_height');
+$width = elgg_get_plugin_setting('kaltura_popup_width', 'simplekaltura');   
+$height = elgg_get_plugin_setting('kaltura_popup_height', 'simplekaltura');
 
 $content = <<<HTML
 	<div class='elgg-kaltura-popup'>
@@ -65,6 +68,3 @@ $content = <<<HTML
 HTML;
 
 echo $content;
-
-// Add a view to extend popup
-echo elgg_view('simplekaltura/popup', array('entity' => $video));
