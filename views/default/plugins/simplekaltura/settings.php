@@ -150,21 +150,21 @@ $playerwidth_input = elgg_view('input/text', array(
 ));
 
 // Embed player id
-$embed_customplayerid_label = elgg_echo('simplekaltura:admin:customplayerid');
+$embed_customplayerid_label = elgg_echo('simplekaltura:admin:embedplayerid');
 $embed_customplayerid_input = elgg_view('input/text', array(
 	'name' => 'params[kaltura_custom_embed_player_id]', 
 	'value' => $embed_player_id
 ));
 
 // Embed player height
-$embed_playerheight_label = elgg_echo('simplekaltura:admin:playerheight');
+$embed_playerheight_label = elgg_echo('simplekaltura:admin:embedplayerheight');
 $embed_playerheight_input = elgg_view('input/text', array(
 	'name' => 'params[kaltura_embed_player_height]', 
 	'value' => $embed_player_height
 ));
 
 // Embed player width
-$embed_playerwidth_label = elgg_echo('simplekaltura:admin:playerwidth');
+$embed_playerwidth_label = elgg_echo('simplekaltura:admin:embedplayerwidth');
 $embed_playerwidth_input = elgg_view('input/text', array(
 	'name' => 'params[kaltura_embed_player_width]', 
 	'value' => $embed_player_width
