@@ -85,3 +85,7 @@ With a Kaltura hosted account you can create and customize your own video player
 This plugin makes use of a custom embed button that you need to configure in the KMC Studio. For more information on custom buttons, see the following knowledge article: 
 
 [http://knowledge.kaltura.com/javascript-api-kaltura-media-players#CreatingCallstoActionCustomButtons](http://knowledge.kaltura.com/javascript-api-kaltura-media-players#CreatingCallstoActionCustomButtons)
+
+---
+
+#### Simple Kaltura plugin by Jeff Tilson for THINK Global School [http://www.thinkglobalschool.org](http://www.thinkglobalschool.org)
