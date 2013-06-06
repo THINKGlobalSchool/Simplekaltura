@@ -45,7 +45,7 @@ function simplekaltura_create_client($admin = false) {
 		$secret = $partner->secret;
 	}
 
-	$ks			= $client->session->start($secret, $partner_user_id, $st);
+	$ks	= $client->session->start($secret, $partner_user_id, $st);
 
 	// Set KS
 	$client->setKs($ks);

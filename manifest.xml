@@ -13,4 +13,28 @@
 		<type>elgg_release</type>
 		<version>1.8.14</version>
 	</requires>
+	<screenshot>
+		<description>Uploading a video</description>
+		<path>graphics/videos_uploading.png</path>
+	</screenshot>
+	<screenshot>
+		<description>Video Activity</description>
+		<path>graphics/videos_activity.png</path>
+	</screenshot>
+	<screenshot>
+		<description>Thumbnail Chooser</description>
+		<path>graphics/videos_thumbnail.png</path>
+	</screenshot>
+	<screenshot>
+		<description>Videos List</description>
+		<path>graphics/videos_all.png</path>
+	</screenshot>
+	<screenshot>
+		<description>Videos iOS</description>
+		<path>graphics/videos_ios.png</path>
+	</screenshot>
+	<screenshot>
+		<description>Videos Popup</description>
+		<path>graphics/videos_popup.png</path>
+	</screenshot>
 </plugin_manifest>
