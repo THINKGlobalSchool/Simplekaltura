@@ -72,6 +72,7 @@ function simplekaltura_init() {
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
 	elgg_register_action('simplekaltura/update', "$actions_root/update.php");
 	elgg_register_action('simplekaltura/get_embed', "$actions_root/get_embed.php");
+	elgg_register_action('simplekaltura/featured', "$actions_root/featured.php", 'admin');
 	elgg_register_action('videos/delete', "$actions_root/delete.php");
 
 	// entity url and icon handlers
@@ -85,6 +86,7 @@ function simplekaltura_init() {
 	elgg_register_plugin_hook_handler('cron', 'fifteenmin', 'simplekaltura_bulk_update');
 	
 	// Most Played Sidebar
+	elgg_extend_view('simplekaltura/sidebar', 'simplekaltura/featured');
 	elgg_extend_view('simplekaltura/sidebar', 'simplekaltura/most_played');
 
 	// Whitelist ajax views
@@ -222,6 +224,26 @@ function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
 				'priority' => 200,
 			);
 
+			$value[] = ElggMenuItem::factory($options);
+		}
+
+		// feature link
+		if (elgg_is_admin_logged_in()) {
+			if ($entity->featured_video == "yes") {
+				$url = "action/simplekaltura/featured?guid={$entity->guid}&action_type=unfeature";
+				$wording = elgg_echo("simplekaltura:label:makeunfeatured");
+			} else {
+				$url = "action/simplekaltura/featured?guid={$entity->guid}&action_type=feature";
+				$wording = elgg_echo("simplekaltura:label:makefeatured");
+			}
+			$options = array(
+				'name' => 'feature',
+				'text' => $wording,
+				'href' => $url,
+				'priority' => 300,
+				'is_action' => true,
+				'section' => 'info'
+			);
 			$value[] = ElggMenuItem::factory($options);
 		}
 	}

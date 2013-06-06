@@ -58,6 +58,9 @@ $english = array(
 	'simplekaltura:label:selectthumbnail' => 'Select Thumbnail',
 	'simplekaltura:label:editvideo' => 'Edit Video: "%s"',
 	'simplekaltura:label:uploadingdialogtitle' => 'Uploading...',
+	'simplekaltura:label:makefeatured' => 'Make Featured',
+	'simplekaltura:label:makeunfeatured' => 'Unfeature',
+	'simplekaltura:label:featured' => 'Featured Videos',
 
 	// Admin
 	'simplekaltura:admin:kalturaconfig' => 'Kaltura Configuration',
@@ -96,11 +99,12 @@ $english = array(
 	'simplekaltura:notification:body' => "%s posted a new Video titled: %s\n\n%s\n\nTo watch the video click here:\n%s
 ",
 
-
 	// Messages
 	'simplekaltura:success:save' => 'Successfully saved Video',
 	'simplekaltura:success:delete' => 'Video successfully deleted',
 	'simplekaltura:success:update' => 'Video successfully updated',
+	'simplekaltura:success:featuredon' => '%s is now a featured video.',
+	'simplekaltura:success:featuredoff' => '%s has been removed from featured videos.',
 	'simplekaltura:error:save' => 'Error saving Video',
 	'simplekaltura:error:delete' => 'There was an error deleting the Video',
 	'simplekaltura:error:notfound' => 'Video not found',
@@ -111,6 +115,7 @@ $english = array(
 	'simplekaltura:error:invalidsecondduration' => 'Value must be less than video duration (%s seconds)',
 	'simplekaltura:error:pluginnotconfigured' => 'Simplekaltura is not properly configured!<br />One or more required settings is not set.<br />Check the <a href="' . elgg_get_site_url() .'/admin/plugin_settings/simplekaltura">plugin settings</a> page.',
 	'simplekaltura:error:filetoolarge' => 'Selected file exceeds maximum upload size (%s MB)',
+	'simplekaltura:error:featured' => 'Invalid video.',
 	'simplekaltura:notconverted' => 'Warning: Video has not yet finished converting. Thumbnail selection is unavailable while conversion in progress.',
 
 	// Other content

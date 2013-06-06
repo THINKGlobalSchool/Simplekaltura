@@ -1,6 +1,6 @@
 <?php
 /**
- * Simple Kaltura Most Played Sidebar
+ * Simple Kaltura Featured Sidebar
  * 
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
@@ -13,7 +13,8 @@
 $options = array(
 	'type' => 'object',
 	'subtype' => 'simplekaltura_video',
-	'order_by_metadata' => array('name' => 'plays', 'as' => 'integer', 'direction' => 'DESC'),
+	'metadata_name' => 'featured_video',
+	'metadata_value' => 'yes',
 	'full_view' => FALSE,
 	'limit' => 5,
 	'offset' => 0,
@@ -24,8 +25,8 @@ elgg_push_context('gallery');
 $videos = elgg_list_entities_from_metadata($options);
 elgg_pop_context();
 
-$module = elgg_view_module('aside', elgg_echo('simplekaltura:label:mostplayed'), $videos, array(
+if ($videos) {
+	echo elgg_view_module('aside', elgg_echo('simplekaltura:label:featured'), $videos, array(
 		'class' => 'simplekaltura-sidebar-gallery-module'
-));
-
-echo $module;
+	));
+}

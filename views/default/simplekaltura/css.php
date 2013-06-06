@@ -53,6 +53,10 @@ img.simplekaltura-video-gallery-icon {
 	margin-top: 3px;
 }
 
+.simplekaltura-sidebar-gallery-module ul.elgg-list {
+	border-top: none;
+}
+
 /* OBJECT VIEW */
 .elgg-kaltura-player {
 	border-top: 1px solid #CCC;
