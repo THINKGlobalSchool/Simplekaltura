@@ -43,32 +43,6 @@ if (!$entity) {
 	// Disable the submit button initially, this will be enabled later once a video is selected
 	$submit_options['disabled'] = 'DISABLED';
 	$submit_options['class'] .= ' elgg-state-disabled';
-
-	$new_js = <<<JAVASCRIPT
-<script type='text/javascript'>
-	$(document).ready(function () {
-		// Init upload dialog
-		$('#simplekaltura-upload-dialog').dialog({
-			autoOpen: false,
-			width: 400,
-			height: 85,
-			modal: true,
-			draggable: false,
-			resizeable: false,
-			open: function(event, ui) {
-				$(".ui-dialog-titlebar-close").hide();
-			},
-			closeOnEscape: false
-		});
-
-		// Click handler for save button
-		$('#simplekaltura-submit').click(function(event) {
-			upload();
-			event.preventDefault();
-		});
-	});
-</script>
-JAVASCRIPT;
 } else {
 	// Get entry to check status
 	$entry = simplekaltura_get_entry($entity->kaltura_entryid);

@@ -38,8 +38,8 @@ function simplekaltura_init() {
 
 	elgg_extend_view('css/elgg', 'simplekaltura/css');
 
-	$url = elgg_get_simplecache_url('css', 'jquery.ui_1.8.16');
-	elgg_register_simplecache_view('css/jquery.ui_1.8.16');
+	$url = elgg_get_simplecache_url('css', 'simplekaltura_ui_css');
+	elgg_register_simplecache_view('css/simplekaltura_ui_css');
 	elgg_register_css('simplekaltura-jquery-ui', $url);
 
 	// If plugin is properly configured
@@ -131,6 +131,8 @@ function simplekaltura_page_handler($page) {
 			include "$pages_dir/view.php";
 			break;
 		case 'add':
+			gatekeeper();
+			group_gatekeeper();
 			include "$pages_dir/add.php";
 			break;
 		case 'edit':
