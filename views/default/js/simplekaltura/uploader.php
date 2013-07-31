@@ -22,31 +22,29 @@ var formEventsBound = false;
 // Set some stuff
 $(document).ready(function () {
 	onLoadHandler();
-	
-	$(document).ready(function () {
-		if (!formEventsBound) {
-			// Init upload dialog
-			$('#simplekaltura-upload-dialog').dialog({
-				autoOpen: false,
-				width: 400,
-				height: 85,
-				modal: true,
-				draggable: false,
-				resizeable: false,
-				open: function(event, ui) {
-					$(".ui-dialog-titlebar-close").hide();
-				},
-				closeOnEscape: false
-			});
 
-			// Click handler for save button
-			$('#simplekaltura-submit').click(function(event) {
-				upload();
-				event.preventDefault();
-			});
-			formEventsBound = true;
-		}
-	});
+	if (!formEventsBound) {
+		// Init upload dialog
+		$('#simplekaltura-upload-dialog').dialog({
+			autoOpen: false,
+			width: 400,
+			height: 85,
+			modal: true,
+			draggable: false,
+			resizeable: false,
+			open: function(event, ui) {
+				$(".ui-dialog-titlebar-close").hide();
+			},
+			closeOnEscape: false
+		});
+
+		// Click handler for save button
+		$('#simplekaltura-submit').click(function(event) {
+			upload();
+			event.preventDefault();
+		});
+		formEventsBound = true;
+	}
 });
 
 //KSU handlers
