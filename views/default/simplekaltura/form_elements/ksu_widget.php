@@ -7,6 +7,19 @@
  * @author Jeff Tilson
  * @copyright THINK Global School 2010 - 2013
  * @link http://www.thinkglobalschool.org
+ * 
+ * IMPORTANT!!
+ *
+ * - Kaltura likes to change their 'uiconfs' around all the time.. the uiconfid tells Kaltura
+ *   to grab a specific flash widget, they do tend to change time to time. If the uploader is 
+ *   suddenly broken, it's probably due to a change on their end. 
+ *   
+ *   Check the following for the lastest 'integration script' download: 
+ *   
+ *   http://knowledge.kaltura.com/kaltura-simple-uploader-ksu-website-integration-guid
+ *  
+ * Previous working uiconfid's:
+ * - 8003811 
  */
 
 elgg_load_library('simplekaltura');
@@ -32,7 +45,7 @@ $flashVars["entryId"]      = -1;
 $flashVars["ks"]           = $client->getKs();
 $flashVars["maxFileSize"]  = $upload_max;
 $flashVars["maxTotalSize"] = $upload_max;
-$flashVars["uiConfId"]     = 8003811;
+$flashVars["uiConfId"]     = 13008682;
 $flashVars["jsDelegate"]   = "delegate";
 
 ?>
@@ -62,6 +75,6 @@ $flashVars["jsDelegate"]   = "delegate";
 		var width = $('#simplekaltura-uploader-submit').innerWidth()
 		var height = $('#simplekaltura-uploader-submit').innerHeight()
 
-		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/8003811", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/13008682", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 	</script>
 </div>
