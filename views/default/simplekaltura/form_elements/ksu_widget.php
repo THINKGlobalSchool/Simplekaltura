@@ -27,6 +27,10 @@ elgg_load_library('KalturaClient');
 elgg_load_js('simplekaltura:uploader');
 elgg_load_js('simplekaltura:swfobject');
 
+// uiconf
+$uiconf = 13008682;
+//$uiconf = 16626572;
+
 // Session vars
 $kaltura_partner_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 $partner_user_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
@@ -45,7 +49,7 @@ $flashVars["entryId"]      = -1;
 $flashVars["ks"]           = $client->getKs();
 $flashVars["maxFileSize"]  = $upload_max;
 $flashVars["maxTotalSize"] = $upload_max;
-$flashVars["uiConfId"]     = 13008682;
+$flashVars["uiConfId"]     = $uiconf;
 $flashVars["jsDelegate"]   = "delegate";
 
 ?>
@@ -75,6 +79,6 @@ $flashVars["jsDelegate"]   = "delegate";
 		var width = $('#simplekaltura-uploader-submit').innerWidth()
 		var height = $('#simplekaltura-uploader-submit').innerHeight()
 
-		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/13008682", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/<?php echo $uiconf; ?>", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 	</script>
 </div>
