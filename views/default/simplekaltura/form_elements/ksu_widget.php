@@ -28,8 +28,7 @@ elgg_load_js('simplekaltura:uploader');
 elgg_load_js('simplekaltura:swfobject');
 
 // uiconf
-$uiconf = 13008682;
-//$uiconf = 16626572;
+$uiconf = 19831372;
 
 // Session vars
 $kaltura_partner_id = elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
