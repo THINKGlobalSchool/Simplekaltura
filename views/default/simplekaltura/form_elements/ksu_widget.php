@@ -78,6 +78,6 @@ $flashVars["jsDelegate"]   = "delegate";
 		var width = $('#simplekaltura-uploader-submit').innerWidth()
 		var height = $('#simplekaltura-uploader-submit').innerHeight()
 
-		swfobject.embedSWF("http://www.kaltura.com/kupload/ui_conf_id/<?php echo $uiconf; ?>", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+		swfobject.embedSWF("https://www.kaltura.com/kupload/ui_conf_id/<?php echo $uiconf; ?>", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 	</script>
 </div>

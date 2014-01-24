@@ -92,6 +92,7 @@ delegate.allUploadsCompleteHandler = function() {
 }
 
 delegate.entriesAddedHandler = function(entries) {
+	console.log('asdasd');
 	// Set hidden inputs
 	$('#k_entryid').val(entries[0].entryId);
 	$('#k_bytesloaded').val(entries[0].bytesLoaded);
