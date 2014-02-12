@@ -360,3 +360,18 @@ function simplekaltura_is_configured() {
 
 	return true;
 }
+
+
+/**
+ * Check if entities exist from other Kaltura plugin
+ * that can be migrated to this plugin
+ */
+function simplekaltura_migration_check() {
+	$count = elgg_get_entities(array(
+		'type' => 'object',
+		'subtype' => 'kaltura_video',
+		'count' => true
+	));
+	
+	return $count;
+}

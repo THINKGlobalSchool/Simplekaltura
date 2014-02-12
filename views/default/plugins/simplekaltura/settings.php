@@ -336,3 +336,13 @@ $upload_body = <<<HTML
 HTML;
 
 echo elgg_view_module('inline', $upload_label, $upload_body);
+
+
+if (simplekaltura_migration_check()) {
+	$url = elgg_normalize_url('admin/simplekaltura/migrate');
+		$link = elgg_view('output/url', array(
+			'text' => $url,
+			'href' => $url
+		));
+	elgg_add_admin_notice('simplekaltura_migrate_message', elgg_echo('simplekaltura:migrate:message', array($link)));
+}
