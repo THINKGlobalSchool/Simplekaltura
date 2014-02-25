@@ -330,7 +330,7 @@ function simplekaltura_get_swf_url(ElggEntity $video, $uiConfId) {
 	$widgetid = "_" . elgg_get_plugin_setting('kaltura_partnerid', 'simplekaltura');
 	$entryid = $video->kaltura_entryid;
 
-	return "https://www.kaltura.com/index.php/kwidget"
+	return "//www.kaltura.com/index.php/kwidget"
 		. "/wid/$widgetid"
 		. "/uiconf_id/$uiConfId"
 		. "/entry_id/$entryid"

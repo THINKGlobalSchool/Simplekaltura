@@ -16,7 +16,7 @@
  *   
  *   Check the following for the lastest 'integration script' download: 
  *   
- *   http://knowledge.kaltura.com/kaltura-simple-uploader-ksu-website-integration-guid
+ *   http://knowledge.kaltura.com/kaltura-simple-uploader-ksu-website-integration-guide
  *  
  * Previous working uiconfid's:
  * - 8003811 
@@ -78,6 +78,6 @@ $flashVars["jsDelegate"]   = "delegate";
 		var width = $('#simplekaltura-uploader-submit').innerWidth()
 		var height = $('#simplekaltura-uploader-submit').innerHeight()
 
-		swfobject.embedSWF("https://www.kaltura.com/kupload/ui_conf_id/<?php echo $uiconf; ?>", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
+		swfobject.embedSWF("//www.kaltura.com/kupload/ui_conf_id/<?php echo $uiconf; ?>", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
 	</script>
 </div>
