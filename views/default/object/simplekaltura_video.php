@@ -86,11 +86,12 @@ $entity_hidden = elgg_view('input/hidden', array(
 ));
 
 if ($full) {
-	$body = elgg_view('output/longtext', array(
+
+	$body = "<div class='elgg-kaltura-player center'>" . elgg_view('simplekaltura/widget', $vars) . "</div>";
+
+	$body .= elgg_view('output/longtext', array(
 		'value' => $video->description
 	));
-
-	$body .= "<div class='elgg-kaltura-player center'>" . elgg_view('simplekaltura/widget', $vars) . "</div>";
 	
 	// Embed container
 	$body .= "<div class='elgg-kaltura-embed-container'></div>";
