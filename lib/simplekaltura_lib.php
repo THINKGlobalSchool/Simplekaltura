@@ -367,11 +367,19 @@ function simplekaltura_is_configured() {
  * that can be migrated to this plugin
  */
 function simplekaltura_migration_check() {
+	
 	$count = elgg_get_entities(array(
 		'type' => 'object',
 		'subtype' => 'kaltura_video',
 		'count' => true
 	));
 	
-	return $count;
+	$ignore = elgg_get_entities_from_metadata(array(
+		'type' => 'object',
+		'subtype' => 'kaltura_video',
+		'metadata_name_value_pairs' => array('name' => 'simplekaltura_cannot_import', 'value' => 1),
+		'count' => true
+	));
+	
+	return $count - $ignore;
 }

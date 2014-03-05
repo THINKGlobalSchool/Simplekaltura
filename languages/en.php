@@ -127,6 +127,7 @@ $english = array(
 	'simplekaltura:migration:possible' => "There is/are currently %s video(s) that can be migrated to SimpleKaltura.  Doing this will change the content to types that can be used by this plugin, they will no longer be usable in pages provided by the original plugin.  All information (owner, time created, title, description, etc) will be retained.  Click the button below to initiate the migration.  Note - for large amounts of content this may take a while.",
 	'simplekaltura:migration:notpossible' => "There are no videos available for migration.",
 	'simplekaltura:migrate' => "Migrate",
+	'simplekaltura:migrate:inprogress' => "A previous migration is already in progress.",
 );
 
 add_translation('en', $english);

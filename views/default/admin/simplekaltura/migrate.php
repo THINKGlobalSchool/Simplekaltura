@@ -14,5 +14,5 @@ if ($count) {
 	));
 }
 else {
-	echo elgg_echo('simplekaltura:migration:notpossible');
+		echo elgg_echo('simplekaltura:migration:notpossible');
 }
