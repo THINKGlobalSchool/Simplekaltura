@@ -83,5 +83,5 @@ foreach ($videos as $v) {
 }
 
 
-system_message('Kaltura videos have been migrated');
+system_message(elgg_echo('simplekaltura:migration:complete'));
 forward(REFERER);

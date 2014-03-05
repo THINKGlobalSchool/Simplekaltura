@@ -128,6 +128,7 @@ $english = array(
 	'simplekaltura:migration:notpossible' => "There are no videos available for migration.",
 	'simplekaltura:migrate' => "Migrate",
 	'simplekaltura:migrate:inprogress' => "A previous migration is already in progress.",
+	'simplekaltura:migration:complete' => 'Kaltura videos have been migrated',
 );
 
 add_translation('en', $english);
