@@ -381,5 +381,7 @@ function simplekaltura_migration_check() {
 		'count' => true
 	));
 	
-	return $count - $ignore;
+	$total = $count - $ignore;
+
+	return max(array($total, 0)); // don't want to return negative values
 }
