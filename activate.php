@@ -20,6 +20,9 @@ $defaults = array(
 	// Embed player id
 	'kaltura_custom_embed_player_id' => '1000106',
 
+	// Default uiconfid
+	'kaltura_uiconfid' => 19831372,
+
 	// Player dimensions
 	'kaltura_player_height' => '330',
 	'kaltura_player_width' => '400',
@@ -27,6 +30,9 @@ $defaults = array(
 	// Embed player dimensions
 	'kaltura_embed_player_height' => '540',
 	'kaltura_embed_player_width' => '725',
+
+	// Public embeds
+	'kaltura_allow_non_public_embed' => 0,
 	
 	// Thumbnail url
 	'kaltura_thumbnail_url' => 'http://cdn.kaltura.com/p/0/thumbnail/type/2/bgcolor/000000/entry_id/',

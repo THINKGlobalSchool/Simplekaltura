@@ -350,6 +350,7 @@ function simplekaltura_is_configured() {
 		'kaltura_partnerid',
 		'kaltura_email_account',
 		'kaltura_password_account',
+		'kaltura_uiconfid'
 	);
 
 	foreach ($required as $setting) {

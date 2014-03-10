@@ -61,6 +61,8 @@ $english = array(
 	'simplekaltura:label:makefeatured' => 'Make Featured',
 	'simplekaltura:label:makeunfeatured' => 'Unfeature',
 	'simplekaltura:label:featured' => 'Featured Videos',
+	'simplekaltura:label:no' => 'No',
+	'simplekaltura:label:yes' => 'Yes',
 
 	// Admin
 	'simplekaltura:admin:kalturaconfig' => 'Kaltura Configuration',
@@ -89,6 +91,9 @@ $english = array(
 	'simplekaltura:admin:popupwidth' => 'Popup Width',
 	'simplekaltura:admin:uploadmax' => 'Maximum Upload Size (MB)',
 	'simplekaltura:admin:entitytitle' => 'Entity title (includes main menu item)',
+	'simplekaltura:admin:uiconfid' => 'KSU uiConfId',
+	'simplekaltura:admin:uiconfiddesc' => 'See: http://knowledge.kaltura.com/kaltura-simple-uploader-ksu-website-integration-guide',
+	'simplekaltura:admin:allownonpublicembed' => 'Allow non-public video embeds',
 
 	// River
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',

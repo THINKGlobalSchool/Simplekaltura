@@ -16,7 +16,7 @@ $video = get_entity($guid);
 
 if (!elgg_instanceof($video, 'object', 'simplekaltura_video')) {
 	register_error(elgg_echo('simplekaltura:error:notfound'));
-} else if ($video->access_id != ACCESS_PUBLIC) {
+} else if (!elgg_get_plugin_setting('kaltura_allow_non_public_embed', 'simplekaltura') && $video->access_id != ACCESS_PUBLIC) {
 	register_error(elgg_echo('simplekaltura:error:nonpublic'));
 } else {
 	echo elgg_view('simplekaltura/embed', array('video_guid' => $video->guid));

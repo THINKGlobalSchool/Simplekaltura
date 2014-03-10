@@ -13,6 +13,21 @@
 
 $plugin = $vars['entity'];
 
+// Kaltura.com email account
+$email_account = $plugin->kaltura_email_account;
+
+// Kaltura.com password
+$account_password = $plugin->kaltura_password_account;
+
+// Partner id
+$partner_id = $plugin->kaltura_partnerid;
+
+// Admin tags
+$admin_tags = $plugin->kaltura_admin_tags;
+
+// uiConfId
+$uiconfid = $plugin->kaltura_uiconfid;
+
 // Player id
 $player_id = $plugin->kaltura_custom_player_id;
 
@@ -24,6 +39,9 @@ $player_width = $plugin->kaltura_player_width;
 
 // Embed player id
 $embed_player_id = $plugin->kaltura_custom_embed_player_id;
+
+// Allow non public embeds
+$allow_non_public_embed = $plugin->kaltura_allow_non_public_embed;
 
 // Embed player height
 $embed_player_height = $plugin->kaltura_embed_player_height;
@@ -80,28 +98,36 @@ $config_label = elgg_echo('simplekaltura:admin:kalturaconfig');
 $admintags_label = elgg_echo('simplekaltura:admin:admintags');
 $admintags_input = elgg_view('input/text', array(
 	'name' => 'params[kaltura_admin_tags]', 
-	'value' => $plugin->kaltura_admin_tags
+	'value' => $admin_tags
 ));
 
 // Partner id
 $partnerid_label = elgg_echo('simplekaltura:admin:partnerid');
 $partnerid_input = elgg_view('input/text', array(
 	'name' => 'params[kaltura_partnerid]', 
-	'value' => $plugin->kaltura_partnerid
+	'value' => $partner_id
+));
+
+// uiConfID
+$uiconfid_label = elgg_echo('simplekaltura:admin:uiconfid');
+$uiconfid_desc = elgg_echo('simplekaltura:admin:uiconfiddesc');
+$uiconfid_input = elgg_view('input/text', array(
+	'name' => 'params[kaltura_uiconfid]', 
+	'value' => $uiconfid,
 ));
 
 // Email account (for kaltura authentication)
 $emailaccount_label = elgg_echo('simplekaltura:admin:emailaccount');
 $emailaccount_input = elgg_view('input/text', array(
 	'name' => 'params[kaltura_email_account]', 
-	'value' => $plugin->kaltura_email_account
+	'value' => $email_account
 ));
 
 // Password (for kaltura authentication)
 $passwordaccount_label = elgg_echo('simplekaltura:admin:passwordaccount');
 $passwordaccount_input = elgg_view('input/password', array(
 	'name' => 'params[kaltura_password_account]', 
-	'value' => $plugin->kaltura_password_account
+	'value' => $account_password
 ));
 
 $config_body = <<<HTML
@@ -112,6 +138,11 @@ $config_body = <<<HTML
 	<div>
 		<label>$partnerid_label</label>
 		$partnerid_input
+	</div><br />
+	<div>
+		<label>$uiconfid_label</label><br />
+		<span class='elgg-subtext'>$uiconfid_desc</span>
+		$uiconfid_input
 	</div><br />
 	<div>
 		<label>$emailaccount_label</label>
@@ -133,6 +164,17 @@ $customplayerid_label = elgg_echo('simplekaltura:admin:customplayerid');
 $customplayerid_input = elgg_view('input/text', array(
 	'name' => 'params[kaltura_custom_player_id]', 
 	'value' => $player_id
+));
+
+// Allow non public embeds input
+$non_public_embed_label = elgg_echo('simplekaltura:admin:allownonpublicembed');
+$non_public_embed_input = elgg_view('input/dropdown', array(
+	'name' => 'params[kaltura_allow_non_public_embed]', 
+	'options_values' => array(
+		0 => elgg_echo('simplekaltura:label:no'),
+		1 => elgg_echo('simplekaltura:label:yes')
+	),
+	'value' => $allow_non_public_embed
 ));
 
 // Player height
@@ -186,6 +228,10 @@ $player_body = <<<HTML
 	<div>
 		<label>$embed_customplayerid_label</label>
 		$embed_customplayerid_input
+	</div><br />
+	<div>
+		<label>$non_public_embed_label</label>
+		$non_public_embed_input
 	</div><br />
 	<div>
 		<label>$embed_playerwidth_label</label>

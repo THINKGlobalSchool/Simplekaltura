@@ -32,6 +32,10 @@ You'll need to configure a number of plugin settings to get started
 
 	*The Partner ID provided by Kaltura during the registration process*
 
+* **KSU uiConfId**
+
+	*The KSU uiConfId determines the parameters for the KSU Flash uploader*
+
 * **Email Address**
 
 	*This is the email address you use to log into the KMC. Required to connect to the Kaltura API*
@@ -55,6 +59,10 @@ All other settings will be initted with default values.
 * **Custom Embed Player ID / Embed Player Width / Embed Player Height**
 
 	*A seperate custom player ID for embedded videos*
+
+* **Allow non-public embeds**
+
+	*Wether or not to allow sharing/embedding non-public videos*
 
 * **Thumbnail URL** 
 
