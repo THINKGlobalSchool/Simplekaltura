@@ -361,3 +361,28 @@ function simplekaltura_is_configured() {
 
 	return true;
 }
+
+
+/**
+ * Check if entities exist from other Kaltura plugin
+ * that can be migrated to this plugin
+ */
+function simplekaltura_migration_check() {
+	
+	$count = elgg_get_entities(array(
+		'type' => 'object',
+		'subtype' => 'kaltura_video',
+		'count' => true
+	));
+	
+	$ignore = elgg_get_entities_from_metadata(array(
+		'type' => 'object',
+		'subtype' => 'kaltura_video',
+		'metadata_name_value_pairs' => array('name' => 'simplekaltura_cannot_import', 'value' => 1),
+		'count' => true
+	));
+	
+	$total = $count - $ignore;
+
+	return max(array($total, 0)); // don't want to return negative values
+}

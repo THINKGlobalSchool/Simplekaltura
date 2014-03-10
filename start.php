@@ -74,6 +74,7 @@ function simplekaltura_init() {
 	elgg_register_action('simplekaltura/get_embed', "$actions_root/get_embed.php");
 	elgg_register_action('simplekaltura/featured', "$actions_root/featured.php", 'admin');
 	elgg_register_action('videos/delete', "$actions_root/delete.php");
+	elgg_register_action('simplekaltura/migrate', "$actions_root/migrate.php", 'admin');
 
 	// entity url and icon handlers
 	elgg_register_entity_url_handler('object', 'simplekaltura_video', 'simplekaltura_url_handler');

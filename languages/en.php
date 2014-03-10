@@ -126,6 +126,14 @@ $english = array(
 	// Other content
 	'simplekaltura:no_content' => 'No content',
 	'groups:enablesimplekaltura' => 'Enable group videos',
+	'simplekaltura:migrate:message' => "Videos from another Kaltura plugin can be migrated to be used by SimpleKaltura.  Click here for more info: %s",
+	'admin:simplekaltura' => "Simple Kaltura",
+	'admin:simplekaltura:migrate' => "Content Migration",
+	'simplekaltura:migration:possible' => "There is/are currently %s video(s) that can be migrated to SimpleKaltura.  Doing this will change the content to types that can be used by this plugin, they will no longer be usable in pages provided by the original plugin.  All information (owner, time created, title, description, etc) will be retained.  Click the button below to initiate the migration.  Note - for large amounts of content this may take a while.",
+	'simplekaltura:migration:notpossible' => "There are no videos available for migration.",
+	'simplekaltura:migrate' => "Migrate",
+	'simplekaltura:migrate:inprogress' => "A previous migration is already in progress.",
+	'simplekaltura:migration:complete' => 'Kaltura videos have been migrated',
 );
 
 add_translation('en', $english);
