@@ -38,10 +38,6 @@ function simplekaltura_init() {
 
 	elgg_extend_view('css/elgg', 'simplekaltura/css');
 
-	$url = elgg_get_simplecache_url('css', 'simplekaltura_ui_css');
-	elgg_register_simplecache_view('css/simplekaltura_ui_css');
-	elgg_register_css('simplekaltura-jquery-ui', $url);
-
 	// If plugin is properly configured
 	if (simplekaltura_is_configured()) {
 		// Add to main menu

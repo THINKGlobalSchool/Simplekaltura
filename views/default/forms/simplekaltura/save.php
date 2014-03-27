@@ -14,7 +14,7 @@ elgg_load_library('simplekaltura');
 elgg_load_library('KalturaClient');
 
 elgg_load_js('simplekaltura:thumbs');
-elgg_load_css('simplekaltura-jquery-ui');
+elgg_load_css('elgg.jquery.ui');
 
 $title = elgg_extract('title', $vars);
 $description = elgg_extract('description', $vars);
