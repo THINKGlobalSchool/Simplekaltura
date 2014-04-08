@@ -37,4 +37,5 @@
 		<description>Videos Popup</description>
 		<path>graphics/videos_popup.png</path>
 	</screenshot>
+	<activate_on_install>true</activate_on_install>
 </plugin_manifest>
