@@ -124,3 +124,7 @@ img.simplekaltura-video-gallery-icon {
 	background: none repeat scroll 0 0 #AAAAAA !important;
 	border: 1px solid #999999 !important;
 }
+
+#kaltura_player {
+	display: block;
+}
