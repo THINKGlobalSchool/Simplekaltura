@@ -5,13 +5,9 @@
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010 - 2013
+ * @copyright THINK Global School 2010 - 2015
  * @link http://www.thinkglobalschool.com/
  *
- *
- * /////////// @TODO ///////////////
- *
- * - This plugin doesn't lend itself well to sticky forms. Not sure what to do about that.
  */
 
 elgg_register_event_handler('init', 'system', 'simplekaltura_init');
@@ -28,7 +24,6 @@ function simplekaltura_init() {
 
 	foreach ($libs as $lib) {
 		$url = elgg_get_simplecache_url('js', "simplekaltura/$lib");
-		elgg_register_simplecache_view("js/simplekaltura/$lib");	
 		elgg_register_js("simplekaltura:$lib", $url);
 	}
 
@@ -63,6 +58,9 @@ function simplekaltura_init() {
 	register_notification_object('object', 'simplekaltura_video', elgg_echo('simplekaltura:notification:subject'));
 	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'simplekaltura_notify_message');
 
+	elgg_register_notification_event('object', 'simplekaltura_video', array('create'));
+	elgg_register_plugin_hook_handler('prepare', 'notification:publish:object:simplekaltura_video', 'simplekaltura_prepare_notification');
+
 	// actions
 	$actions_root = "$plugin_root/actions/simplekaltura";
 	elgg_register_action('simplekaltura/save', "$actions_root/save.php");
@@ -73,7 +71,7 @@ function simplekaltura_init() {
 	elgg_register_action('simplekaltura/migrate', "$actions_root/migrate.php", 'admin');
 
 	// entity url and icon handlers
-	elgg_register_entity_url_handler('object', 'simplekaltura_video', 'simplekaltura_url_handler');
+	elgg_register_plugin_hook_handler('entity:url', 'object', 'simplekaltura_url_handler');
 	elgg_register_plugin_hook_handler('entity:icon:url', 'object', 'simplekaltura_icon_url_override');
 
 	// Register type
@@ -150,13 +148,23 @@ function simplekaltura_page_handler($page) {
 }
 
 /**
- * Populates the ->getUrl() method for a simple kaltura video
+ * Returns the URL from a simplekaltura entity
  *
- * @param ElggEntity entity
- * @return string request url
+ * @param string $hook   'entity:url'
+ * @param string $type   'object'
+ * @param string $url    The current URL
+ * @param array  $params Hook parameters
+ * @return string
  */
-function simplekaltura_url_handler($entity) {
-	return elgg_get_site_url() . "videos/view/{$entity->guid}/";
+function simplekaltura_url_handler($hook, $type, $url, $params) {
+	$entity = $params['entity'];
+
+	// Check that the entity is a photo object
+	if (!elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
+		return;
+	}
+
+	return "videos/view/{$entity->guid}/";
 }
 
 /**
@@ -275,4 +283,37 @@ function simplekaltura_notify_message($hook, $type, $message, $params) {
 		));
 	}
 	return null;
+}
+
+/**
+ * Prepare a notification message about a new video
+ *
+ * @param string                          $hook         Hook name
+ * @param string                          $type         Hook type
+ * @param Elgg_Notifications_Notification $notification The notification to prepare
+ * @param array                           $params       Hook parameters
+ * @return Elgg_Notifications_Notification
+ */
+function simplekaltura_prepare_notification($hook, $type, $notification, $params) {
+	$entity = $params['event']->getObject();
+	$owner = $params['event']->getActor();
+	$recipient = $params['recipient'];
+	$language = $params['language'];
+	$method = $params['method'];
+
+	// Title for the notification
+	$notification->subject = elgg_echo('simplekaltura:notification:subject');
+
+    // Message body for the notification
+	$notification->body = elgg_echo('simplekaltura:notification:body', array(
+		$owner->name,
+		$entity->title,
+		$entity->description,
+		$entity->getURL()
+	), $language);
+
+    // The summary text is used e.g. by the site_notifications plugin
+    $notification->summary = elgg_echo('simplekaltura:notification:summary', array($entity->title), $language);
+
+    return $notification;
 }

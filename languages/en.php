@@ -5,14 +5,14 @@
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010 - 2013
+ * @copyright THINK Global School 2010 - 2015
  * @link http://www.thinkglobalschool.com/
  *
  */
 
 $entity_title = elgg_get_plugin_setting('kaltura_entity_title', 'simplekaltura');
 
-$english = array(
+return array(
 
 	// Generic
 	'video' => 'Video',
@@ -101,6 +101,7 @@ $english = array(
 
 	// Notifications
 	'simplekaltura:notification:subject' => 'New Video',
+	'simplekaltura:notification:summary' => 'New Video: %s',
 	'simplekaltura:notification:body' => "%s posted a new Video titled: %s\n\n%s\n\nTo watch the video click here:\n%s
 ",
 
@@ -135,5 +136,3 @@ $english = array(
 	'simplekaltura:migrate:inprogress' => "A previous migration is already in progress.",
 	'simplekaltura:migration:complete' => 'Kaltura videos have been migrated',
 );
-
-add_translation('en', $english);
