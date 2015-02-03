@@ -55,9 +55,6 @@ function simplekaltura_init() {
 	elgg_register_plugin_hook_handler('register', 'menu:entity', 'simplekaltura_setup_entity_menu');
 
 	// notifications
-	register_notification_object('object', 'simplekaltura_video', elgg_echo('simplekaltura:notification:subject'));
-	elgg_register_plugin_hook_handler('notify:entity:message', 'object', 'simplekaltura_notify_message');
-
 	elgg_register_notification_event('object', 'simplekaltura_video', array('create'));
 	elgg_register_plugin_hook_handler('prepare', 'notification:publish:object:simplekaltura_video', 'simplekaltura_prepare_notification');
 
@@ -256,33 +253,6 @@ function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
 	}
 
 	return $value;
-}
-
-/**
- * Set the notification message for videos
- * 
- * @param string $hook    Hook name
- * @param string $type    Hook type
- * @param string $message The current message body
- * @param array  $params  Parameters about the blog posted
- * @return string
- */
-function simplekaltura_notify_message($hook, $type, $message, $params) {
-	$entity = $params['entity'];
-	$to_entity = $params['to_entity'];
-	$method = $params['method'];
-	if (elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
-		$descr = $entity->description;
-		$title = $entity->title;
-		$owner = $entity->getOwnerEntity();
-		return elgg_echo('simplekaltura:notification:body', array(
-			$owner->name,
-			$title,
-			$descr,
-			$entity->getURL()
-		));
-	}
-	return null;
 }
 
 /**
