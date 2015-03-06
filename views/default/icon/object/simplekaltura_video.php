@@ -9,8 +9,8 @@
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010 - 2013
- * @link http://www.thinkglobalschool.com/
+ * @copyright THINK Global School 2010 - 2015
+ * @link http://www.thinkglobalschool.org/
  *
  * @uses $vars['entity']     The entity the icon represents - uses getIconURL() method
  * @uses $vars['size']       small, medium (default), large
@@ -43,8 +43,8 @@ if (isset($vars['href'])) {
 
 $size = $vars['size'];
 
-$width = elgg_get_plugin_setting("kaltura_{$size}thumb_width");
-$height = elgg_get_plugin_setting("kaltura_{$size}thumb_height");
+$width = elgg_get_plugin_setting("kaltura_{$size}thumb_width", 'simplekaltura');
+$height = elgg_get_plugin_setting("kaltura_{$size}thumb_height", 'simplekaltura');
 
 $img = elgg_view('output/img', array(
 	'src' => $entity->getIconURL($vars['size']),

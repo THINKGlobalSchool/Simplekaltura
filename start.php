@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
  * @copyright THINK Global School 2010 - 2015
- * @link http://www.thinkglobalschool.com/
+ * @link http://www.thinkglobalschool.org/
  *
  */
 
@@ -20,12 +20,15 @@ function simplekaltura_init() {
 	elgg_load_library('simplekaltura');
 
 	// helper libs
-	$libs = array('uploader', 'widget', 'swfobject', 'html5', 'utility', 'thumbs');
+	$libs = array('swfobject', 'html5', 'utility', 'thumbs');
 
 	foreach ($libs as $lib) {
 		$url = elgg_get_simplecache_url('js', "simplekaltura/$lib");
 		elgg_register_js("simplekaltura:$lib", $url);
 	}
+
+	// Register SKUploader
+	elgg_register_external_view('js/simplekaltura/SKUploader.js', TRUE);
 
 	// Include html5 js library
 	elgg_load_js('simplekaltura:html5');

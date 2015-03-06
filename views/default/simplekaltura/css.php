@@ -12,20 +12,24 @@
 ?>
 
 /* KSU WIDGET */
-#simplekaltura-flashContainer{ 
+#simplekaltura-uploader-container { 
 	position:relative; 
 }
 
-#simplekaltura-flashContainer span{ 
+#simplekaltura-uploader-container span{ 
 	color:#333; font-size:16px; 
 }
 
-#simplekaltura-flashContainer span.pls {
+#simplekaltura-uploader-container span.pls {
 	color:#666; font-size: 14px;
 }
 
-object#simplekaltura-uploader, embed.simplekaltura-uploader {
+object#simplekaltura-uploader-flash {
 	position:absolute; top:0; left:0; z-index:999;
+}
+
+#simplekaltura-upload-dialog {
+	min-height: 50px !important;
 }
 
 .z-negative {

@@ -5,15 +5,15 @@
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010 - 2013
+ * @copyright THINK Global School 2010 - 2015
  * @link http://www.thinkglobalschool.org
  */
 ?>
 //<script>
 elgg.provide('elgg.simplekaltura_utility');
 
-elgg.simplekaltura_utility.popupWidth = "<?php echo elgg_get_plugin_setting('kaltura_popup_width'); ?>";
-elgg.simplekaltura_utility.popupHeight = "<?php echo elgg_get_plugin_setting('kaltura_popup_height'); ?>";
+elgg.simplekaltura_utility.popupWidth = "<?php echo elgg_get_plugin_setting('kaltura_popup_width', 'simplekaltura'); ?>";
+elgg.simplekaltura_utility.popupHeight = "<?php echo elgg_get_plugin_setting('kaltura_popup_height', 'simplekaltura'); ?>";
 
 // Init function 
 elgg.simplekaltura_utility.init = function() {	
@@ -24,12 +24,12 @@ elgg.simplekaltura_utility.init = function() {
 elgg.simplekaltura_utility.lightbox_init = function() {
 	// Set up kaltura lightboxes (if elements exist)
 	if ($('.simplekaltura-lightbox').length) {
-		$(".simplekaltura-lightbox").fancybox(elgg.simplekaltura_utility.get_lightbox_init());
+		$(".simplekaltura-lightbox").colorbox(elgg.simplekaltura_utility.get_lightbox_init());
 	}
 }
 
-elgg.simplekaltura_utility.get_lightbox_init = function() {
-	return {
+elgg.simplekaltura_utility.get_lightbox_init = function(href) {
+	var init_conf = {
 		'onComplete': function() {
 			// Get kaltura settings/options
 			var $container	= $('#kaltura-dynamic-container');	
@@ -43,7 +43,7 @@ elgg.simplekaltura_utility.get_lightbox_init = function() {
 				//
 			};
 
-			if (!kWidget.isIOS()) {
+			if (kWidget != 'undefined' && !kWidget.isIOS()) {
 				entry_id += '/video.swf';
 			}
 	
@@ -68,6 +68,12 @@ elgg.simplekaltura_utility.get_lightbox_init = function() {
 		'onClosed': function() {
 		}
 	};
+
+	if (href) {
+		init_conf.href = href;
+	}
+
+	return init_conf;
 }
 
 elgg.register_hook_handler('init', 'system', elgg.simplekaltura_utility.init);

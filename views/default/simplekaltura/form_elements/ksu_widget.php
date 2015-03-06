@@ -5,7 +5,7 @@
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010 - 2013
+ * @copyright THINK Global School 2010 - 2015
  * @link http://www.thinkglobalschool.org
  * 
  * IMPORTANT!!
@@ -24,7 +24,6 @@
 
 elgg_load_library('simplekaltura');
 elgg_load_library('KalturaClient');
-elgg_load_js('simplekaltura:uploader');
 elgg_load_js('simplekaltura:swfobject');
 
 // uiconf
@@ -49,35 +48,41 @@ $flashVars["ks"]           = $client->getKs();
 $flashVars["maxFileSize"]  = $upload_max;
 $flashVars["maxTotalSize"] = $upload_max;
 $flashVars["uiConfId"]     = $uiconf;
-$flashVars["jsDelegate"]   = "delegate";
+$flashVars["jsDelegate"]   = "uploader";
 
-?>
+$video_submit = elgg_view('input/button', array(
+	'class' => 'elgg-button elgg-button-submit',
+	'id' => 'simplekaltura-uploader-submit',
+	'value' => elgg_echo('simplekaltura:label:selectvideo')
+));
 
-<div id="simplekaltura-flashContainer">
-	<input type="button" id="simplekaltura-uploader-submit" value="<?php echo elgg_echo('simplekaltura:label:selectvideo'); ?>">
-	<div id="simplekaltura-selected-files">
-	</div>
+$dialog_title = elgg_echo('simplekaltura:label:uploadingdialogtitle');
+
+echo <<<HTML
 	<div id="simplekaltura-uploader-container">
+		$video_submit
 	</div>
-	<script language="JavaScript" type="text/javascript">
-		var params = {
-			allowScriptAccess: "always",
-			allowNetworking: "all",
-			wmode: "transparent"
+HTML;
 
-		};
-		var attributes  = {
-			id: "simplekaltura-uploader",
-			name: "KUpload",
-		};
-		// set flashVar object
+?>	
+<script type="text/javascript">
+	var uploader;
+
+	// Load in the SKUploader
+	require(['simplekaltura/SKUploader'], function (Filtrate) {
 		var flashVars = <?php echo json_encode($flashVars); ?>;
 
-		// get the width and height of the button to mask
-		// @todo this feels like a really odd way to make this button.
-		var width = $('#simplekaltura-uploader-submit').innerWidth()
-		var height = $('#simplekaltura-uploader-submit').innerHeight()
-
-		swfobject.embedSWF("//www.kaltura.com/kupload/ui_conf_id/<?php echo $uiconf; ?>", "simplekaltura-uploader-container", width, height, "9.0.0", "expressInstall.swf", flashVars, params,attributes);
-	</script>
-</div>
+		// Init the uploader
+		uploader = $('#simplekaltura-uploader-container').SKUploader({
+			uploaderInput: $('#simplekaltura-uploader-submit'),
+			tagsInput: 'input#video_tags',
+			titleInput: 'input#video_title',
+			formSubmit: $('#simplekaltura-submit'),
+			flashVars: flashVars,
+			uiConfId: '<?php echo $uiconf; ?>',
+			maxUpload: '<?php echo $upload_max; ?>',
+			dialogTitle: elgg.echo('simplekaltura:label:uploadingdialogtitle'),
+			debug: true
+		});
+	});
+</script>

@@ -5,8 +5,8 @@
  * @package Simplekaltura
  * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
  * @author Jeff Tilson
- * @copyright THINK Global School 2010 - 2013
- * @link http://www.thinkglobalschool.com/
+ * @copyright THINK Global School 2010 - 2015
+ * @link http://www.thinkglobalschool.org/
  *
  */
 
@@ -111,29 +111,6 @@ $comments_content = elgg_view('input/dropdown', array(
 
 $submit_input = elgg_view('input/submit', $submit_options);
 
-// Hidden inputs for kaltura entries
-$k_guid_input = elgg_view('input/hidden', array(
-	'name' => 'k_guid',
-	'id' => 'k_guid'
-));
-
-$k_entryid_input = elgg_view('input/hidden', array(
-	'name' => 'k_entryid',
-	'id' => 'k_entryid'
-));
-
-$k_bytesloaded_input = elgg_view('input/hidden', array(
-	'name' => 'k_bytesloaded',
-	'id' => 'k_bytesloaded'
-));
-
-$k_filetype_input = elgg_view('input/hidden', array(
-	'name' => 'k_filetype',
-	'id' => 'k_filetype'
-));
-
-$dialog_title = elgg_echo('simplekaltura:label:uploadingdialogtitle');
-
 // Build Form Body
 $form_body = <<<HTML
 $new_js
@@ -166,13 +143,6 @@ $new_js
 		$submit_input
 		$container_hidden
 		$entity_hidden
-		$k_guid_input
-		$k_entryid_input
-		$k_bytesloaded_input
-		$k_filetype_input
-	</div>
-	<div class="hidden" id="simplekaltura-upload-dialog" class="elgg-lightbox" title="$dialog_title">
-		<div id='simplekaltura-upload-progress'></div>
 	</div>
 </div>
 HTML;
