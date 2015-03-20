@@ -10,7 +10,7 @@ if ($count) {
 		'href' => 'action/simplekaltura/migrate',
 		'is_action' => true,
 		'is_trusted' => true,
-		'data-confirm' => true,
+		'confirm' => true,
 		'class' => 'elgg-button elgg-button-submit'
 	));
 }
