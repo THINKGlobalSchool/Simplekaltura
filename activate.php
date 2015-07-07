@@ -56,6 +56,9 @@ $defaults = array(
 
 	// Entity title
 	'kaltura_entity_title' => 'Videos',
+	
+	// admin video download
+	'admin_only_download' => 'no'
 );
 
 // Set default config values

@@ -221,17 +221,20 @@ function simplekaltura_setup_entity_menu($hook, $type, $value, $params) {
 
 	if (elgg_instanceof($entity, 'object', 'simplekaltura_video')) {
 		// Add download link if we have a download url
+		$admin_download = elgg_get_plugin_setting('admin_only_download', 'simplekaltura');
 		$download_url = $entity->downloadUrl;
 		if ($download_url) {
-			$options = array(
-				'name' => 'download_video',
-				'text' => elgg_echo('simplekaltura:label:download'),
-				'title' => 'download_video',
-				'href' => $download_url,
-				'priority' => 200,
-			);
+			if ($admin_download != 'yes' || elgg_is_admin_logged_in()) {
+				$options = array(
+					'name' => 'download_video',
+					'text' => elgg_echo('simplekaltura:label:download'),
+					'title' => 'download_video',
+					'href' => $download_url,
+					'priority' => 200,
+				);
 
-			$value[] = ElggMenuItem::factory($options);
+				$value[] = ElggMenuItem::factory($options);
+			}
 		}
 
 		// feature link

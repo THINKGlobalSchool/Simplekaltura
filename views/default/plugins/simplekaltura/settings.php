@@ -72,6 +72,9 @@ $upload_max = $plugin->kaltura_upload_max;
 // Entity title
 $entity_title = $plugin->kaltura_entity_title;
 
+// Admin only download
+$admin_only_download = $plugin->admin_only_download;
+
 /************** Site Configuration Module **************/
 $site_config_label = elgg_echo('simplekaltura:admin:siteconfig');
 
@@ -382,6 +385,28 @@ $upload_body = <<<HTML
 HTML;
 
 echo elgg_view_module('inline', $upload_label, $upload_body);
+
+
+/************** Additional Settings **********/
+$additional_settings_label = elgg_echo('simplekaltura:admin:additional_settings');
+$admin_download_label = elgg_echo('simplekaltura:admin:admin_only_download');
+$admin_download_input = elgg_view('input/dropdown', array(
+	'name' => 'params[admin_only_download]',
+	'value' => $admin_only_download ? $admin_only_download : 'no',
+	'options_values' => array(
+		'yes' => elgg_echo('option:yes'),
+		'no' => elgg_echo('option:no')
+	)
+));
+
+$additional_settings_body = <<<HTML
+	<div>
+		<label>$admin_download_label</label>
+		$admin_download_input
+	</div>
+HTML;
+
+echo elgg_view_module('inline', $additional_settings_label, $additional_settings_body);
 
 
 if (simplekaltura_migration_check()) {
