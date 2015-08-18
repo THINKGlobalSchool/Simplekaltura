@@ -258,6 +258,9 @@ define(['jquery', 'elgg'], function ($, elgg) {
 
 			var tags = $(options.tagsInput).val().split(",");
 
+			// Remove any empty tags
+			tags = tags.filter(function(e){return e}); 
+
 			// Check for required title
 			if (title) {
 				flashObj.setTitle(title, 0, 0);

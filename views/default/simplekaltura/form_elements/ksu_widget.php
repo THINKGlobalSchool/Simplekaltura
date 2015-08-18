@@ -75,7 +75,7 @@ HTML;
 		// Init the uploader
 		uploader = $('#simplekaltura-uploader-container').SKUploader({
 			uploaderInput: $('#simplekaltura-uploader-submit'),
-			tagsInput: 'input#video_tags',
+			tagsInput: 'input[name=video_tags]',
 			titleInput: 'input#video_title',
 			formSubmit: $('#simplekaltura-submit'),
 			flashVars: flashVars,
