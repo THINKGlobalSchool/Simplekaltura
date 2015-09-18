@@ -59,7 +59,7 @@ function simplekaltura_init() {
 
 	// notifications
 	elgg_register_notification_event('object', 'simplekaltura_video', array('create'));
-	elgg_register_plugin_hook_handler('prepare', 'notification:publish:object:simplekaltura_video', 'simplekaltura_prepare_notification');
+	elgg_register_plugin_hook_handler('prepare', 'notification:create:object:simplekaltura_video', 'simplekaltura_prepare_notification');
 
 	// actions
 	$actions_root = "$plugin_root/actions/simplekaltura";
