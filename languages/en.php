@@ -94,6 +94,8 @@ return array(
 	'simplekaltura:admin:uiconfid' => 'KSU uiConfId',
 	'simplekaltura:admin:uiconfiddesc' => 'See: http://knowledge.kaltura.com/kaltura-simple-uploader-ksu-website-integration-guide',
 	'simplekaltura:admin:allownonpublicembed' => 'Allow non-public video embeds',
+	'simplekaltura:admin:additional_settings' => 'Additional Settings',
+	'simplekaltura:admin:admin_only_download' => "Restrict video downloads to admin only?",
 
 	// River
 	'river:create:object:simplekaltura_video' => '%s uploaded a Video titled %s',
