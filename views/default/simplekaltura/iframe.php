@@ -18,4 +18,4 @@ $sp_id              = $partner_id * 100;
 $uiConfId 			= elgg_extract('custom_uiconfid', $vars, elgg_get_plugin_setting('kaltura_custom_player_id', 'simplekaltura')); 	// Which player to use
 $entryid 			= $vars['entity']->kaltura_entryid;			                        // ENTRY ID TO PLAYBACK
 
-echo "<iframe id='kaltura_player' src='//www.kaltura.com/p/{$partner_id}/sp/{$sp_id}/embedIframeJs/uiconf_id/{$uiConfId}/partner_id/{$partner_id}?iframeembed=true&playerId=kaltura_player&entry_id={$entryid}' width='{$player_width}' height='{$player_height}' allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder='0'></iframe>";
+echo "<iframe id='kaltura_player' src='//cdnsecakmi.kaltura.com/p/{$partner_id}/sp/{$sp_id}/embedIframeJs/uiconf_id/{$uiConfId}/partner_id/{$partner_id}?iframeembed=true&playerId=kaltura_player&entry_id={$entryid}' width='{$player_width}' height='{$player_height}' allowfullscreen webkitallowfullscreen mozAllowFullScreen frameborder='0'></iframe>";
