@@ -63,6 +63,8 @@ return array(
 	'simplekaltura:label:featured' => 'Featured Videos',
 	'simplekaltura:label:no' => 'No',
 	'simplekaltura:label:yes' => 'Yes',
+	'simplekaltura:label:flash' => 'Flash',
+	'simplekaltura:label:iframe' => 'iframe',
 
 	// Admin
 	'simplekaltura:admin:kalturaconfig' => 'Kaltura Configuration',

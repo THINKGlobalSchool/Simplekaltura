@@ -18,6 +18,8 @@ elgg.simplekaltura_utility.popupHeight = "<?php echo elgg_get_plugin_setting('ka
 // Init function 
 elgg.simplekaltura_utility.init = function() {	
 	elgg.simplekaltura_utility.lightbox_init();
+
+	$(document).on('click', '#elgg-kaltura-embed-code-switcher > li > a', elgg.simplekaltura_utility.switchEmbedCode);
 }
 
 // Init simplekaltura lightboxes
@@ -74,6 +76,17 @@ elgg.simplekaltura_utility.get_lightbox_init = function(href) {
 	}
 
 	return init_conf;
+}
+
+// Handle embed code tab clicks
+elgg.simplekaltura_utility.switchEmbedCode = function(event) {
+	$('.elgg-kaltura-embed-code').addClass('hidden');
+
+	$(this).parent().siblings().removeClass('elgg-state-selected');
+	$(this).parent().addClass('elgg-state-selected');
+
+	$($(this).attr('href')).removeClass('hidden');
+	event.preventDefault();
 }
 
 elgg.register_hook_handler('init', 'system', elgg.simplekaltura_utility.init);
